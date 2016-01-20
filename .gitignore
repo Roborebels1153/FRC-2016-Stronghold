@@ -46,9 +46,6 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-# IDE Files
-.classpath
-
 #Build Files
 bin/
 build/
