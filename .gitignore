@@ -48,4 +48,9 @@ Temporary Items
 
 # IDE Files
 .classpath
-.project
+
+#Build Files
+bin/
+build/
+dist/
+
