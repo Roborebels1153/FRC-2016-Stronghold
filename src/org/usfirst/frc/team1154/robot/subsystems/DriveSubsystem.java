@@ -18,7 +18,6 @@ public class DriveSubsystem extends Subsystem {
 	private Encoder rightEncoder;
 	private enum Shifter{ High, Low }
 	private Shifter currSpeed;
-	private Compressor compressor;
 	private DoubleSolenoid lTransmission;
 	private DoubleSolenoid rTransmission;
 	

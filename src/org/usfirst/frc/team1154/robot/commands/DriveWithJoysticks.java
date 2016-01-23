@@ -2,7 +2,9 @@ package org.usfirst.frc.team1154.robot.commands;
 
 import org.usfirst.frc.team1154.robot.Robot;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveWithJoysticks extends Command {
 	public DriveWithJoysticks() {
@@ -18,6 +20,9 @@ public class DriveWithJoysticks extends Command {
 	@Override
 	protected void execute() {
 		Robot.drive.arcadeDrive(Robot.oi.getDriverStick());
+		
+		SmartDashboard.putNumber("Left Encoder", Robot.drive.getLeftEncoderDistance());
+		SmartDashboard.putNumber("Right Encoder", Robot.drive.getRightEncoderDistance());
 	}
 
 	@Override
