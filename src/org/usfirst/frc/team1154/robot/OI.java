@@ -1,6 +1,10 @@
 package org.usfirst.frc.team1154.robot;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc.team1154.robot.commands.ExampleCommand;
 
 /**
@@ -8,31 +12,29 @@ import org.usfirst.frc.team1154.robot.commands.ExampleCommand;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-    //// CREATING BUTTONS
-    // One type of button is a joystick button which is any button on a joystick.
-    // You create one by telling it which joystick it's on and which button
-    // number it is.
-    // Joystick stick = new Joystick(port);
-    // Button button = new JoystickButton(stick, buttonNumber);
-    
-    // There are a few additional built in buttons you can use. Additionally,
-    // by subclassing Button you can create custom triggers and bind those to
-    // commands the same as any other Button.
-    
-    //// TRIGGERING COMMANDS WITH BUTTONS
-    // Once you have a button, it's trivial to bind it to a button in one of
-    // three ways:
-    
-    // Start the command when the button is pressed and let it run the command
-    // until it is finished as determined by it's isFinished method.
-    // button.whenPressed(new ExampleCommand());
-    
-    // Run the command while the button is being held down and interrupt it once
-    // the button is released.
-    // button.whileHeld(new ExampleCommand());
-    
-    // Start the command when the button is released  and let it run the command
-    // until it is finished as determined by it's isFinished method.
-    // button.whenReleased(new ExampleCommand());
+	
+	private Joystick driveStick = new Joystick(RobotMap.DRIVER_JOYSTICK);
+	private Joystick opStick = new Joystick(RobotMap.OPERATOR_JOYSTICK);
+	/**
+	 * The abbreviations are as follows: LB = left Bumper RB = right Bumper BA = Back button ST = Start Button
+	 * 									LJ = left Joystick RJ = right Joystick
+	 */
+	private Button opA = new JoystickButton(opStick,0);
+	private Button opB = new JoystickButton(opStick,1);
+	private Button opX = new JoystickButton(opStick,2);
+	private Button opY = new JoystickButton(opStick,3);
+	private Button opLB = new JoystickButton(opStick,4);
+	private Button opRB = new JoystickButton(opStick,5);
+	private Button opBA = new JoystickButton(opStick,7);
+	private Button opST = new JoystickButton(opStick,6);
+	private Button opLJ = new JoystickButton(opStick,8);
+	private Button opRJ = new JoystickButton(opStick,9);
+	
+	
+	public Joystick getDriverStick(){
+		return driveStick;
+	}
+	
 }
+
 
