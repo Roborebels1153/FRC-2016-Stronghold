@@ -29,15 +29,6 @@ public class Robot extends IterativeRobot {
 	public static final DriveSubsystem drive = new DriveSubsystem();
 	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static OI oi;
-
-	private RobotDrive myRobot;
-	private Joystick stick;
-	
-	private Encoder rightEncoder;
-	private Encoder leftEncoder;
-	
-	private Compressor compressor;
-	private DoubleSolenoid lSolenoid;
 	
     Command autonomousCommand;
     SendableChooser chooser;
@@ -52,14 +43,6 @@ public class Robot extends IterativeRobot {
         chooser.addDefault("Default Auto", new ExampleCommand());
 //        chooser.addObject("My Auto", new MyAutoCommand());
 //        SmartDashboard.putData("Auto mode", chooser);
-        
-        myRobot = new RobotDrive(0, 1, 2, 3);
-        stick = new Joystick(0);
-		rightEncoder = new Encoder(0, 1);
-		leftEncoder = new Encoder(2, 3);
-		compressor = new Compressor();
-		lSolenoid = new DoubleSolenoid(0,1);
-		compressor.setClosedLoopControl(true);
     }
 	
 	/**
@@ -122,21 +105,6 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        myRobot.arcadeDrive(stick);
-		SmartDashboard.putNumber("Left Encoder", leftEncoder.get());
-		SmartDashboard.putNumber("Right Encoder", rightEncoder.get());
-		SmartDashboard.putNumber("Shifter Trigger", stick.getRawAxis(2));
-		
-		if (stick.getRawButton(1)){
-			leftEncoder.reset();
-			rightEncoder.reset();
-		}
-		
-		if (stick.getRawAxis(2) > .5) {
-			lSolenoid.set(DoubleSolenoid.Value.kForward);
-		} else {
-			lSolenoid.set(DoubleSolenoid.Value.kReverse);
-		}
     }
     
     /**

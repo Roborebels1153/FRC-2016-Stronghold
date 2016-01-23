@@ -2,12 +2,14 @@ package org.usfirst.frc.team1154.robot.subsystems;
 
 import org.usfirst.frc.team1154.lib.RebelDrive;
 import org.usfirst.frc.team1154.robot.RobotMap;
+import org.usfirst.frc.team1154.robot.commands.DriveWithJoysticks;
 
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveSubsystem extends Subsystem {
 	
@@ -20,19 +22,7 @@ public class DriveSubsystem extends Subsystem {
 	private DoubleSolenoid lTransmission;
 	private DoubleSolenoid rTransmission;
 	
-	
-	
-	@Override
-	protected void initDefaultCommand() {
-		
-	}
-	
-	public void arcadeDrive(Joystick stick) {
-		rebelDrive.arcadeDrive(stick);
-	}
-	
-	
-	public void Drive() {
+	public DriveSubsystem() {
 		
 		rebelDrive = new RebelDrive(RobotMap.LEFT_FRONT_MOTOR, RobotMap.LEFT_BACK_MOTOR, 
 									RobotMap.RIGHT_FRONT_MOTOR, RobotMap.RIGHT_BACK_MOTOR);
@@ -44,6 +34,15 @@ public class DriveSubsystem extends Subsystem {
 		currSpeed = Shifter.Low;
 	}
 		
+	@Override
+	protected void initDefaultCommand() {
+		setDefaultCommand (new DriveWithJoysticks());
+	}
+	
+	public void arcadeDrive(Joystick stick) {
+		rebelDrive.arcadeDrive(stick);
+	}
+	
 	public double getLeftEncoderDistance() {
 		
 		return leftEncoder.getDistance();

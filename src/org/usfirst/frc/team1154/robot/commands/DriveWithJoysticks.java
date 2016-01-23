@@ -17,7 +17,6 @@ public class DriveWithJoysticks extends Command {
 
 	@Override
 	protected void execute() {
-		// TODO Auto-generated method stub
 		Robot.drive.arcadeDrive(Robot.oi.getDriverStick());
 	}
 

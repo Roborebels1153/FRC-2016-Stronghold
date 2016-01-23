@@ -16,6 +16,7 @@ public class RobotMap {
 	public static int RIGHT_BACK_MOTOR = 3;
 	
 	public static int DRIVER_JOYSTICK = 0;
+	public static int OPERATOR_JOYSTICK = 1; 
 	
 	public static int LEFT_ENCODER_A_CHANNEL = 0;
 	public static int LEFT_ENCODER_B_CHANNEL = 1;
