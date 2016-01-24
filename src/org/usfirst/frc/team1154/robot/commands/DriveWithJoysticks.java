@@ -30,10 +30,11 @@ public class DriveWithJoysticks extends Command {
 		SmartDashboard.putNumber("Left Encoder", Robot.drive.getLeftEncoderDistance());
 		SmartDashboard.putNumber("Right Encoder", Robot.drive.getRightEncoderDistance());
 		
-		if(driveStick.getRawAxis(2) > .5){
+		if(driveStick.getRawAxis(2) > .5){			
+			Robot.drive.shiftHigh();
 			
-			Robot.drive.shift();
-			
+		}else{
+			Robot.drive.shiftLow();
 		}
 		
 	}

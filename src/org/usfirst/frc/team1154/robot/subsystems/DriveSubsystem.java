@@ -62,24 +62,24 @@ public class DriveSubsystem extends Subsystem {
 	
 	}
 	
-	public Shifter shift(){
-		
+	public Shifter shiftHigh(){	
 		if(currSpeed.equals(Shifter.Low)) {
 			
-			lTransmission.set(DoubleSolenoid.Value.kForward);
-			rTransmission.set(DoubleSolenoid.Value.kForward);
-			currSpeed = Shifter.High;
-			
-		} else {
-			
-			lTransmission.set(DoubleSolenoid.Value.kReverse);
-			rTransmission.set(DoubleSolenoid.Value.kReverse);
-			currSpeed = Shifter.Low;
-		}
-		
-		return currSpeed;
-		
+				lTransmission.set(DoubleSolenoid.Value.kForward);
+				rTransmission.set(DoubleSolenoid.Value.kForward);
+				currSpeed = Shifter.High;			
+			}
+		return currSpeed;	
 	}
 	
+	public Shifter shiftLow(){
+		if(currSpeed.equals(Shifter.High)) {
+				
+				lTransmission.set(DoubleSolenoid.Value.kReverse);
+				rTransmission.set(DoubleSolenoid.Value.kReverse);
+				currSpeed = Shifter.Low;
+			}
+		return currSpeed;
+	}
 
 }
