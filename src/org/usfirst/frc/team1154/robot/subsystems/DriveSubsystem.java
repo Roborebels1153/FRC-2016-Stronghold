@@ -18,17 +18,18 @@ public class DriveSubsystem extends Subsystem {
 	private Encoder rightEncoder;
 	private enum Shifter{ High, Low }
 	private Shifter currSpeed;
-	private DoubleSolenoid lTransmission;
-	private DoubleSolenoid rTransmission;
+	private DoubleSolenoid transmission;
 	
 	public DriveSubsystem() {
 		
 		rebelDrive = new RebelDrive(RobotMap.LEFT_FRONT_MOTOR, RobotMap.LEFT_BACK_MOTOR, 
 									RobotMap.RIGHT_FRONT_MOTOR, RobotMap.RIGHT_BACK_MOTOR);
-		
+ 
 		leftEncoder = new Encoder (RobotMap.LEFT_ENCODER_A_CHANNEL, RobotMap.LEFT_ENCODER_B_CHANNEL);
 		
 		rightEncoder = new Encoder (RobotMap.RIGHT_ENCODER_A_CHANNEL, RobotMap.RIGHT_ENCODER_B_CHANNEL);
+		
+		transmission = new DoubleSolenoid (RobotMap.TRANSMISSION_SOLENOID_A, RobotMap.TRANSMISSION_SOLENOID_B);
 		
 		currSpeed = Shifter.Low;
 	}
@@ -62,24 +63,22 @@ public class DriveSubsystem extends Subsystem {
 	
 	}
 	
-	public Shifter shift(){
-		
+	public Shifter shiftHigh(){	
 		if(currSpeed.equals(Shifter.Low)) {
 			
-			lTransmission.set(DoubleSolenoid.Value.kForward);
-			rTransmission.set(DoubleSolenoid.Value.kForward);
-			currSpeed = Shifter.High;
-			
-		} else {
-			
-			lTransmission.set(DoubleSolenoid.Value.kReverse);
-			rTransmission.set(DoubleSolenoid.Value.kReverse);
-			currSpeed = Shifter.Low;
-		}
-		
-		return currSpeed;
-		
+				transmission.set(DoubleSolenoid.Value.kForward);
+				currSpeed = Shifter.High;			
+			}
+		return currSpeed;	
 	}
 	
+	public Shifter shiftLow(){
+		if(currSpeed.equals(Shifter.High)) {
+				
+				transmission.set(DoubleSolenoid.Value.kReverse);
+				currSpeed = Shifter.Low;
+			}
+		return currSpeed;
+	}
 
 }
