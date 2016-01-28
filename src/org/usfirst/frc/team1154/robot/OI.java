@@ -19,7 +19,7 @@ public class OI {
 	 * The abbreviations are as follows: LB = left Bumper RB = right Bumper BA = Back button ST = Start Button
 	 * 									LJ = left Joystick RJ = right Joystick
 	 */
-	private Button opA = new JoystickButton(opStick,0);
+	private Button opA = new JoystickButton(opStick,0); // Articulate the collector in or out of the robot.
 	private Button opB = new JoystickButton(opStick,1);
 	private Button opX = new JoystickButton(opStick,2);
 	private Button opY = new JoystickButton(opStick,3);
