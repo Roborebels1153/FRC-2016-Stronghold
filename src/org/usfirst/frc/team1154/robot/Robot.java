@@ -2,6 +2,7 @@
 package org.usfirst.frc.team1154.robot;
 
 import org.usfirst.frc.team1154.robot.commands.ExampleCommand;
+import org.usfirst.frc.team1154.robot.subsystems.CollectorSubsystem;
 import org.usfirst.frc.team1154.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team1154.robot.subsystems.ExampleSubsystem;
 
@@ -27,6 +28,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 
 	public static final DriveSubsystem drive = new DriveSubsystem();
+	public static final CollectorSubsystem collect = new CollectorSubsystem();
 	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static OI oi;
 	private Compressor compressor = new Compressor();

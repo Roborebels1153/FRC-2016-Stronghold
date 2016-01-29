@@ -9,21 +9,22 @@ import edu.wpi.first.wpilibj.Victor;
 
 public class CollectorSubsystem  extends Subsystem  {
 	
-	private Encoder artEncoder;
-	private enum CollectorState{In, Out, Up};
+	private Encoder pivotEncoder;
+	public enum CollectorState{In, Out, Up};
 	private CollectorState currState;
-	private Victor topRoller;
-	private Victor bottomRoller;
+	private Victor collectorRoller;
+	private Victor pivotMotor;
 	
 	public CollectorSubsystem(){
 		
-		artEncoder = new Encoder(RobotMap.ART_ENCODER_A_CHANNEL, RobotMap.ART_ENCODER_B_CHANNEL);
+		pivotEncoder = new Encoder(RobotMap.PIVOT_ENCODER_A_CHANNEL, RobotMap.PIVOT_ENCODER_B_CHANNEL);
 		
 		currState = CollectorState.In;
 		
-		topRoller = new Victor(RobotMap.COLLECTOR_TOP_ROLLER);
+		collectorRoller = new Victor(RobotMap.COLLECTOR_ROLLERS);
 		
-		bottomRoller = new Victor(RobotMap.COLLECTOR_BOTTOM_ROLLER);
+		pivotMotor = new Victor(RobotMap.PIVOT_MOTOR);
+		
 		
 	}
 
@@ -33,62 +34,55 @@ public class CollectorSubsystem  extends Subsystem  {
 		
 	}
 	
+	public double getPivotEncoderDistance(){
+		//Gets the encoder distance of the thing controlling the articulation of the collector
+		
+		return pivotEncoder.getDistance();
+	}
+	
+	public void resetPivotEncoder(){
+		//Resets the encoder distance value back to zero.
+		
+		pivotEncoder.reset();
+	}
+	
+	public CollectorState checkCollectorState(){
+	
+		return currState;
+	}
+	
 	public void collectBoulder(){
 		//Spins the rollers to collect the ball
-		topRoller.set(1);
-		bottomRoller.set(-1);		
+		collectorRoller.set(1);	
 	}
 	
 	public void releaseBoulder(){
 		//Spins the rollers opposite to collect to release the ball
-		topRoller.set(-1);
-		bottomRoller.set(1);	
+		collectorRoller.set(-1);	
 	}
 	
 	public void stopMotors(){
 		//Stops all motors
-		topRoller.set(0);
-		bottomRoller.set(0);	
-	}
-	
-	public void switchCollectorPostion(){
-		//Switches the collectors postion from either outside the robot or in it
+		collectorRoller.set(0);
+		pivotMotor.set(0);
 	}
 	
 	public CollectorState raiseCollector(){
-		
-		if(currState.equals(CollectorState.Out)) {
-			//Put the code to raise the collector here
 			
-			currState = CollectorState.In;		
-		}
+		pivotMotor.set(-1);
+
+		currState = CollectorState.In;
 		
-		
-		return currState;
-		
+		return currState;	
 	}
 	
 	public CollectorState lowerCollector(){
-		if(currState.equals(CollectorState.In)) {
-			//put the code to lower the collector here
 			
-			currState = CollectorState.Out;		
-		}
-		
-		
-		return currState;
+		pivotMotor.set(1);
+
+		currState = CollectorState.Out;
+	
+		return currState;	
 	}
-	
-	public double getArtEncoderDistance(){
-		//Gets the encoder distance of the thing controlling the articulation of the collector
-		
-		return artEncoder.getDistance();
-	}
-	
-	public void liftPort(){
-		//the collector lifting up the portcullis
-		
-	}
-	
-	
+
 }

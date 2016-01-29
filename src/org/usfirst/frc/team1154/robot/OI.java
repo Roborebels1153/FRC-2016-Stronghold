@@ -35,6 +35,10 @@ public class OI {
 		return driveStick;
 	}
 	
+	public Joystick getOperatorStick(){
+		return opStick;
+	}
+	
 }
 
 
