@@ -43,6 +43,10 @@ public class DriveSubsystem extends Subsystem {
 		rebelDrive.arcadeDrive(stick);
 	}
 	
+	public void arcadeDrive(double driveSpeed, double turnSpeed) {
+		rebelDrive.arcadeDrive(driveSpeed, turnSpeed);
+	}
+	
 	public double getLeftEncoderDistance() {
 		
 		return leftEncoder.getDistance();
