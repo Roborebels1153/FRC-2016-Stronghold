@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1154.lib;
 
+import org.usfirst.frc.team1154.robot.subsystems.DriveSubsystem.Shifter;
 import org.usfirst.frc.team1154.robot.subsystems.NegInertiaCalc;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.RobotDrive;
@@ -16,12 +17,11 @@ public class RebelDrive extends RobotDrive {
 			
 	}
 	
-	@Override
-	public void arcadeDrive(GenericHID stick, boolean squaredInputs){
-		arcadeDrive(stick.getY(), stick.getRawAxis(4), squaredInputs);
-	}
-	
-	public void nicDrive(GenericHID stick, boolean squaredInputs) {
-		arcadeDrive(-stick.getY(), highSpeedNic.calculate(stick.getRawAxis(4)),squaredInputs);
+	public void arcadeDrive(GenericHID stick, Shifter gear) {
+		if (Shifter.Low.equals(gear)) {
+			arcadeDrive(stick.getY(), lowSpeedNic.calculate(stick.getRawAxis(4)), true);
+		} else {
+			arcadeDrive(-stick.getY(), highSpeedNic.calculate(stick.getRawAxis(4)), true);
+		}
 	}
 }
