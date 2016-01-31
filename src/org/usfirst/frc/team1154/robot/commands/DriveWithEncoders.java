@@ -14,6 +14,10 @@ public class DriveWithEncoders extends Command {
 	
 	private final int inchesToDrive;
 	
+	private double leftInchesDriven;
+	
+	private double rightInchesDriven;
+	
 	public DriveWithEncoders(int inchesToDrive) {
 		requires(Robot.drive);
 		this.inchesToDrive = inchesToDrive;
@@ -24,31 +28,34 @@ public class DriveWithEncoders extends Command {
 	@Override
 	protected void initialize() {
 		// TODO Auto-generated method stub
-		
+		Robot.drive.resetEncoders();
+		Robot.drive.setSetPoint(inchesToDrive / inchesPerTick);
 	}
 
 	@Override
 	protected void execute() {
-		double leftInchesDriven = inchesPerTick * Robot.drive.getLeftEncoderDistance();
-		double rightInchesDriven = inchesPerTick * Robot.drive.getRightEncoderDistance();
 		
-		if (leftInchesDriven < inchesToDrive ||
-			rightInchesDriven < inchesToDrive)  {
-			driveStraight();
-		} else {
-			stopDriving();
-		}
+		Robot.drive.setSetPoint(inchesToDrive / inchesPerTick);
+		
+		leftInchesDriven = inchesPerTick * Robot.drive.getLeftEncoderDistance();
+		rightInchesDriven = inchesPerTick * Robot.drive.getRightEncoderDistance();
+		
+
 		
 		SmartDashboard.putNumber("Inches To Drive", inchesToDrive);
 		SmartDashboard.putNumber("Left Encoder In Inches", leftInchesDriven);
 		SmartDashboard.putNumber("Right Encoder In Inches", rightInchesDriven);
+		SmartDashboard.putNumber("Dillo", inchesToDrive / inchesPerTick);
+		SmartDashboard.putNumber("Legit Value", Robot.drive.getLeftEncoderDistance());
+		SmartDashboard.putNumber("PID Output", Robot.drive.getPIDOutput());
+		SmartDashboard.putNumber("Motor Output", Robot.drive.getMotorOutput());
 		
 	}
 
 	@Override
 	protected boolean isFinished() {
-		// TODO Auto-generated method stub
 		return false;
+//		return leftInchesDriven < inchesToDrive;
 	}
 
 	@Override
@@ -64,7 +71,7 @@ public class DriveWithEncoders extends Command {
 	}
 	
 	private void driveStraight() {
-		Robot.drive.arcadeDrive(0.75, 0);
+		//Robot.drive.arcadeDrive(Robot.d, 0);
 	}
 	
 	private void stopDriving() {
