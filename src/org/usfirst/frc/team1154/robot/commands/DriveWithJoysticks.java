@@ -26,12 +26,7 @@ public class DriveWithJoysticks extends Command {
 	@Override
 	protected void execute() {
 		Joystick stick = Robot.oi.getDriverStick();
-		if(stick.getRawAxis(3) > .5) {
-			Robot.drive.nicDrive(stick);
-		}
-		else {
-			Robot.drive.arcadeDrive(Robot.oi.getDriverStick());
-		}
+		Robot.drive.arcadeDrive(stick);
 		
 		SmartDashboard.putNumber("Left Encoder", Robot.drive.getLeftEncoderDistance());
 		SmartDashboard.putNumber("Right Encoder", Robot.drive.getRightEncoderDistance());
