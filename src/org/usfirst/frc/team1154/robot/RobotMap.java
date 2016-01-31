@@ -26,7 +26,9 @@ public class RobotMap {
 	public static int RIGHT_ENCODER_B_CHANNEL = 3;
 	public static int PIVOT_ENCODER_A_CHANNEL = 4;
 	public static int PIVOT_ENCODER_B_CHANNEL = 5;
-	
+	public static int COLLECTOR_IN_SWITCH = 6;
+	public static int COLLECTOR_OUT_SWITCH = 7;
+
 	public static int TRANSMISSION_SOLENOID_A = 0;
 	public static int TRANSMISSION_SOLENOID_B = 1;
 	

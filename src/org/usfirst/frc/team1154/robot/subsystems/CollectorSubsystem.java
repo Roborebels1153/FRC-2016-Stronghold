@@ -3,6 +3,7 @@ package org.usfirst.frc.team1154.robot.subsystems;
 import org.usfirst.frc.team1154.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Victor;
@@ -14,6 +15,8 @@ public class CollectorSubsystem  extends Subsystem  {
 	private CollectorState currState;
 	private Victor collectorRoller;
 	private Victor pivotMotor;
+	private DigitalInput collectorInSwitch;
+	private DigitalInput collectorOutSwitch;
 	
 	public CollectorSubsystem(){
 		
@@ -24,6 +27,10 @@ public class CollectorSubsystem  extends Subsystem  {
 		collectorRoller = new Victor(RobotMap.COLLECTOR_ROLLERS);
 		
 		pivotMotor = new Victor(RobotMap.PIVOT_MOTOR);
+		
+		collectorInSwitch = new DigitalInput(RobotMap.COLLECTOR_IN_SWITCH);
+		
+		collectorOutSwitch = new DigitalInput(RobotMap.COLLECTOR_OUT_SWITCH);
 		
 		
 	}
@@ -61,28 +68,37 @@ public class CollectorSubsystem  extends Subsystem  {
 		collectorRoller.set(-1);	
 	}
 	
-	public void stopMotors(){
-		//Stops all motors
+	public void stopCollecting(){
+		//Stops the Roller motors
 		collectorRoller.set(0);
+	}
+
+	public void stopPivoting(){
+		//Stops the Pivot motor
 		pivotMotor.set(0);
 	}
 	
-	public CollectorState raiseCollector(){
-			
-		pivotMotor.set(-1);
-
-		currState = CollectorState.In;
-		
-		return currState;	
+	public boolean getCollectorIn(){
+		//Returns the state of the in switch 
+		return collectorInSwitch.get();
 	}
 	
-	public CollectorState lowerCollector(){
-			
+	public boolean getCollectorOut(){
+		//Returns the state of the out switch
+		return collectorOutSwitch.get();
+	}
+	
+	public void out(){
+		//Sets the pivot motor to move the collector out
 		pivotMotor.set(1);
-
-		currState = CollectorState.Out;
-	
-		return currState;	
 	}
 
+	public void in(){
+		//Sets the pivot motor to move the collector in
+		pivotMotor.set(-1);
+	}
+	
+	public double getPivotOutput() {
+		return pivotMotor.get();
+	}
 }

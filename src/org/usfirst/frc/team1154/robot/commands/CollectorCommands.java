@@ -25,42 +25,8 @@ public class CollectorCommands extends Command{
 
 	@Override
 	protected void execute() {
-		SmartDashboard.putNumber("Pivot Encoder", Robot.collect.getPivotEncoderDistance());
 		
-		//Collecting and Releasing the Boulder
-		if(opStick.getRawAxis(2) > .5){
-			while(opStick.getRawAxis(2) > .5){
-				Robot.collect.collectBoulder();
-			}
-		}
-		
-		if(opStick.getRawAxis(3) > .5){
-			while(opStick.getRawAxis(3) > .5){
-				Robot.collect.releaseBoulder();
-			}
-		}
-		
-		//Collector Movement
-		if(opStick.getRawButton(0)){ //Button A pressed
-			if(Robot.collect.checkCollectorState().equals("Out")){
-				
-				while(Robot.collect.getPivotEncoderDistance() < 1500){
-					Robot.collect.raiseCollector();
-				}
-				
-				Robot.collect.stopMotors();
-
-			}else if(Robot.collect.checkCollectorState().equals("In")){
-
-				while(Robot.collect.getPivotEncoderDistance() > 0){
-					Robot.collect.lowerCollector();
-				}
-				
-				Robot.collect.stopMotors();
-			}	
-		}
-		
-		
+		SmartDashboard.putNumber("Pivot Encoder", Robot.collect.getPivotEncoderDistance());	
 	}
 
 	@Override
