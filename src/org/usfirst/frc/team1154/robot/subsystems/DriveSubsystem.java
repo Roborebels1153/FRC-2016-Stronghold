@@ -16,7 +16,7 @@ public class DriveSubsystem extends Subsystem {
 	private RebelDrive rebelDrive;
 	private Encoder leftEncoder;
 	private Encoder rightEncoder;
-	private enum Shifter{ High, Low }
+	public enum Shifter{ High, Low }
 	private Shifter currSpeed;
 	private DoubleSolenoid transmission;
 	
@@ -40,8 +40,9 @@ public class DriveSubsystem extends Subsystem {
 	}
 	
 	public void arcadeDrive(Joystick stick) {
-		rebelDrive.arcadeDrive(stick);
+		rebelDrive.arcadeDrive(stick, currSpeed);
 	}
+	
 	
 	public double getLeftEncoderDistance() {
 		
@@ -62,7 +63,7 @@ public class DriveSubsystem extends Subsystem {
 		rightEncoder.reset();
 	
 	}
-	
+
 	public Shifter shiftHigh(){	
 		if(currSpeed.equals(Shifter.Low)) {
 			
@@ -78,6 +79,10 @@ public class DriveSubsystem extends Subsystem {
 				transmission.set(DoubleSolenoid.Value.kReverse);
 				currSpeed = Shifter.Low;
 			}
+		return currSpeed;
+	}
+	
+	public Shifter getCurrSpeed() {
 		return currSpeed;
 	}
 

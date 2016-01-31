@@ -25,10 +25,12 @@ public class DriveWithJoysticks extends Command {
 
 	@Override
 	protected void execute() {
-		Robot.drive.arcadeDrive(Robot.oi.getDriverStick());
+		Joystick stick = Robot.oi.getDriverStick();
+		Robot.drive.arcadeDrive(stick);
 		
 		SmartDashboard.putNumber("Left Encoder", Robot.drive.getLeftEncoderDistance());
 		SmartDashboard.putNumber("Right Encoder", Robot.drive.getRightEncoderDistance());
+		SmartDashboard.putNumber("Right Trigger", stick.getRawAxis(3));
 		
 		if(driveStick.getRawAxis(2) > .5){			
 			Robot.drive.shiftHigh();
