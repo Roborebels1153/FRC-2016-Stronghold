@@ -43,6 +43,10 @@ public class DriveSubsystem extends Subsystem {
 		rebelDrive.arcadeDrive(stick);
 	}
 	
+	public void nicDrive(Joystick stick) {
+		rebelDrive.nicDrive(stick, true);
+	}
+	
 	public double getLeftEncoderDistance() {
 		
 		return leftEncoder.getDistance();
@@ -62,7 +66,7 @@ public class DriveSubsystem extends Subsystem {
 		rightEncoder.reset();
 	
 	}
-	
+
 	public Shifter shiftHigh(){	
 		if(currSpeed.equals(Shifter.Low)) {
 			
