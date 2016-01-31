@@ -1,7 +1,6 @@
 package org.usfirst.frc.team1154.lib;
 
 import org.usfirst.frc.team1154.robot.subsystems.NegInertiaCalc;
-
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.RobotDrive;
 
@@ -19,7 +18,7 @@ public class RebelDrive extends RobotDrive {
 	
 	@Override
 	public void arcadeDrive(GenericHID stick, boolean squaredInputs){
-		arcadeDrive(-stick.getY(), stick.getRawAxis(4), squaredInputs);
+		arcadeDrive(stick.getY(), stick.getRawAxis(4), squaredInputs);
 	}
 	
 	public void nicDrive(GenericHID stick, boolean squaredInputs) {
