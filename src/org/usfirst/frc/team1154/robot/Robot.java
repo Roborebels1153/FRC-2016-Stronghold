@@ -109,6 +109,9 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+		SmartDashboard.putNumber("Pivot Value", Robot.collect.getPivotOutput());
+		SmartDashboard.putBoolean("Pivot Limit Switch Out", Robot.collect.getCollectorOut());
+		SmartDashboard.putBoolean("Pivot Limit Switch In", Robot.collect.getCollectorIn());
     }
     
     /**
