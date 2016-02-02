@@ -32,8 +32,7 @@ public class Drive extends Subsystem {
 	
 	public Drive() {
 		
-//		rebelDrive = new RebelDrive(RobotMap.LEFT_FRONT_MOTOR, RobotMap.LEFT_BACK_MOTOR, 
-//									RobotMap.RIGHT_FRONT_MOTOR, RobotMap.RIGHT_BACK_MOTOR);
+		rebelDrive = new RebelDrive(leftFront, leftBack, rightFront, rightBack);
  
 		leftEncoder = new Encoder (RobotMap.LEFT_ENCODER_A_CHANNEL, RobotMap.LEFT_ENCODER_B_CHANNEL, false, EncodingType.k4X);
 		
@@ -50,8 +49,6 @@ public class Drive extends Subsystem {
 		rightFront = new Victor(RobotMap.RIGHT_FRONT_MOTOR);
 		
 		rightBack = new Victor(RobotMap.RIGHT_BACK_MOTOR);
-		
-		rebelDrive = new RebelDrive(leftFront, leftBack, rightFront, rightBack);
 		
 		leftFrontPID = new PIDController(.05, 0, 0, leftEncoder, leftFront);
 		
