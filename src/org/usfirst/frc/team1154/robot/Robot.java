@@ -1,8 +1,9 @@
 
 package org.usfirst.frc.team1154.robot;
 
+import org.usfirst.frc.team1154.robot.commands.DriveWithEncoders;
 import org.usfirst.frc.team1154.robot.commands.ExampleCommand;
-import org.usfirst.frc.team1154.robot.subsystems.DriveSubsystem;
+import org.usfirst.frc.team1154.robot.subsystems.Drive;
 import org.usfirst.frc.team1154.robot.subsystems.ExampleSubsystem;
 
 import edu.wpi.first.wpilibj.Compressor;
@@ -26,7 +27,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 
-	public static final DriveSubsystem drive = new DriveSubsystem();
+	public static final Drive drive = new Drive();
 	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static OI oi;
 	private Compressor compressor = new Compressor();
@@ -70,7 +71,9 @@ public class Robot extends IterativeRobot {
 	 * or additional comparisons to the switch structure below with additional strings & commands.
 	 */
     public void autonomousInit() {
-        autonomousCommand = (Command) chooser.getSelected();
+    	
+    	autonomousCommand = new DriveWithEncoders(120);
+//        autonomousCommand = (Command) chooser.getSelected();
         
 		/* String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
 		switch(autoSelected) {
@@ -95,11 +98,10 @@ public class Robot extends IterativeRobot {
     }
 
     public void teleopInit() {
-		// This makes sure that the autonomous stops running when
-        // teleop starts running. If you want the autonomous to 
-        // continue until interrupted by another command, remove
-        // this line or comment it out.
+    	
         if (autonomousCommand != null) autonomousCommand.cancel();
+        
+        Robot.drive.disablePID();
     }
 
     /**
