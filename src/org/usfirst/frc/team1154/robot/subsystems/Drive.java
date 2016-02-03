@@ -22,7 +22,7 @@ public class Drive extends Subsystem {
 	private Victor leftBack;
 	private Victor rightFront;
 	private Victor rightBack;
-	private enum Shifter{ High, Low }
+	public enum Shifter{ High, Low }
 	private Shifter currSpeed;
 	private DoubleSolenoid transmission;
 	private PIDController leftFrontPID;
@@ -32,7 +32,13 @@ public class Drive extends Subsystem {
 	
 	public Drive() {
 		
-		rebelDrive = new RebelDrive(leftFront, leftBack, rightFront, rightBack);
+		leftFront = new Victor(RobotMap.LEFT_FRONT_MOTOR);
+		
+		leftBack = new Victor(RobotMap.LEFT_BACK_MOTOR);
+		
+		rightFront = new Victor(RobotMap.RIGHT_FRONT_MOTOR);
+		
+		rightBack = new Victor(RobotMap.RIGHT_BACK_MOTOR);
  
 		leftEncoder = new Encoder (RobotMap.LEFT_ENCODER_A_CHANNEL, RobotMap.LEFT_ENCODER_B_CHANNEL, false, EncodingType.k4X);
 		
@@ -41,14 +47,6 @@ public class Drive extends Subsystem {
 		transmission = new DoubleSolenoid (RobotMap.TRANSMISSION_SOLENOID_A, RobotMap.TRANSMISSION_SOLENOID_B);
 		
 		currSpeed = Shifter.Low;
-		
-		leftFront = new Victor(RobotMap.LEFT_FRONT_MOTOR);
-		
-		leftBack = new Victor(RobotMap.LEFT_BACK_MOTOR);
-		
-		rightFront = new Victor(RobotMap.RIGHT_FRONT_MOTOR);
-		
-		rightBack = new Victor(RobotMap.RIGHT_BACK_MOTOR);
 		
 		leftFrontPID = new PIDController(.05, 0, 0, leftEncoder, leftFront);
 		
@@ -59,6 +57,9 @@ public class Drive extends Subsystem {
 		rightBackPID = new PIDController(.05, 0, 0, rightEncoder, rightBack);
 		
 		init();
+		
+		//now that everything is all set up, we can make RebelDrive
+		rebelDrive = new RebelDrive(leftFront, leftBack, rightFront, rightBack);
 	}
 	
 	private void init() {
@@ -115,7 +116,7 @@ public class Drive extends Subsystem {
 	}
 	
 	public void arcadeDrive(Joystick stick) {
-		rebelDrive.arcadeDrive(stick);
+		rebelDrive.arcadeDrive(stick, currSpeed);
 	}
 	
 	public void arcadeDrive(double driveSpeed, double turnSpeed) {
@@ -162,6 +163,10 @@ public class Drive extends Subsystem {
 	
 	public double getMotorOutput() {
 		return leftFront.get();
+	}
+	
+	public Shifter getCurrSpeed() {
+		return currSpeed;
 	}
 
 }
