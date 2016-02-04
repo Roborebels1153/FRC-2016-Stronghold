@@ -20,7 +20,7 @@ public class RebelDrive extends RobotDrive {
 	
 	public void arcadeDrive(GenericHID stick, Shifter gear) {
 		if (Shifter.Low.equals(gear)) {
-			arcadeDrive(stick.getY(), lowSpeedNic.calculate(stick.getRawAxis(4)), true);
+			arcadeDrive(-stick.getY(), lowSpeedNic.calculate(stick.getRawAxis(4)), true);
 		} else {
 			arcadeDrive(-stick.getY(), highSpeedNic.calculate(stick.getRawAxis(4)), true);
 		}
