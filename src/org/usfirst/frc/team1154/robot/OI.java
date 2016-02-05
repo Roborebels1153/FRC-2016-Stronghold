@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team1154.robot.commands.CollectorInCommand;
 import org.usfirst.frc.team1154.robot.commands.CollectorOutCommand;
-import org.usfirst.frc.team1154.robot.commands.ExampleCommand;
 
 /**
  * This class is the glue that binds the controls on the physical operator

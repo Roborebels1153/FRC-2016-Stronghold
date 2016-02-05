@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.usfirst.frc.team1154.robot.subsystems.DriveSubsystem;
+import org.usfirst.frc.team1154.robot.subsystems.Drive;
 
 public class DriveWithJoysticks extends Command {
 	public DriveWithJoysticks() {
