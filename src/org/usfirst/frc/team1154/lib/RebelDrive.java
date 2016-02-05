@@ -10,19 +10,23 @@ public class RebelDrive extends RobotDrive {
 
 	NegInertiaCalc lowSpeedNic;
 	NegInertiaCalc highSpeedNic;
+	private final static double STRAIGHT_THROTTLE = .85;
+	private final static double TURN_THROTTLE = .75;
 	
 	public RebelDrive(SpeedController frontLeftMotor, SpeedController rearLeftMotor,
 		      SpeedController frontRightMotor, SpeedController rearRightMotor) {
 		 super(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);
-			lowSpeedNic = new NegInertiaCalc(0);
-			highSpeedNic = new NegInertiaCalc(2);
+			lowSpeedNic = new NegInertiaCalc(2);
+			highSpeedNic = new NegInertiaCalc(4);
 	 }
 	
 	public void arcadeDrive(GenericHID stick, Shifter gear) {
 		if (Shifter.Low.equals(gear)) {
-			arcadeDrive(-stick.getY(), lowSpeedNic.calculate(stick.getRawAxis(4)), true);
+			arcadeDrive(stick.getY() * STRAIGHT_THROTTLE,
+					lowSpeedNic.calculate(stick.getRawAxis(4)) * TURN_THROTTLE,
+					true);
 		} else {
-			arcadeDrive(-stick.getY(), highSpeedNic.calculate(stick.getRawAxis(4)), true);
+			arcadeDrive(stick.getY(), highSpeedNic.calculate(stick.getRawAxis(4)), true);
 		}
 	}
 }
