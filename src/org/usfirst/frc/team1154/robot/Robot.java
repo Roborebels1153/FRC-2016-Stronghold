@@ -2,7 +2,8 @@
 package org.usfirst.frc.team1154.robot;
 
 import org.usfirst.frc.team1154.robot.commands.DriveWithEncoders;
-import org.usfirst.frc.team1154.robot.subsystems.CollectorSubsystem;
+import org.usfirst.frc.team1154.robot.subsystems.Arm;
+import org.usfirst.frc.team1154.robot.subsystems.Collector;
 import org.usfirst.frc.team1154.robot.subsystems.Drive;
 
 
@@ -27,7 +28,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 	
-	public static final CollectorSubsystem collect = new CollectorSubsystem();
+	public static final Collector collector = new Collector();
+	public static final Arm arm = new Arm();
 	public static final Drive drive = new Drive();
 	public static OI oi;
 	private Compressor compressor = new Compressor();
@@ -108,9 +110,11 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-		SmartDashboard.putNumber("Pivot Value", Robot.collect.getPivotOutput());
-		SmartDashboard.putBoolean("Pivot Limit Switch Out", Robot.collect.getCollectorOut());
-		SmartDashboard.putBoolean("Pivot Limit Switch In", Robot.collect.getCollectorIn());
+		SmartDashboard.putNumber("Pivot Value", Robot.arm.getArmOutput());
+		SmartDashboard.putBoolean("Pivot Limit Switch Out", Robot.arm.getArmOut());
+		SmartDashboard.putBoolean("Pivot Limit Switch In", Robot.arm.getArmIn());
+		SmartDashboard.putNumber("Arm Encoder", Robot.arm.getArmPosition());
+		SmartDashboard.putNumber("Arm Setpoint", Robot.arm.getSetpoint());
     }
     
     /**

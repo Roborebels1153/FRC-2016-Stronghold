@@ -15,7 +15,7 @@ public class RobotMap {
 	public static int RIGHT_FRONT_MOTOR = 2;
 	public static int RIGHT_BACK_MOTOR = 3;
 	public static int COLLECTOR_ROLLERS = 4;
-	public static int PIVOT_MOTOR = 5;
+	public static int ARM_MOTOR = 5;
 	
 	public static int DRIVER_JOYSTICK = 0;
 	public static int OPERATOR_JOYSTICK = 1; 
@@ -24,10 +24,10 @@ public class RobotMap {
 	public static int LEFT_ENCODER_B_CHANNEL = 1;
 	public static int RIGHT_ENCODER_A_CHANNEL = 2;
 	public static int RIGHT_ENCODER_B_CHANNEL = 3;
-	public static int PIVOT_ENCODER_A_CHANNEL = 4;
-	public static int PIVOT_ENCODER_B_CHANNEL = 5;
-	public static int COLLECTOR_IN_SWITCH = 6;
-	public static int COLLECTOR_OUT_SWITCH = 7;
+	public static int ARM_ENCODER_A_CHANNEL = 4;
+	public static int ARM_ENCODER_B_CHANNEL = 5;
+	public static int ARM_IN_SWITCH = 6;
+	public static int ARM_OUT_SWITCH = 7;
 
 	public static int TRANSMISSION_SOLENOID_A = 0;
 	public static int TRANSMISSION_SOLENOID_B = 1;

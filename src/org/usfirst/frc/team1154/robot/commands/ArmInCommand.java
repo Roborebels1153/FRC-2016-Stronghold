@@ -4,15 +4,15 @@ import org.usfirst.frc.team1154.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class CollectorInCommand extends Command{
-	public CollectorInCommand(){
-		requires(Robot.collect);
+public class ArmInCommand extends Command{
+	public ArmInCommand(){
+		requires(Robot.arm);
 	}
 
 	@Override
 	protected void initialize() {
 		
-		Robot.collect.in();
+		Robot.arm.in();
 	}
 
 	@Override
@@ -22,13 +22,13 @@ public class CollectorInCommand extends Command{
 	@Override
 	protected boolean isFinished() {
 		
-		return Robot.collect.getCollectorIn();
+		return Robot.arm.getArmIn();
 	}
 
 	@Override
 	protected void end() {
 		//Stops the pivot motor when end is called
-		Robot.collect.stopPivoting();
+		Robot.arm.stopArm();
 	}
 
 	@Override

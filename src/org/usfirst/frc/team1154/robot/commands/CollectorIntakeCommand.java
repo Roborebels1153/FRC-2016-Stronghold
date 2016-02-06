@@ -1,30 +1,27 @@
 package org.usfirst.frc.team1154.robot.commands;
 
 import org.usfirst.frc.team1154.robot.Robot;
-import org.usfirst.frc.team1154.robot.RobotMap;
 
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.buttons.Button;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class CollectorCommands extends Command{
-	public CollectorCommands(){
+public class CollectorIntakeCommand extends Command {
+	
+	public CollectorIntakeCommand(){
 		requires(Robot.collector);
 	}
-	
-	private Joystick opStick = new Joystick(RobotMap.OPERATOR_JOYSTICK);
-	private Button opA = new JoystickButton(opStick,0);
+
 
 	@Override
 	protected void initialize() {
 		// TODO Auto-generated method stub
+		Robot.collector.collectBoulder();
 		
 	}
 
 	@Override
 	protected void execute() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
@@ -36,12 +33,14 @@ public class CollectorCommands extends Command{
 	@Override
 	protected void end() {
 		// TODO Auto-generated method stub
+		Robot.collector.stopCollecting();
 		
 	}
 
 	@Override
 	protected void interrupted() {
 		// TODO Auto-generated method stub
+		end();
 		
 	}
 
