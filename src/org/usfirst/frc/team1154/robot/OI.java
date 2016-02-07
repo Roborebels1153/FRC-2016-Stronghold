@@ -4,11 +4,12 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
-import org.usfirst.frc.team1154.robot.commands.ArmCheval;
+import org.usfirst.frc.team1154.robot.commands.ArmSetHeight;
 import org.usfirst.frc.team1154.robot.commands.ArmInCommand;
 import org.usfirst.frc.team1154.robot.commands.CollectorIntakeCommand;
 import org.usfirst.frc.team1154.robot.commands.ArmOutCommand;
 import org.usfirst.frc.team1154.robot.commands.CollectorReleaseCommand;
+import org.usfirst.frc.team1154.robot.subsystems.Arm.ArmHeight;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -34,11 +35,10 @@ public class OI {
 	private Button opRJ = new JoystickButton(opStick,10);
 	
 	public OI(){
-		opX.whenPressed(new ArmOutCommand());
-		opB.whenPressed(new ArmInCommand());
-		opA.whileHeld(new CollectorIntakeCommand());
-		opY.whileHeld(new CollectorReleaseCommand());
-		opRB.whenPressed(new ArmCheval());
+		opX.whenPressed(new ArmInCommand());
+		opB.whenPressed(new ArmSetHeight(ArmHeight.HIGH));
+		opA.whenPressed(new ArmSetHeight(ArmHeight.LOW));
+		opY.whenPressed(new ArmOutCommand());
 	}
 	
 	public Joystick getDriverStick(){

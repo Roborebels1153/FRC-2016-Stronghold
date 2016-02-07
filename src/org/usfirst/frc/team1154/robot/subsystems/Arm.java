@@ -23,6 +23,11 @@ public class Arm extends Subsystem {
 	private PIDController armController;
 	private double setpoint;
 	
+	public enum ArmHeight {
+		LOW,
+		HIGH
+	}
+	
 	public Arm() {
 		
 		armEncoder = new Encoder(RobotMap.ARM_ENCODER_A_CHANNEL, RobotMap.ARM_ENCODER_B_CHANNEL, false, EncodingType.k4X);

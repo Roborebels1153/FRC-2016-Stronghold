@@ -34,6 +34,7 @@ public class CollectorIntakeCommand extends Command {
 	protected void end() {
 		// TODO Auto-generated method stub
 		Robot.collector.stopCollecting();
+		Robot.arm.disablePID();
 		
 	}
 

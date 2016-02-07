@@ -11,7 +11,7 @@ public class ArmOutCommand extends Command {
 
 	@Override
 	protected void initialize() {
-		
+		Robot.arm.disablePID();
 		Robot.arm.out();
 	}
 
@@ -29,6 +29,7 @@ public class ArmOutCommand extends Command {
 	protected void end() {
 		//Stops the pivot motor when end is called
 		Robot.arm.stopArm();
+		
 	}
 
 	@Override
