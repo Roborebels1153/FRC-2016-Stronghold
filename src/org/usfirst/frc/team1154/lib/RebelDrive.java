@@ -1,7 +1,6 @@
 package org.usfirst.frc.team1154.lib;
 
 import org.usfirst.frc.team1154.robot.subsystems.Drive.Shifter;
-import org.usfirst.frc.team1154.robot.subsystems.NegInertiaCalc;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.RobotDrive;
