@@ -14,6 +14,7 @@ public class Collector  extends Subsystem  {
 	public enum CollectorState{In, Out, Up};
 	private CollectorState currState;
 	private Victor collectorRoller;
+	private DigitalInput lightsensor;
 	
 	
 	public Collector() {
@@ -21,6 +22,8 @@ public class Collector  extends Subsystem  {
 		currState = CollectorState.In;
 		
 		collectorRoller = new Victor(RobotMap.COLLECTOR_ROLLERS);
+		
+		lightsensor = new DigitalInput(RobotMap.LIGHT_SENSOR);
 		
 	}
 
@@ -48,6 +51,11 @@ public class Collector  extends Subsystem  {
 	public void stopCollecting(){
 		//Stops the Roller motors
 		collectorRoller.set(0);
+	}
+	
+	public boolean getLightsensor(){
+		
+		return lightsensor.get();
 	}
 
 	

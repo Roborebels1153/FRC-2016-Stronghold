@@ -28,6 +28,7 @@ public class RobotMap {
 	public static int ARM_ENCODER_B_CHANNEL = 5;
 	public static int ARM_IN_SWITCH = 6;
 	public static int ARM_OUT_SWITCH = 7;
+	public static int LIGHT_SENSOR = 9;
 
 	public static int TRANSMISSION_SOLENOID_A = 0;
 	public static int TRANSMISSION_SOLENOID_B = 1;

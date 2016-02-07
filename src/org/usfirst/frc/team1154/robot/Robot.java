@@ -6,7 +6,7 @@ import org.usfirst.frc.team1154.robot.subsystems.Arm;
 import org.usfirst.frc.team1154.robot.subsystems.Collector;
 import org.usfirst.frc.team1154.robot.subsystems.Drive;
 
-
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
@@ -34,8 +34,16 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 	private Compressor compressor = new Compressor();
 	
+	private CameraServer server;
+	
     Command autonomousCommand;
     SendableChooser chooser;
+    
+    public Robot() {
+    	server = CameraServer.getInstance();
+    	server.setQuality(1);
+    	server.startAutomaticCapture("cam0");
+    }
 
     /**
      * This function is run when the robot is first started up and should be
@@ -115,6 +123,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putBoolean("Pivot Limit Switch In", Robot.arm.getArmIn());
 		SmartDashboard.putNumber("Arm Encoder", Robot.arm.getArmPosition());
 		SmartDashboard.putNumber("Arm Setpoint", Robot.arm.getSetpoint());
+		SmartDashboard.putBoolean("Light Sensor(Please Boss?)", Robot.collector.getLightsensor());
     }
     
     /**

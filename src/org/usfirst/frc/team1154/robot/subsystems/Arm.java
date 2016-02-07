@@ -14,17 +14,16 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
-public class Arm extends PIDSubsystem {
+public class Arm extends Subsystem {
 	
 	private Encoder armEncoder;
 	private Victor armMotor;
 	private DigitalInput armInSwitch;
 	private DigitalInput armOutSwitch;
 	private PIDController armController;
+	private double setpoint;
 	
 	public Arm() {
-		
-		super("Arm", 0.5, 0, 0);
 		
 		armEncoder = new Encoder(RobotMap.ARM_ENCODER_A_CHANNEL, RobotMap.ARM_ENCODER_B_CHANNEL, false, EncodingType.k4X);
 		
@@ -36,9 +35,6 @@ public class Arm extends PIDSubsystem {
 		
 		armController = new PIDController(.05, 0, 0, armEncoder, armMotor);
 		
-		setAbsoluteTolerance(5);
-		
-		getPIDController().setContinuous(false);
 	}
 	
 	public void init() {
@@ -63,17 +59,6 @@ public class Arm extends PIDSubsystem {
 	
 	protected void initDefaultCommand() {
 	//Purposely left blank	
-	}
-
-	
-	protected double returnPIDInput() {
-		return armEncoder.pidGet();
-	}
-
-
-	protected void usePIDOutput(double output) {
-		armMotor.set(output);
-		SmartDashboard.putNumber("PIDWrite", output);
 	}
 	
 	public void resetArmEncoder(){
@@ -115,9 +100,14 @@ public class Arm extends PIDSubsystem {
 		return armEncoder.get();
 	}
 	
-//	public void setSetPoint(double setPoint) {
-//		
-//	}
+	public void setSetpoint(double setpoint) {
+		armController.setSetpoint(setpoint);
+		this.setpoint = setpoint;
+	}
+	
+	public double getSetpoint() {
+		return setpoint;
+	}
 
 	
 }

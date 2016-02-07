@@ -16,7 +16,7 @@ public class ArmCheval extends Command {
 	@Override
 	protected void initialize() {
 		// TODO Auto-generated method stub
-		Robot.arm.enable();
+		Robot.arm.enablePID();
 		Robot.arm.resetArmEncoder();
 		Robot.arm.setSetpoint(150);
 		
@@ -26,7 +26,6 @@ public class ArmCheval extends Command {
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
-		Robot.arm.setSetpoint(150);
 		
 		SmartDashboard.putNumber("Current Arm Position" , Robot.arm.getArmPosition());
 		SmartDashboard.putNumber("Arm PID Output", Robot.arm.getArmOutput());
@@ -47,14 +46,12 @@ public class ArmCheval extends Command {
 
 	@Override
 	protected void end() {
-		// TODO Auto-generated method stub
+		Robot.arm.disablePID();
 		Robot.arm.stopArm();
-		Robot.arm.disable();
 	}
 
 	@Override
 	protected void interrupted() {
-		// TODO Auto-generated method stub
 		end();
 	}
 
