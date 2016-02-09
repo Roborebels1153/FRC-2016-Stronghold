@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 import org.usfirst.frc.team1154.robot.commands.ArmSetHeight;
+import org.usfirst.frc.team1154.lib.RebelTrigger;
 import org.usfirst.frc.team1154.robot.commands.ArmInCommand;
 import org.usfirst.frc.team1154.robot.commands.CollectorIntakeCommand;
 import org.usfirst.frc.team1154.robot.commands.ArmOutCommand;
@@ -33,12 +34,16 @@ public class OI {
 	private Button opST = new JoystickButton(opStick,8);
 	private Button opLJ = new JoystickButton(opStick,9);
 	private Button opRJ = new JoystickButton(opStick,10);
+	private Button opLT = new RebelTrigger(opStick,2);
+	private Button opRT = new RebelTrigger(opStick,3);
 	
 	public OI(){
 		opX.whenPressed(new ArmInCommand());
 		opB.whenPressed(new ArmSetHeight(ArmHeight.HIGH));
 		opA.whenPressed(new ArmSetHeight(ArmHeight.LOW));
 		opY.whenPressed(new ArmOutCommand());
+		opLT.whileHeld(new CollectorIntakeCommand());
+		opRT.whileHeld(new CollectorReleaseCommand());
 	}
 	
 	public Joystick getDriverStick(){
@@ -48,6 +53,8 @@ public class OI {
 	public Joystick getOperatorStick(){
 		return opStick;
 	}
+	
+	
 	
 }
 
