@@ -56,6 +56,10 @@ public class Drive extends Subsystem {
 		
 		currSpeed = Shifter.Low;
 		
+		leftEncoderOutput = new DummyPIDOutput();
+		rightEncoderOutput = new DummyPIDOutput();
+		gyroOutput = new DummyPIDOutput();
+		
 		leftEncoderPID = new PIDController(.05, 0, 0, leftEncoder, leftEncoderOutput);
 		
 		rightEncoderPID = new PIDController(.05, 0, 0, rightEncoder, rightEncoderOutput);
