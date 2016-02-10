@@ -31,6 +31,9 @@ public class DriveWithJoysticks extends Command {
 		SmartDashboard.putNumber("Left Encoder", Robot.drive.getLeftEncoderDistance());
 		SmartDashboard.putNumber("Right Encoder", Robot.drive.getRightEncoderDistance());
 		SmartDashboard.putNumber("Right Trigger", stick.getRawAxis(3));
+		SmartDashboard.putNumber("Gyro Heading", Robot.drive.getAngle());
+		
+		
 		
 		if(driveStick.getRawAxis(2) > .5){			
 			Robot.drive.shiftHigh();
