@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 public class Drive extends Subsystem {
 	
@@ -35,6 +36,7 @@ public class Drive extends Subsystem {
 	private PIDController leftEncoderPID;
 	private PIDController rightEncoderPID;
 	private PIDController gyroPID;
+	private LiveWindow lw;
 	
 	public Drive() {
 		
@@ -86,7 +88,13 @@ public class Drive extends Subsystem {
 		
 		enablePID();
 		
+//		LiveWindow.addSensor("Drive", "LeftFrontPID", leftFrontPID);
+//		LiveWindow.addSensor("Drive", "LeftBackPID", leftBackPID);
+//		LiveWindow.addSensor("Drive", "RightFrontPID", rightFrontPID);
+//		LiveWindow.addSensor("Drive", "RightBackPID", rightBackPID);
+		
 	}
+	
 	
 	public void enablePID() {
 		

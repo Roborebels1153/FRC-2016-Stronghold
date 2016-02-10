@@ -5,10 +5,11 @@ import java.text.DecimalFormat;
 
 import org.team2168.utils.BNO055;
 import org.usfirst.frc.team1154.robot.commands.DriveWithPID;
-import org.usfirst.frc.team1154.robot.commands.ExampleCommand;
+import org.usfirst.frc.team1154.robot.subsystems.Arm;
+import org.usfirst.frc.team1154.robot.subsystems.Collector;
 import org.usfirst.frc.team1154.robot.subsystems.Drive;
-import org.usfirst.frc.team1154.robot.subsystems.ExampleSubsystem;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
@@ -29,17 +30,26 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
-
+	
+	public static final Collector collector = new Collector();
+	public static final Arm arm = new Arm();
 	public static final Drive drive = new Drive();
-	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static OI oi;
 	private Compressor compressor = new Compressor();
 	private double[] pos = new double[3]; // [x,y,z] position data
 	private BNO055.CalData cal;
 	private DecimalFormat f = new DecimalFormat("+000.000;-000.000");
 	
+	private CameraServer server;
+	
     Command autonomousCommand;
     SendableChooser chooser;
+    
+    public Robot() {
+    	server = CameraServer.getInstance();
+    	server.setQuality(1);
+    	server.startAutomaticCapture("cam0");
+    }
 
     /**
      * This function is run when the robot is first started up and should be
@@ -48,10 +58,7 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
 		oi = new OI();
         chooser = new SendableChooser();
-        chooser.addDefault("Default Auto", new ExampleCommand());
         compressor.setClosedLoopControl(true);
-        
-        
         
 //        chooser.addObject("My Auto", new MyAutoCommand());
 //        SmartDashboard.putData("Auto mode", chooser);
@@ -130,6 +137,7 @@ public class Robot extends IterativeRobot {
         if (autonomousCommand != null) autonomousCommand.cancel();
         
         Robot.drive.disablePID();
+        
     }
 
     /**
@@ -137,7 +145,12 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        
+		SmartDashboard.putNumber("Pivot Value", Robot.arm.getArmOutput());
+		SmartDashboard.putBoolean("Pivot Limit Switch Out", Robot.arm.getArmOut());
+		SmartDashboard.putBoolean("Pivot Limit Switch In", Robot.arm.getArmIn());
+		SmartDashboard.putNumber("Arm Encoder", Robot.arm.getArmPosition());
+		SmartDashboard.putNumber("Arm Setpoint", Robot.arm.getSetpoint());
+		SmartDashboard.putBoolean("Light Sensor(Please Boss?)", Robot.collector.getLightsensor());
     }
     
     /**

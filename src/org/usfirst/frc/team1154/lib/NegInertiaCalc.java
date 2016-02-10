@@ -1,4 +1,4 @@
-package org.usfirst.frc.team1154.robot.subsystems;
+package org.usfirst.frc.team1154.lib;
 /**
  *
  * @author Joseph Grube
