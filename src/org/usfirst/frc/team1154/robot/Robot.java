@@ -1,7 +1,10 @@
 
 package org.usfirst.frc.team1154.robot;
 
-import org.usfirst.frc.team1154.robot.commands.DriveWithEncoders;
+import java.text.DecimalFormat;
+
+import org.team2168.utils.BNO055;
+import org.usfirst.frc.team1154.robot.commands.DriveWithPID;
 import org.usfirst.frc.team1154.robot.subsystems.Arm;
 import org.usfirst.frc.team1154.robot.subsystems.Collector;
 import org.usfirst.frc.team1154.robot.subsystems.Drive;
@@ -33,6 +36,9 @@ public class Robot extends IterativeRobot {
 	public static final Drive drive = new Drive();
 	public static OI oi;
 	private Compressor compressor = new Compressor();
+	private double[] pos = new double[3]; // [x,y,z] position data
+	private BNO055.CalData cal;
+	private DecimalFormat f = new DecimalFormat("+000.000;-000.000");
 	
 	private CameraServer server;
 	
@@ -69,6 +75,25 @@ public class Robot extends IterativeRobot {
 	
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		
+//		System.out.println("COMMS: " + drive.isSensorPresant()
+//							+ ", INITIALIZED: " + drive.isGyroInitialized()
+//							+ ", CALIBRATED: " + drive.isGyroCalibrated());
+//		if(drive.isGyroInitialized()) {
+//			pos = drive.getVector();
+//			
+//			
+//			/* Display the floating point data */
+//			System.out.println("\tX: " + f.format(pos[0])
+//							+ " Y: " + f.format(pos[1]) + " Z: " + f.format(pos[2])
+//							+ " H: " + drive.getHeading());
+//			
+//			/*Display calibration status for each sensor. */
+//			cal = drive.getCalibration();
+//			System.out.println("\tCALIBRATION: Sys=" + cal.sys
+//							+ " Gyro=" + cal.gyro + "Accel=" + cal.accel
+//							+ " Mag=" + cal.mag);
+//		}
 	}
 
 	/**
@@ -82,7 +107,7 @@ public class Robot extends IterativeRobot {
 	 */
     public void autonomousInit() {
     	
-    	autonomousCommand = new DriveWithEncoders(120);
+    	autonomousCommand = new DriveWithPID(120);
 //        autonomousCommand = (Command) chooser.getSelected();
         
 		/* String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
