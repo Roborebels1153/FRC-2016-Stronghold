@@ -194,6 +194,11 @@ public class Drive extends Subsystem {
 		return rightEncoderOutput.getOutput();
 	}
 	
+	public void setMaxPIDOutput(double speed) {
+		leftEncoderPID.setOutputRange(-speed, speed);
+		rightEncoderPID.setOutputRange(-speed,  speed);
+	}
+	
 	public double getGyroOutput() {
 		return gyroOutput.getOutput();
 	}

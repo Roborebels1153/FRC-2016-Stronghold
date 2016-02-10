@@ -10,25 +10,33 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveWithPID extends Command {
 	
-	private final double inchesPerTick = Constants.WHEEL_DIAMETER * Math.PI / Constants.ENCODER_COUNTS_PER_REV; 
-	
 	private final int inchesToDrive;
 	
 	private double leftInchesDriven;
 	
 	private double rightInchesDriven;
 	
+	private final double speed;
+	
 	public DriveWithPID(int inchesToDrive) {
 		requires(Robot.drive);
 		this.inchesToDrive = inchesToDrive;
+		this.speed = Constants.defaultMaxSpeed;
+	}
+	
+	public DriveWithPID(int inchesToDrive, double speed) {
+		requires(Robot.drive);
+		this.inchesToDrive = inchesToDrive;
+		this.speed = speed;
 	}
 	
 	@Override
 	protected void initialize() {
 		// TODO Auto-generated method stub
 		Robot.drive.resetEncoders();
-		Robot.drive.setEncoderSetPoint(inchesToDrive / inchesPerTick);
+		Robot.drive.setEncoderSetPoint(inchesToDrive / Constants.inchesPerTick);
 		Robot.drive.setGyroSetPoint(0);
+		Robot.drive.setMaxPIDOutput(speed);
 	}
 
 	@Override
@@ -41,13 +49,13 @@ public class DriveWithPID extends Command {
 		//TODO: replace with average output when using on Real Robot
 		Robot.drive.arcadeDrive(leftOutput, gyroOutput);
 		
-		leftInchesDriven = inchesPerTick * Robot.drive.getLeftEncoderDistance();
-		rightInchesDriven = inchesPerTick * Robot.drive.getRightEncoderDistance();
+		leftInchesDriven = Constants.inchesPerTick * Robot.drive.getLeftEncoderDistance();
+		rightInchesDriven = Constants.inchesPerTick * Robot.drive.getRightEncoderDistance();
 
 		SmartDashboard.putNumber("Inches To Drive", inchesToDrive);
 		SmartDashboard.putNumber("Left Encoder In Inches", leftInchesDriven);
 		SmartDashboard.putNumber("Right Encoder In Inches", rightInchesDriven);
-		SmartDashboard.putNumber("Dillo", inchesToDrive / inchesPerTick);
+		SmartDashboard.putNumber("Dillo", inchesToDrive / Constants.inchesPerTick);
 		SmartDashboard.putNumber("Legit Value", Robot.drive.getLeftEncoderDistance());
 		SmartDashboard.putNumber("Left PID Output", Robot.drive.getLeftPIDOutput());
 		SmartDashboard.putNumber("Right PID Output", Robot.drive.getRightPIDOutput());
