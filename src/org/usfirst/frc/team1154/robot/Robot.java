@@ -4,6 +4,7 @@ package org.usfirst.frc.team1154.robot;
 import java.text.DecimalFormat;
 
 import org.team2168.utils.BNO055;
+import org.usfirst.frc.team1154.robot.autonomous.TurninWithTyler;
 import org.usfirst.frc.team1154.robot.commands.DriveWithPID;
 import org.usfirst.frc.team1154.robot.subsystems.Arm;
 import org.usfirst.frc.team1154.robot.subsystems.Collector;
@@ -60,8 +61,8 @@ public class Robot extends IterativeRobot {
         chooser = new SendableChooser();
         compressor.setClosedLoopControl(true);
         
-//        chooser.addObject("My Auto", new MyAutoCommand());
-//        SmartDashboard.putData("Auto mode", chooser);
+        chooser.addObject("Turn Test", new TurninWithTyler());
+        SmartDashboard.putData("Auto mode", chooser);
     }
 	
 	/**
@@ -107,21 +108,21 @@ public class Robot extends IterativeRobot {
 	 */
     public void autonomousInit() {
     	
-    	autonomousCommand = new DriveWithPID(120);
-//        autonomousCommand = (Command) chooser.getSelected();
-        
-		/* String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
-		switch(autoSelected) {
-		case "My Auto":
-			autonomousCommand = new MyAutoCommand();
-			break;
-		case "Default Auto":
-		default:
-			autonomousCommand = new ExampleCommand();
-			break;
-		} */
+//    	autonomousCommand = new DriveWithPID(120);
+        autonomousCommand = (Command) chooser.getSelected();
+       
+//		String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
+//		switch(autoSelected) {
+//		case "My Auto":
+//			autonomousCommand = new MyAutoCommand();
+//			break;
+//		case "Default Auto":
+//		default:
+//			autonomousCommand = new ExampleCommand();
+//			break;
+//		} 
     	
-    	// schedule the autonomous command (example)
+    	 //schedule the autonomous command (example)
         if (autonomousCommand != null) autonomousCommand.start();
     }
 
@@ -130,6 +131,7 @@ public class Robot extends IterativeRobot {
      */
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
+        updateSmartDashboard();
     }
 
     public void teleopInit() {
@@ -145,12 +147,18 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-		SmartDashboard.putNumber("Pivot Value", Robot.arm.getArmOutput());
+        updateSmartDashboard();
+		
+    }
+    
+    private void updateSmartDashboard() {
+    	SmartDashboard.putNumber("Pivot Value", Robot.arm.getArmOutput());
 		SmartDashboard.putBoolean("Pivot Limit Switch Out", Robot.arm.getArmOut());
 		SmartDashboard.putBoolean("Pivot Limit Switch In", Robot.arm.getArmIn());
 		SmartDashboard.putNumber("Arm Encoder", Robot.arm.getArmPosition());
 		SmartDashboard.putNumber("Arm Setpoint", Robot.arm.getSetpoint());
 		SmartDashboard.putBoolean("Light Sensor(Please Boss?)", Robot.collector.getLightsensor());
+		SmartDashboard.putNumber("Current Angle", Robot.drive.getAngle());
     }
     
     /**

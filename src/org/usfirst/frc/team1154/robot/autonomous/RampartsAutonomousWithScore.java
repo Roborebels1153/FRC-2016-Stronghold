@@ -7,11 +7,13 @@ import org.usfirst.frc.team1154.robot.commands.TurnWithPID;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class LowBarAutonomous extends CommandGroup{
-	public LowBarAutonomous() {
-		addSequential(new DriveWithPID(218)); // this brings the robot through the doggy door past the green line rdy to turn
-		addSequential(new ArmOutCommand()); // puts the arm down yo
-		addSequential(new CollectorReleaseCommand()); // releases the boulder
+public class RampartsAutonomousWithScore extends CommandGroup {
+	public RampartsAutonomousWithScore() {
+		addSequential(new DriveWithPID(180));
+		addSequential(new TurnWithPID(90));
+		addSequential(new DriveWithPID(80));
+		addSequential(new ArmOutCommand());
+		addSequential(new CollectorReleaseCommand());
 	}
 
 }
