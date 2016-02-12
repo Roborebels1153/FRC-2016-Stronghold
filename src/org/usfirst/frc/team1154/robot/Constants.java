@@ -10,4 +10,6 @@ public class Constants {
 	public static double rockWall = 0.7;
 	public static double ramparts = 6;
 	public static double roughTerrain = 0.8;
+	public static double portcullis = 0.7;
+	
 }

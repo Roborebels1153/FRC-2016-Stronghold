@@ -72,6 +72,14 @@ public class ArmSetHeight extends Command {
 				armSetpoint =  0;
 				break;
 			}
+			case PORT : {
+				armSetpoint = 200;
+				break;
+			}
+			case DRAW : {
+				armSetpoint = 250;
+				break;
+			}
 		}
 		return armSetpoint;
 	}

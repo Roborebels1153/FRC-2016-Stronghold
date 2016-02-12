@@ -25,7 +25,9 @@ public class Arm extends Subsystem {
 	
 	public enum ArmHeight {
 		LOW,
-		HIGH
+		HIGH,
+		PORT,
+		DRAW
 	}
 	
 	public Arm() {

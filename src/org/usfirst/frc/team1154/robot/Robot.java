@@ -4,6 +4,23 @@ package org.usfirst.frc.team1154.robot;
 import java.text.DecimalFormat;
 
 import org.team2168.utils.BNO055;
+import org.usfirst.frc.team1154.robot.autonomous.LowBarAutonomous;
+import org.usfirst.frc.team1154.robot.autonomous.LowBarAutonomousWithScore;
+import org.usfirst.frc.team1154.robot.autonomous.LowBarAutonomousWithSetup;
+import org.usfirst.frc.team1154.robot.autonomous.MoatAutonomous;
+import org.usfirst.frc.team1154.robot.autonomous.MoatAutonomousWithScore;
+import org.usfirst.frc.team1154.robot.autonomous.MoatAutonomousWithSetup;
+import org.usfirst.frc.team1154.robot.autonomous.PortcullisAutonomous;
+import org.usfirst.frc.team1154.robot.autonomous.PortcullisAutonomousWithScore;
+import org.usfirst.frc.team1154.robot.autonomous.RampartsAutonomous;
+import org.usfirst.frc.team1154.robot.autonomous.RampartsAutonomousWithScore;
+import org.usfirst.frc.team1154.robot.autonomous.RampartsAutonomousWithSetup;
+import org.usfirst.frc.team1154.robot.autonomous.RockWallAutonomous;
+import org.usfirst.frc.team1154.robot.autonomous.RockWallAutonomousWithScore;
+import org.usfirst.frc.team1154.robot.autonomous.RockWallAutonomousWithSetup;
+import org.usfirst.frc.team1154.robot.autonomous.RoughTerrainAutonomous;
+import org.usfirst.frc.team1154.robot.autonomous.RoughTerrainAutonomousWithScore;
+import org.usfirst.frc.team1154.robot.autonomous.RoughTerrainAutonomousWithSetup;
 import org.usfirst.frc.team1154.robot.autonomous.TurninWithTyler;
 import org.usfirst.frc.team1154.robot.commands.DriveWithPID;
 import org.usfirst.frc.team1154.robot.subsystems.Arm;
@@ -62,6 +79,25 @@ public class Robot extends IterativeRobot {
         compressor.setClosedLoopControl(true);
         
         chooser.addObject("Turn Test", new TurninWithTyler());
+        chooser.addObject("Low Bar Plain", new LowBarAutonomous());
+        chooser.addObject("Low Bar Score", new LowBarAutonomousWithScore());
+        chooser.addObject("Low Bar Setup", new LowBarAutonomousWithSetup());
+        chooser.addObject("Moat Plain", new MoatAutonomous());
+        chooser.addObject("Moat Score", new MoatAutonomousWithScore());
+        chooser.addObject("Moat Setup", new MoatAutonomousWithSetup());
+        chooser.addObject("Ramparts Plain", new RampartsAutonomous());
+        chooser.addObject("Ramparts Score", new RampartsAutonomousWithScore());
+        chooser.addObject("Ramparts Setup", new RampartsAutonomousWithSetup());
+        chooser.addObject("Rock Wall Plain", new RockWallAutonomous());
+        chooser.addObject("Rock Wall Score", new RockWallAutonomousWithScore());
+        chooser.addObject("Rock Wall Setup", new RockWallAutonomousWithSetup());
+        chooser.addObject("Rough Terrain Plain", new RoughTerrainAutonomous());
+        chooser.addObject("Rough Terrain Score", new RoughTerrainAutonomousWithScore());
+        chooser.addObject("Rough Terrain Setup", new RoughTerrainAutonomousWithSetup());
+        chooser.addObject("Portcullis Plain", new PortcullisAutonomous());
+        chooser.addObject("Portcullis Score", new PortcullisAutonomousWithScore());
+        
+        
         SmartDashboard.putData("Auto mode", chooser);
     }
 	

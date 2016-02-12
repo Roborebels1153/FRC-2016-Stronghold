@@ -8,13 +8,13 @@ import org.usfirst.frc.team1154.robot.commands.TurnWithPID;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class RockWallAutonomousWithScore extends CommandGroup {
-	public RockWallAutonomousWithScore() {
-		addSequential(new DriveWithPID(180 , Constants.rockWall));
-		addSequential(new TurnWithPID(90));
-		addSequential(new DriveWithPID(80 , Constants.rockWall));
+public class RampartsAutonomousWithSetup extends CommandGroup {
+	public RampartsAutonomousWithSetup() {
+		addSequential(new DriveWithPID(180));
 		addSequential(new ArmOutCommand());
 		addSequential(new CollectorReleaseCommand());
+		addSequential(new TurnWithPID(270));
+		addSequential(new DriveWithPID(24, Constants.ramparts));
+		addSequential(new TurnWithPID(180));
 	}
-
 }

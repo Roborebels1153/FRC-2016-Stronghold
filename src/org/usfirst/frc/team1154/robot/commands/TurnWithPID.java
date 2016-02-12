@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1154.robot.commands;
 
+import org.usfirst.frc.team1154.robot.Constants;
 import org.usfirst.frc.team1154.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -9,15 +10,21 @@ public class TurnWithPID extends Command{
 	
 	private final int degreesToTurn;
 	
+	private final double speed;
+	
 	public TurnWithPID(int degreesToTurn){
 		requires(Robot.drive);
 		this.degreesToTurn = degreesToTurn;
+		this.speed = Constants.defaultMaxSpeed;
+		
 	}
 
 	@Override
 	protected void initialize() {
 		Robot.drive.resetEncoders();
 		Robot.drive.setGyroSetPoint(degreesToTurn);
+		Robot.drive.setMaxPIDOutput(speed);
+		
 	}
 
 	@Override
