@@ -3,6 +3,8 @@ package org.usfirst.frc.team1154.robot.subsystems;
 import org.usfirst.frc.team1154.robot.Robot;
 import org.usfirst.frc.team1154.robot.RobotMap;
 
+import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.CounterBase;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
@@ -16,7 +18,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Arm extends Subsystem {
 	
-	private Encoder armEncoder;
+//  private Encoder armEncoder;
+	private AnalogInput armEncoder;
 	private Victor armMotor;
 	private DigitalInput armInSwitch;
 	private DigitalInput armOutSwitch;
@@ -32,7 +35,9 @@ public class Arm extends Subsystem {
 	
 	public Arm() {
 		
-		armEncoder = new Encoder(RobotMap.ARM_ENCODER_A_CHANNEL, RobotMap.ARM_ENCODER_B_CHANNEL, false, EncodingType.k4X);
+		armEncoder = new AnalogInput(0);
+		
+//		armEncoder = new Encoder(RobotMap.ARM_ENCODER_A_CHANNEL, RobotMap.ARM_ENCODER_B_CHANNEL, false, EncodingType.k4X);
 		
 		armMotor = new Victor(RobotMap.ARM_MOTOR);
 		
@@ -46,9 +51,7 @@ public class Arm extends Subsystem {
 	
 	public void init() {
 		armEncoder.setPIDSourceType(PIDSourceType.kDisplacement);
-		
-		armEncoder.reset();
-		
+
 		armController.setOutputRange(-0.8, 0.8);
 	}
 	
@@ -59,7 +62,7 @@ public class Arm extends Subsystem {
 	}
 	
 	public void disablePID() {
-		
+	
 		armController.disable();
 		
 	}
@@ -68,11 +71,11 @@ public class Arm extends Subsystem {
 	//Purposely left blank	
 	}
 	
-	public void resetArmEncoder(){
-		//Resets the encoder distance value back to zero.
-		
-		armEncoder.reset();
-	}
+//	public void resetArmEncoder(){
+//		//Resets the encoder distance value back to zero.
+//		
+//		armEncoder.reset();
+//	}
 	
 	public void stopArm(){
 		//Stops the Pivot motor
@@ -104,7 +107,7 @@ public class Arm extends Subsystem {
 	}
 	
 	public double getArmPosition() {
-		return armEncoder.get();
+		return armEncoder.pidGet();
 	}
 	
 	public void setSetpoint(double setpoint) {

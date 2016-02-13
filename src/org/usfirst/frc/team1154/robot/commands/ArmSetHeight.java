@@ -20,8 +20,9 @@ public class ArmSetHeight extends Command {
 	
 	@Override
 	protected void initialize() {
+
 		Robot.arm.enablePID();
-		Robot.arm.resetArmEncoder();
+//		Robot.arm.resetArmEncoder();
 		Robot.arm.setSetpoint(setpoint);		
 		
 	}
@@ -30,6 +31,7 @@ public class ArmSetHeight extends Command {
 	protected void execute() {
 		SmartDashboard.putNumber("Current Arm Position" , Robot.arm.getArmPosition());
 		SmartDashboard.putNumber("Arm PID Output", Robot.arm.getArmOutput());
+		SmartDashboard.putNumber("Absolute Encoder Values", Robot.arm.getArmOutput());
 		
 	}
 	
