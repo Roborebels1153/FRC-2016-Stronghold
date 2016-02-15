@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1154.robot.commands;
 
+import org.usfirst.frc.team1154.robot.Constants;
 import org.usfirst.frc.team1154.robot.Robot;
 import org.usfirst.frc.team1154.robot.RobotMap;
 
@@ -42,6 +43,11 @@ public class DriveWithJoysticks extends Command {
 			Robot.drive.shiftLow();
 		}
 		
+		 if(driveStick.getRawAxis(3) > .5){
+			 Robot.drive.speedLow();
+		 }else{
+			 Robot.drive.speedNorm();
+		 }
 	}
 
 	@Override

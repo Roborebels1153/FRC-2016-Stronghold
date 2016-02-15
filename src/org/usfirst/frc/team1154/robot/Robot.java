@@ -96,6 +96,7 @@ public class Robot extends IterativeRobot {
         chooser.addObject("Rough Terrain Setup", new RoughTerrainAutonomousWithSetup());
         chooser.addObject("Portcullis Plain", new PortcullisAutonomous());
         chooser.addObject("Portcullis Score", new PortcullisAutonomousWithScore());
+        chooser.addObject("TurninWithTyler", new TurninWithTyler());
         
         
         SmartDashboard.putData("Auto mode", chooser);
@@ -113,24 +114,26 @@ public class Robot extends IterativeRobot {
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		
-//		System.out.println("COMMS: " + drive.isSensorPresant()
-//							+ ", INITIALIZED: " + drive.isGyroInitialized()
-//							+ ", CALIBRATED: " + drive.isGyroCalibrated());
-//		if(drive.isGyroInitialized()) {
-//			pos = drive.getVector();
-//			
-//			
-//			/* Display the floating point data */
-//			System.out.println("\tX: " + f.format(pos[0])
-//							+ " Y: " + f.format(pos[1]) + " Z: " + f.format(pos[2])
-//							+ " H: " + drive.getHeading());
-//			
-//			/*Display calibration status for each sensor. */
-//			cal = drive.getCalibration();
-//			System.out.println("\tCALIBRATION: Sys=" + cal.sys
-//							+ " Gyro=" + cal.gyro + "Accel=" + cal.accel
-//							+ " Mag=" + cal.mag);
-//		}
+		System.out.println("COMMS: " + drive.isSensorPresant()
+							+ ", INITIALIZED: " + drive.isGyroInitialized()
+							+ ", CALIBRATED: " + drive.isGyroCalibrated());
+		if(drive.isGyroInitialized()) {
+			pos = drive.getVector();
+			
+			
+			/* Display the floating point data */
+			System.out.println("\tX: " + f.format(pos[0])
+							+ " Y: " + f.format(pos[1]) + " Z: " + f.format(pos[2])
+							+ " H: " + drive.getAngle());
+			
+			/*Display calibration status for each sensor. */
+			cal = drive.getCalibration();
+			System.out.println("\tCALIBRATION: Sys=" + cal.sys
+							+ " Gyro=" + cal.gyro + "Accel=" + cal.accel
+							+ " Mag=" + cal.mag);
+			
+			Robot.drive.setInitialAngle(drive.getAngle());
+		}
 	}
 
 	/**
@@ -176,6 +179,8 @@ public class Robot extends IterativeRobot {
         
         Robot.drive.disablePID();
         
+        Scheduler.getInstance().removeAll();
+        
     }
 
     /**
@@ -188,13 +193,22 @@ public class Robot extends IterativeRobot {
     }
     
     private void updateSmartDashboard() {
-    	SmartDashboard.putNumber("Pivot Value", Robot.arm.getArmOutput());
-		SmartDashboard.putBoolean("Pivot Limit Switch Out", Robot.arm.getArmOut());
-		SmartDashboard.putBoolean("Pivot Limit Switch In", Robot.arm.getArmIn());
-		SmartDashboard.putNumber("Arm Encoder", Robot.arm.getArmPosition());
+		SmartDashboard.putBoolean("Arm Limit Switch Out", Robot.arm.getArmOut());
+		SmartDashboard.putBoolean("Arm Limit Switch In", Robot.arm.getArmIn());
+		SmartDashboard.putNumber("Arm Angle (poten.)", Robot.arm.getArmPosition());
 		SmartDashboard.putNumber("Arm Setpoint", Robot.arm.getSetpoint());
 		SmartDashboard.putBoolean("Light Sensor(Please Boss?)", Robot.collector.getLightsensor());
-		SmartDashboard.putNumber("Current Angle", Robot.drive.getAngle());
+		SmartDashboard.putNumber("Current Gyro Angle", Robot.drive.getAngle());
+		SmartDashboard.putNumber("Current Voltage Value", Robot.arm.getArmVoltage());
+		SmartDashboard.putBoolean("Arm In Switch", Robot.arm.getArmIn());
+		SmartDashboard.putBoolean("Arm Out Switch",Robot.arm.getArmOut());
+		
+		SmartDashboard.putNumber("Arm motor", Robot.arm.getArmOutput());
+		
+		
+		SmartDashboard.putNumber("Initial Gyro Value", Robot.drive.getInitialAngle());
+		SmartDashboard.putNumber("Gyro PID Setpoint", Robot.drive.getSetpoint());
+		
     }
     
     /**

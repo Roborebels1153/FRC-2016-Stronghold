@@ -23,7 +23,7 @@ public class Collector  extends Subsystem  {
 		
 		collectorRoller = new Victor(RobotMap.COLLECTOR_ROLLERS);
 		
-		lightsensor = new DigitalInput(RobotMap.LIGHT_SENSOR);
+		lightsensor = new DigitalInput(RobotMap.BALL_LIGHT_SENSOR);
 		
 	}
 
@@ -53,6 +53,10 @@ public class Collector  extends Subsystem  {
 		collectorRoller.set(0);
 	}
 	
+	/**
+	 * Returns true if we have a ball.
+	 * @return
+	 */
 	public boolean getLightsensor(){
 		
 		return lightsensor.get();

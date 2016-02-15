@@ -15,7 +15,7 @@ public class TurnWithPID extends Command{
 	public TurnWithPID(int degreesToTurn){
 		requires(Robot.drive);
 		this.degreesToTurn = degreesToTurn;
-		this.speed = Constants.defaultMaxSpeed;
+		this.speed = Constants.defaultTurnSpeed;
 		
 	}
 
@@ -30,8 +30,9 @@ public class TurnWithPID extends Command{
 	@Override
 	protected void execute() {
 		double gyroOutput = Robot.drive.getGyroPIDOutput();
-		Robot.drive.arcadeDrive(0,gyroOutput);		
-		SmartDashboard.putNumber("Degrees To Turn", degreesToTurn);
+		Robot.drive.arcadeDrive(0,gyroOutput);
+		SmartDashboard.putNumber("Turn with PID - Degrees To Turn", degreesToTurn);
+		SmartDashboard.putNumber("Turn with PID - Gyro PID Output", gyroOutput);
 	}
 
 	@Override

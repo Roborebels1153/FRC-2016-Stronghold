@@ -47,7 +47,7 @@ public class DriveWithPID extends Command {
 		
 		double averageOutput = leftOutput + rightOutput / 2;
 		//TODO: replace with average output when using on Real Robot
-		Robot.drive.arcadeDrive(leftOutput, gyroOutput);
+		Robot.drive.arcadeDrive(-leftOutput, gyroOutput);
 		
 		leftInchesDriven = Constants.inchesPerTick * Robot.drive.getLeftEncoderDistance();
 		rightInchesDriven = Constants.inchesPerTick * Robot.drive.getRightEncoderDistance();
@@ -55,7 +55,7 @@ public class DriveWithPID extends Command {
 		SmartDashboard.putNumber("Inches To Drive", inchesToDrive);
 		SmartDashboard.putNumber("Left Encoder In Inches", leftInchesDriven);
 		SmartDashboard.putNumber("Right Encoder In Inches", rightInchesDriven);
-		SmartDashboard.putNumber("Dillo", inchesToDrive / Constants.inchesPerTick);
+		SmartDashboard.putNumber("Sven-Olaf WallDoff", inchesToDrive / Constants.inchesPerTick);
 		SmartDashboard.putNumber("Legit Value", Robot.drive.getLeftEncoderDistance());
 		SmartDashboard.putNumber("Left PID Output", Robot.drive.getLeftPIDOutput());
 		SmartDashboard.putNumber("Right PID Output", Robot.drive.getRightPIDOutput());

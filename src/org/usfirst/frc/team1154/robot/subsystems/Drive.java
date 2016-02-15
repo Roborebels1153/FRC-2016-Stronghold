@@ -4,6 +4,7 @@ import org.team2168.utils.BNO055;
 import org.usfirst.frc.team1154.lib.DummyPIDOutput;
 import org.usfirst.frc.team1154.lib.RebelDrive;
 import org.usfirst.frc.team1154.lib.RebelGyro;
+import org.usfirst.frc.team1154.robot.Robot;
 import org.usfirst.frc.team1154.robot.RobotMap;
 import org.usfirst.frc.team1154.robot.commands.DriveWithJoysticks;
 
@@ -31,7 +32,9 @@ public class Drive extends Subsystem {
 	private Victor rightFront;
 	private Victor rightBack;
 	public enum Shifter{ High, Low }
-	private Shifter currSpeed;
+	public enum Speed{Normal, Slow}
+	private Shifter currGear;
+	private Speed currSpeed;
 	private DoubleSolenoid transmission;
 	private PIDController leftEncoderPID;
 	private PIDController rightEncoderPID;
@@ -56,7 +59,9 @@ public class Drive extends Subsystem {
 		
 		transmission = new DoubleSolenoid (RobotMap.TRANSMISSION_SOLENOID_A, RobotMap.TRANSMISSION_SOLENOID_B);
 		
-		currSpeed = Shifter.Low;
+		currGear = Shifter.Low;
+		
+		currSpeed = Speed.Normal;
 		
 		leftEncoderOutput = new DummyPIDOutput();
 		rightEncoderOutput = new DummyPIDOutput();
@@ -88,6 +93,8 @@ public class Drive extends Subsystem {
 		
 		enablePID();
 		
+		LiveWindow.addSensor("Gyro", "GyroPID", gyroPID);
+		
 //		LiveWindow.addSensor("Drive", "LeftFrontPID", leftFrontPID);
 //		LiveWindow.addSensor("Drive", "LeftBackPID", leftBackPID);
 //		LiveWindow.addSensor("Drive", "RightFrontPID", rightFrontPID);
@@ -117,8 +124,16 @@ public class Drive extends Subsystem {
 		rightEncoderPID.setSetpoint(setPoint);
 	}
 	
+	public void setInitialAngle(double initialAngle) {
+		gyro.setInitialAngle(initialAngle);
+	}
+	
+	public double getInitialAngle() {
+		return gyro.getInitialAngle();
+	}
+	
 	public void setGyroSetPoint(double setPoint) {
-		gyroPID.setSetpoint(setPoint);
+		gyroPID.setSetpoint((setPoint + gyro.getInitialAngle()) % 360);
 	}
 	
 	public double getLeftPIDOutput() {
@@ -132,6 +147,10 @@ public class Drive extends Subsystem {
 	public double getGyroPIDOutput() {
 		return gyroPID.get();
 	}
+	
+	public double getSetpoint() {
+		return gyroPID.getSetpoint();
+	}
 		
 	@Override
 	protected void initDefaultCommand() {
@@ -141,7 +160,7 @@ public class Drive extends Subsystem {
 	}
 	
 	public void arcadeDrive(Joystick stick) {
-		rebelDrive.arcadeDrive(stick, currSpeed);
+		rebelDrive.arcadeDrive(stick, currGear);
 	}
 	
 	public void arcadeDrive(double driveSpeed, double turnSpeed) {
@@ -168,21 +187,38 @@ public class Drive extends Subsystem {
 	
 	}
 	
-	public Shifter shiftHigh(){	
-		if(currSpeed.equals(Shifter.Low)) {
+	public Shifter shiftHigh() {	
+		if(currGear.equals(Shifter.Low)) {
 			
 				transmission.set(DoubleSolenoid.Value.kForward);
-				currSpeed = Shifter.High;			
+				currGear = Shifter.High;			
 			}
-		return currSpeed;	
+		return currGear;	
 	}
 	
-	public Shifter shiftLow(){
-		if(currSpeed.equals(Shifter.High)) {
+	public Shifter shiftLow() {
+		if(currGear.equals(Shifter.High)) {
 				
 				transmission.set(DoubleSolenoid.Value.kReverse);
-				currSpeed = Shifter.Low;
+				currGear = Shifter.Low;
 			}
+		return currGear;
+	}
+	
+	public Speed speedLow() {
+		if(currSpeed.equals(Speed.Normal)) {
+			
+			currSpeed = Speed.Slow;
+			
+		}
+		return currSpeed;
+	}
+	
+	public Speed speedNorm() {
+		if(currSpeed.equals(Speed.Slow)) {
+			
+			currSpeed = Speed.Normal;
+		}
 		return currSpeed;
 	}
 	
@@ -203,7 +239,11 @@ public class Drive extends Subsystem {
 		return gyroOutput.getOutput();
 	}
 	
-	public Shifter getCurrSpeed() {
+	public Shifter getCurrGear() {
+		return currGear;
+	}
+	
+	public Speed getCurrSpeed() {
 		return currSpeed;
 	}
 	
@@ -226,5 +266,10 @@ public class Drive extends Subsystem {
 	public double getAngle() {
 		return gyro.getHeading();
 	}
+	
+	public double[] getVector() {
+		return gyro.getVector();
+	}
+	
 
 }
