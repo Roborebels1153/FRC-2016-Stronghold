@@ -4,10 +4,12 @@ import org.team2168.utils.BNO055;
 import org.usfirst.frc.team1154.lib.DummyPIDOutput;
 import org.usfirst.frc.team1154.lib.RebelDrive;
 import org.usfirst.frc.team1154.lib.RebelGyro;
+import org.usfirst.frc.team1154.robot.Robot;
 import org.usfirst.frc.team1154.robot.RobotMap;
 import org.usfirst.frc.team1154.robot.commands.DriveWithJoysticks;
 
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
@@ -31,12 +33,18 @@ public class Drive extends Subsystem {
 	private Victor rightFront;
 	private Victor rightBack;
 	public enum Shifter{ High, Low }
-	private Shifter currSpeed;
+	public enum Speed{Normal, Slow}
+	private Shifter currGear;
+	private Speed currSpeed;
 	private DoubleSolenoid transmission;
 	private PIDController leftEncoderPID;
 	private PIDController rightEncoderPID;
 	private PIDController gyroPID;
 	private LiveWindow lw;
+	private DigitalInput lightSensorFront;
+	private DigitalInput lightSensorBack;
+	private double driveTolerance = 0;
+	private double turnTolerance = 0;
 	
 	public Drive() {
 		
@@ -50,23 +58,29 @@ public class Drive extends Subsystem {
  
 		leftEncoder = new Encoder (RobotMap.LEFT_ENCODER_A_CHANNEL, RobotMap.LEFT_ENCODER_B_CHANNEL, false, EncodingType.k4X);
 		
-		rightEncoder = new Encoder (RobotMap.RIGHT_ENCODER_A_CHANNEL, RobotMap.RIGHT_ENCODER_B_CHANNEL, false, EncodingType.k4X);
+		rightEncoder = new Encoder (RobotMap.RIGHT_ENCODER_A_CHANNEL, RobotMap.RIGHT_ENCODER_B_CHANNEL, true, EncodingType.k4X);
 		
 		gyro = new RebelGyro();
 		
 		transmission = new DoubleSolenoid (RobotMap.TRANSMISSION_SOLENOID_A, RobotMap.TRANSMISSION_SOLENOID_B);
 		
-		currSpeed = Shifter.Low;
+		currGear = Shifter.Low;
+		
+		currSpeed = Speed.Normal;
 		
 		leftEncoderOutput = new DummyPIDOutput();
 		rightEncoderOutput = new DummyPIDOutput();
 		gyroOutput = new DummyPIDOutput();
 		
-		leftEncoderPID = new PIDController(.05, 0, 0, leftEncoder, leftEncoderOutput);
+		leftEncoderPID = new PIDController(.01, 0, 0, leftEncoder, leftEncoderOutput);
 		
-		rightEncoderPID = new PIDController(.05, 0, 0, rightEncoder, rightEncoderOutput);
+		rightEncoderPID = new PIDController(.01, 0, 0, rightEncoder, rightEncoderOutput);
 		
 		gyroPID = new PIDController(.05, 0, 0, gyro, gyroOutput);
+		
+		lightSensorFront = new DigitalInput(RobotMap.FRONT_LIGHT_SENSOR);
+		
+		lightSensorBack = new DigitalInput(RobotMap.BACK_LIGHT_SENSOR);
 		
 		init();
 		
@@ -78,15 +92,19 @@ public class Drive extends Subsystem {
 		leftEncoder.setPIDSourceType(PIDSourceType.kDisplacement);
 		rightEncoder.setPIDSourceType(PIDSourceType.kDisplacement);
 		
-		rightEncoder.setReverseDirection(true);
-		
 		resetEncoders();
 		
 		leftEncoderPID.setOutputRange(-0.8, 0.8);
 		rightEncoderPID.setOutputRange(-0.8,  0.8);
 		gyroPID.setOutputRange(-0.8, 0.8);
 		
+		driveTolerance = 15;
+		
+		turnTolerance = 5;
+		
 		enablePID();
+		
+		LiveWindow.addSensor("Gyro", "GyroPID", gyroPID);
 		
 //		LiveWindow.addSensor("Drive", "LeftFrontPID", leftFrontPID);
 //		LiveWindow.addSensor("Drive", "LeftBackPID", leftBackPID);
@@ -117,8 +135,16 @@ public class Drive extends Subsystem {
 		rightEncoderPID.setSetpoint(setPoint);
 	}
 	
+	public void setInitialAngle(double initialAngle) {
+		gyro.setInitialAngle(initialAngle);
+	}
+	
+	public double getInitialAngle() {
+		return gyro.getInitialAngle();
+	}
+	
 	public void setGyroSetPoint(double setPoint) {
-		gyroPID.setSetpoint(setPoint);
+		gyroPID.setSetpoint((setPoint + gyro.getInitialAngle()) % 360);
 	}
 	
 	public double getLeftPIDOutput() {
@@ -132,6 +158,10 @@ public class Drive extends Subsystem {
 	public double getGyroPIDOutput() {
 		return gyroPID.get();
 	}
+	
+	public double getSetpoint() {
+		return gyroPID.getSetpoint();
+	}
 		
 	@Override
 	protected void initDefaultCommand() {
@@ -141,7 +171,7 @@ public class Drive extends Subsystem {
 	}
 	
 	public void arcadeDrive(Joystick stick) {
-		rebelDrive.arcadeDrive(stick, currSpeed);
+		rebelDrive.arcadeDrive(stick, currGear);
 	}
 	
 	public void arcadeDrive(double driveSpeed, double turnSpeed) {
@@ -168,21 +198,38 @@ public class Drive extends Subsystem {
 	
 	}
 	
-	public Shifter shiftHigh(){	
-		if(currSpeed.equals(Shifter.Low)) {
+	public Shifter shiftHigh() {	
+		if(currGear.equals(Shifter.Low)) {
 			
 				transmission.set(DoubleSolenoid.Value.kForward);
-				currSpeed = Shifter.High;			
+				currGear = Shifter.High;			
 			}
-		return currSpeed;	
+		return currGear;	
 	}
 	
-	public Shifter shiftLow(){
-		if(currSpeed.equals(Shifter.High)) {
+	public Shifter shiftLow() {
+		if(currGear.equals(Shifter.High)) {
 				
 				transmission.set(DoubleSolenoid.Value.kReverse);
-				currSpeed = Shifter.Low;
+				currGear = Shifter.Low;
 			}
+		return currGear;
+	}
+	
+	public Speed speedLow() {
+		if(currSpeed.equals(Speed.Normal)) {
+			
+			currSpeed = Speed.Slow;
+			
+		}
+		return currSpeed;
+	}
+	
+	public Speed speedNorm() {
+		if(currSpeed.equals(Speed.Slow)) {
+			
+			currSpeed = Speed.Normal;
+		}
 		return currSpeed;
 	}
 	
@@ -194,11 +241,20 @@ public class Drive extends Subsystem {
 		return rightEncoderOutput.getOutput();
 	}
 	
+	public void setMaxPIDOutput(double speed) {
+		leftEncoderPID.setOutputRange(-speed, speed);
+		rightEncoderPID.setOutputRange(-speed,  speed);
+	}
+	
 	public double getGyroOutput() {
 		return gyroOutput.getOutput();
 	}
 	
-	public Shifter getCurrSpeed() {
+	public Shifter getCurrGear() {
+		return currGear;
+	}
+	
+	public Speed getCurrSpeed() {
 		return currSpeed;
 	}
 	
@@ -221,5 +277,40 @@ public class Drive extends Subsystem {
 	public double getAngle() {
 		return gyro.getHeading();
 	}
-
+	
+	public double[] getVector() {
+		return gyro.getVector();
+	}
+	
+	public double getLeftPIDSetpoint() {
+		return leftEncoderPID.getSetpoint();
+	}
+	
+	public double getRightPIDSetpoint() {
+		return rightEncoderPID.getSetpoint();
+	}
+	
+	public boolean getFrontLightSensor() {
+		return lightSensorFront.get();
+	}
+	
+	public boolean getBackLightSensor() {
+		return lightSensorBack.get();
+	}
+	
+	public boolean isOnTarget() {
+		return Math.abs(leftEncoderPID.getError()) < driveTolerance;
+		
+	}
+	
+	public boolean gyroOnTarget() {
+		return Math.abs(gyroPID.getError()) < turnTolerance;
+	}
+	
+	public double getLeftEncoderError() {
+		return leftEncoderPID.getError();
+	}
+	
+	
+	
 }

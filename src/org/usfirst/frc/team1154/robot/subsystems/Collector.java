@@ -14,7 +14,7 @@ public class Collector  extends Subsystem  {
 	public enum CollectorState{In, Out, Up};
 	private CollectorState currState;
 	private Victor collectorRoller;
-	private DigitalInput lightsensor;
+	private DigitalInput lightSensorBall;
 	
 	
 	public Collector() {
@@ -23,7 +23,7 @@ public class Collector  extends Subsystem  {
 		
 		collectorRoller = new Victor(RobotMap.COLLECTOR_ROLLERS);
 		
-		lightsensor = new DigitalInput(RobotMap.LIGHT_SENSOR);
+		lightSensorBall = new DigitalInput(RobotMap.BALL_LIGHT_SENSOR);
 		
 	}
 
@@ -53,9 +53,13 @@ public class Collector  extends Subsystem  {
 		collectorRoller.set(0);
 	}
 	
-	public boolean getLightsensor(){
+	/**
+	 * Returns false if we have a ball.
+	 * @return
+	 */
+	public boolean getBallLightSensor() {
 		
-		return lightsensor.get();
+		return lightSensorBall.get();
 	}
 
 	

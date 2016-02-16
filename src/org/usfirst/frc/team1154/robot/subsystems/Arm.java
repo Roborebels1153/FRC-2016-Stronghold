@@ -2,35 +2,55 @@ package org.usfirst.frc.team1154.robot.subsystems;
 
 import org.usfirst.frc.team1154.robot.Robot;
 import org.usfirst.frc.team1154.robot.RobotMap;
+import org.usfirst.frc.team1154.robot.commands.ArmWithJoysticks;
 
+import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.AnalogPotentiometer;
+import edu.wpi.first.wpilibj.CounterBase;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.interfaces.Potentiometer;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.livewindow.LiveWindowSendable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
-public class Arm extends Subsystem {
+public class Arm extends PIDSubsystem {
 	
-	private Encoder armEncoder;
+//  private Encoder armEncoder;
+	private Potentiometer armEncoder;
+	private AnalogInput ai;
 	private Victor armMotor;
 	private DigitalInput armInSwitch;
 	private DigitalInput armOutSwitch;
-	private PIDController armController;
+	private PIDController armEncoderPID;
 	private double setpoint;
+	
 	
 	public enum ArmHeight {
 		LOW,
-		HIGH
+		HIGH,
+		PORT,
+		DRAW
 	}
 	
 	public Arm() {
 		
-		armEncoder = new Encoder(RobotMap.ARM_ENCODER_A_CHANNEL, RobotMap.ARM_ENCODER_B_CHANNEL, false, EncodingType.k4X);
+		super("Arm", 0.2, 0, 0);
+		
+		
+		ai = new AnalogInput(0);
+		
+		armEncoder = new AnalogPotentiometer(ai,360,0);
+		
+//		armEncoder = new Encoder(RobotMap.ARM_ENCODER_A_CHANNEL, RobotMap.ARM_ENCODER_B_CHANNEL, false, EncodingType.k4X);
 		
 		armMotor = new Victor(RobotMap.ARM_MOTOR);
 		
@@ -38,42 +58,45 @@ public class Arm extends Subsystem {
 		
 		armOutSwitch = new DigitalInput(RobotMap.ARM_OUT_SWITCH);
 		
-		armController = new PIDController(.05, 0, 0, armEncoder, armMotor);
+		armEncoderPID = new PIDController(.2, 0, 0, armEncoder, armMotor);
+		
+		init();
 		
 	}
 	
 	public void init() {
 		armEncoder.setPIDSourceType(PIDSourceType.kDisplacement);
+
+		armEncoderPID.setOutputRange(-0.8, 0.8);
 		
-		armEncoder.reset();
-		
-		armController.setOutputRange(-0.8, 0.8);
+		LiveWindow.addSensor("Arm Encoder", "Potentiometer",  armEncoderPID);
 	}
 	
 	public void enablePID() {
 		
-		armController.enable();
+		armEncoderPID.enable();
 		
 	}
 	
 	public void disablePID() {
-		
-		armController.disable();
+	
+		armEncoderPID.disable();
 		
 	}
 	
 	protected void initDefaultCommand() {
-	//Purposely left blank	
+		
+		setDefaultCommand (new ArmWithJoysticks());
 	}
 	
-	public void resetArmEncoder(){
-		//Resets the encoder distance value back to zero.
-		
-		armEncoder.reset();
-	}
+//	public void resetArmEncoder(){
+//		//Resets the encoder distance value back to zero.
+//		
+//		armEncoder.reset();
+//	}
 	
 	public void stopArm(){
-		//Stops the Pivot motor
+		//Stops the Arm motor
 		armMotor.set(0);
 	}
 	
@@ -88,13 +111,17 @@ public class Arm extends Subsystem {
 	}
 	
 	public void out(){
-		//Sets the pivot motor to move the collector out
+		//Sets the Arm motor to move the collector out
 		armMotor.set(1);
 	}
 
 	public void in(){
-		//Sets the pivot motor to move the collector in
+		//Sets the Arm motor to move the collector in
 		armMotor.set(-1);
+	}
+	
+	public void driveArm(Joystick stick) {
+		armMotor.set(-stick.getRawAxis(1));
 	}
 	
 	public double getArmOutput() {
@@ -105,8 +132,12 @@ public class Arm extends Subsystem {
 		return armEncoder.get();
 	}
 	
+	public double getArmVoltage() {
+		return ai.getAverageVoltage();
+	}
+	
 	public void setSetpoint(double setpoint) {
-		armController.setSetpoint(setpoint);
+		armEncoderPID.setSetpoint(setpoint);
 		this.setpoint = setpoint;
 	}
 	
@@ -114,5 +145,17 @@ public class Arm extends Subsystem {
 		return setpoint;
 	}
 
-	
+	@Override
+	protected double returnPIDInput() {
+		// TODO Auto-generated method stub
+		return getArmPosition();
+	}
+
+	@Override
+	protected void usePIDOutput(double output) {
+		// TODO Auto-generated method stub
+		armMotor.set(output);
+		
+	}
+
 }

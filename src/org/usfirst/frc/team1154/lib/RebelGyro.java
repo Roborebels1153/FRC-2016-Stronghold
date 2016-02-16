@@ -9,6 +9,7 @@ public class RebelGyro implements PIDSource {
 
 	private PIDSourceType m_pidSource;
 	private static BNO055 imu;
+	private double initialAngle;
 	
 	public RebelGyro() {
 		m_pidSource = PIDSourceType.kDisplacement;
@@ -29,6 +30,14 @@ public class RebelGyro implements PIDSource {
 	
 	public BNO055.CalData getCalibration() {
 		return imu.getCalibration();
+	}
+	
+	public double getInitialAngle() {
+		return initialAngle;
+	}
+	
+	public void setInitialAngle(double initialAngle) {
+		this.initialAngle = initialAngle;
 	}
 
 	/**

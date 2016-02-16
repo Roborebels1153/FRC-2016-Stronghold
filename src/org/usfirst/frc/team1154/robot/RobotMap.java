@@ -24,11 +24,13 @@ public class RobotMap {
 	public static int LEFT_ENCODER_B_CHANNEL = 1;
 	public static int RIGHT_ENCODER_A_CHANNEL = 2;
 	public static int RIGHT_ENCODER_B_CHANNEL = 3;
-	public static int ARM_ENCODER_A_CHANNEL = 4;
-	public static int ARM_ENCODER_B_CHANNEL = 5;
-	public static int ARM_IN_SWITCH = 6;
-	public static int ARM_OUT_SWITCH = 7;
-	public static int LIGHT_SENSOR = 9;
+//	public static int ARM_ENCODER_A_CHANNEL = 4;
+//	public static int ARM_ENCODER_B_CHANNEL = 5;
+	public static int ARM_IN_SWITCH = 4;
+	public static int ARM_OUT_SWITCH = 5;
+	public static int BALL_LIGHT_SENSOR = 6;
+	public static int FRONT_LIGHT_SENSOR = 7;
+	public static int BACK_LIGHT_SENSOR = 8;
 
 	public static int TRANSMISSION_SOLENOID_A = 0;
 	public static int TRANSMISSION_SOLENOID_B = 1;

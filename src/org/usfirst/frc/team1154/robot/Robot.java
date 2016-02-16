@@ -4,6 +4,24 @@ package org.usfirst.frc.team1154.robot;
 import java.text.DecimalFormat;
 
 import org.team2168.utils.BNO055;
+import org.usfirst.frc.team1154.robot.autonomous.LowBarAutonomous;
+import org.usfirst.frc.team1154.robot.autonomous.LowBarAutonomousWithScore;
+import org.usfirst.frc.team1154.robot.autonomous.LowBarAutonomousWithSetup;
+import org.usfirst.frc.team1154.robot.autonomous.MoatAutonomous;
+import org.usfirst.frc.team1154.robot.autonomous.MoatAutonomousWithScore;
+import org.usfirst.frc.team1154.robot.autonomous.MoatAutonomousWithSetup;
+import org.usfirst.frc.team1154.robot.autonomous.PortcullisAutonomous;
+import org.usfirst.frc.team1154.robot.autonomous.PortcullisAutonomousWithScore;
+import org.usfirst.frc.team1154.robot.autonomous.RampartsAutonomous;
+import org.usfirst.frc.team1154.robot.autonomous.RampartsAutonomousWithScore;
+import org.usfirst.frc.team1154.robot.autonomous.RampartsAutonomousWithSetup;
+import org.usfirst.frc.team1154.robot.autonomous.RockWallAutonomous;
+import org.usfirst.frc.team1154.robot.autonomous.RockWallAutonomousWithScore;
+import org.usfirst.frc.team1154.robot.autonomous.RockWallAutonomousWithSetup;
+import org.usfirst.frc.team1154.robot.autonomous.RoughTerrainAutonomous;
+import org.usfirst.frc.team1154.robot.autonomous.RoughTerrainAutonomousWithScore;
+import org.usfirst.frc.team1154.robot.autonomous.RoughTerrainAutonomousWithSetup;
+import org.usfirst.frc.team1154.robot.autonomous.TurninWithTyler;
 import org.usfirst.frc.team1154.robot.commands.DriveWithPID;
 import org.usfirst.frc.team1154.robot.subsystems.Arm;
 import org.usfirst.frc.team1154.robot.subsystems.Collector;
@@ -60,8 +78,28 @@ public class Robot extends IterativeRobot {
         chooser = new SendableChooser();
         compressor.setClosedLoopControl(true);
         
-//        chooser.addObject("My Auto", new MyAutoCommand());
-//        SmartDashboard.putData("Auto mode", chooser);
+        chooser.addObject("Turn Test", new TurninWithTyler());
+        chooser.addObject("Low Bar Plain", new LowBarAutonomous());
+        chooser.addObject("Low Bar Score", new LowBarAutonomousWithScore());
+        chooser.addObject("Low Bar Setup", new LowBarAutonomousWithSetup());
+        chooser.addObject("Moat Plain", new MoatAutonomous());
+        chooser.addObject("Moat Score", new MoatAutonomousWithScore());
+        chooser.addObject("Moat Setup", new MoatAutonomousWithSetup());
+        chooser.addObject("Ramparts Plain", new RampartsAutonomous());
+        chooser.addObject("Ramparts Score", new RampartsAutonomousWithScore());
+        chooser.addObject("Ramparts Setup", new RampartsAutonomousWithSetup());
+        chooser.addObject("Rock Wall Plain", new RockWallAutonomous());
+        chooser.addObject("Rock Wall Score", new RockWallAutonomousWithScore());
+        chooser.addObject("Rock Wall Setup", new RockWallAutonomousWithSetup());
+        chooser.addObject("Rough Terrain Plain", new RoughTerrainAutonomous());
+        chooser.addObject("Rough Terrain Score", new RoughTerrainAutonomousWithScore());
+        chooser.addObject("Rough Terrain Setup", new RoughTerrainAutonomousWithSetup());
+        chooser.addObject("Portcullis Plain", new PortcullisAutonomous());
+        chooser.addObject("Portcullis Score", new PortcullisAutonomousWithScore());
+        chooser.addObject("TurninWithTyler", new TurninWithTyler());
+        
+        
+        SmartDashboard.putData("Auto mode", chooser);
     }
 	
 	/**
@@ -76,24 +114,26 @@ public class Robot extends IterativeRobot {
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		
-//		System.out.println("COMMS: " + drive.isSensorPresant()
-//							+ ", INITIALIZED: " + drive.isGyroInitialized()
-//							+ ", CALIBRATED: " + drive.isGyroCalibrated());
-//		if(drive.isGyroInitialized()) {
-//			pos = drive.getVector();
-//			
-//			
-//			/* Display the floating point data */
-//			System.out.println("\tX: " + f.format(pos[0])
-//							+ " Y: " + f.format(pos[1]) + " Z: " + f.format(pos[2])
-//							+ " H: " + drive.getHeading());
-//			
-//			/*Display calibration status for each sensor. */
-//			cal = drive.getCalibration();
-//			System.out.println("\tCALIBRATION: Sys=" + cal.sys
-//							+ " Gyro=" + cal.gyro + "Accel=" + cal.accel
-//							+ " Mag=" + cal.mag);
-//		}
+		System.out.println("COMMS: " + drive.isSensorPresant()
+							+ ", INITIALIZED: " + drive.isGyroInitialized()
+							+ ", CALIBRATED: " + drive.isGyroCalibrated());
+		if(drive.isGyroInitialized()) {
+			pos = drive.getVector();
+			
+			
+			/* Display the floating point data */
+			System.out.println("\tX: " + f.format(pos[0])
+							+ " Y: " + f.format(pos[1]) + " Z: " + f.format(pos[2])
+							+ " H: " + drive.getAngle());
+			
+			/*Display calibration status for each sensor. */
+			cal = drive.getCalibration();
+			System.out.println("\tCALIBRATION: Sys=" + cal.sys
+							+ " Gyro=" + cal.gyro + "Accel=" + cal.accel
+							+ " Mag=" + cal.mag);
+			
+			Robot.drive.setInitialAngle(drive.getAngle());
+		}
 	}
 
 	/**
@@ -107,21 +147,21 @@ public class Robot extends IterativeRobot {
 	 */
     public void autonomousInit() {
     	
-    	autonomousCommand = new DriveWithPID(120);
-//        autonomousCommand = (Command) chooser.getSelected();
-        
-		/* String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
-		switch(autoSelected) {
-		case "My Auto":
-			autonomousCommand = new MyAutoCommand();
-			break;
-		case "Default Auto":
-		default:
-			autonomousCommand = new ExampleCommand();
-			break;
-		} */
+//    	autonomousCommand = new DriveWithPID(120);
+        autonomousCommand = (Command) chooser.getSelected();
+       
+//		String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
+//		switch(autoSelected) {
+//		case "My Auto":
+//			autonomousCommand = new MyAutoCommand();
+//			break;
+//		case "Default Auto":
+//		default:
+//			autonomousCommand = new ExampleCommand();
+//			break;
+//		} 
     	
-    	// schedule the autonomous command (example)
+    	 //schedule the autonomous command (example)
         if (autonomousCommand != null) autonomousCommand.start();
     }
 
@@ -130,6 +170,7 @@ public class Robot extends IterativeRobot {
      */
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
+        updateSmartDashboard();
     }
 
     public void teleopInit() {
@@ -138,6 +179,8 @@ public class Robot extends IterativeRobot {
         
         Robot.drive.disablePID();
         
+        Scheduler.getInstance().removeAll();
+        
     }
 
     /**
@@ -145,12 +188,44 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-		SmartDashboard.putNumber("Pivot Value", Robot.arm.getArmOutput());
-		SmartDashboard.putBoolean("Pivot Limit Switch Out", Robot.arm.getArmOut());
-		SmartDashboard.putBoolean("Pivot Limit Switch In", Robot.arm.getArmIn());
-		SmartDashboard.putNumber("Arm Encoder", Robot.arm.getArmPosition());
-		SmartDashboard.putNumber("Arm Setpoint", Robot.arm.getSetpoint());
-		SmartDashboard.putBoolean("Light Sensor(Please Boss?)", Robot.collector.getLightsensor());
+        updateSmartDashboard();
+		
+    } 
+    
+    private void updateSmartDashboard() {
+    	
+    	SmartDashboard.putData("Robot - Scheduler", Scheduler.getInstance());
+    	SmartDashboard.putData("Robot - Collector Subsystem" , collector);
+    	SmartDashboard.putData("Robot - Arm Subsystem" , arm);
+    	SmartDashboard.putData("Robot - Drive Subsystem" ,drive);
+     
+		SmartDashboard.putBoolean("Robot - Arm Limit Switch Out", Robot.arm.getArmOut());
+		SmartDashboard.putBoolean("Robot - Arm Limit Switch In", Robot.arm.getArmIn());
+		SmartDashboard.putNumber("Robot - Arm Angle (poten.)", Robot.arm.getArmPosition());
+		SmartDashboard.putNumber("Robot - Arm Setpoint", Robot.arm.getSetpoint());
+		
+		SmartDashboard.putBoolean("Robot - Ball Light Sensor(Please Boss?)", Robot.collector.getBallLightSensor());
+		SmartDashboard.putBoolean("Robot - Front Light Sensor(Boss Please?)", Robot.drive.getFrontLightSensor());
+		SmartDashboard.putBoolean("Robot - Back Light Sensor(Prank Boss?)", Robot.drive.getBackLightSensor());
+		
+		SmartDashboard.putNumber("Robot - Current Gyro Angle", Robot.drive.getAngle());
+		SmartDashboard.putNumber("Robot - Current Voltage Value", Robot.arm.getArmVoltage());
+		SmartDashboard.putBoolean("Robot - Arm In Switch", Robot.arm.getArmIn());
+		SmartDashboard.putBoolean("Robot - Arm Out Switch",Robot.arm.getArmOut());
+		
+		SmartDashboard.putNumber("Robot - Arm motor", Robot.arm.getArmOutput());
+		
+		
+		SmartDashboard.putNumber("Robot - Initial Gyro Value", Robot.drive.getInitialAngle());
+		SmartDashboard.putNumber("Robot - Gyro PID Setpoint", Robot.drive.getSetpoint());
+		
+		SmartDashboard.putNumber("Robot - Left Encoder", Robot.drive.getLeftEncoderDistance());
+		SmartDashboard.putNumber("Robot - Right Encoder", Robot.drive.getRightEncoderDistance());
+		
+		SmartDashboard.putNumber("Robot - Average Error", Robot.drive.getLeftEncoderError());
+		
+
+		
     }
     
     /**

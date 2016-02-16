@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1154.robot.commands;
 
+import org.usfirst.frc.team1154.robot.Constants;
 import org.usfirst.frc.team1154.robot.Robot;
 import org.usfirst.frc.team1154.robot.RobotMap;
 
@@ -28,10 +29,8 @@ public class DriveWithJoysticks extends Command {
 		Joystick stick = Robot.oi.getDriverStick();
 		Robot.drive.arcadeDrive(stick);
 		
-		SmartDashboard.putNumber("Left Encoder", Robot.drive.getLeftEncoderDistance());
-		SmartDashboard.putNumber("Right Encoder", Robot.drive.getRightEncoderDistance());
-		SmartDashboard.putNumber("Right Trigger", stick.getRawAxis(3));
-		SmartDashboard.putNumber("Gyro Heading", Robot.drive.getAngle());
+		SmartDashboard.putNumber("Drive With Joysticks - Right Trigger", stick.getRawAxis(3));
+		SmartDashboard.putNumber("Drive With Joysticks - Gyro Heading", Robot.drive.getAngle());
 		
 		
 		
@@ -42,6 +41,11 @@ public class DriveWithJoysticks extends Command {
 			Robot.drive.shiftLow();
 		}
 		
+		 if(driveStick.getRawAxis(3) > .5){
+			 Robot.drive.speedLow();
+		 }else{
+			 Robot.drive.speedNorm();
+		 }
 	}
 
 	@Override
