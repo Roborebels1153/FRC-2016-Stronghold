@@ -24,6 +24,7 @@ public class TurnWithPID extends Command{
 		Robot.drive.resetEncoders();
 		Robot.drive.setGyroSetPoint(degreesToTurn);
 		Robot.drive.setMaxPIDOutput(speed);
+		Robot.drive.enablePID();
 		
 	}
 
@@ -38,12 +39,13 @@ public class TurnWithPID extends Command{
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		return false;
+		return Robot.drive.gyroOnTarget();
 	}
 
 	@Override
 	protected void end() {
 		// TODO Auto-generated method stub
+		Robot.drive.disablePID();
 		
 	}
 

@@ -29,10 +29,8 @@ public class DriveWithJoysticks extends Command {
 		Joystick stick = Robot.oi.getDriverStick();
 		Robot.drive.arcadeDrive(stick);
 		
-		SmartDashboard.putNumber("Left Encoder", Robot.drive.getLeftEncoderDistance());
-		SmartDashboard.putNumber("Right Encoder", Robot.drive.getRightEncoderDistance());
-		SmartDashboard.putNumber("Right Trigger", stick.getRawAxis(3));
-		SmartDashboard.putNumber("Gyro Heading", Robot.drive.getAngle());
+		SmartDashboard.putNumber("Drive With Joysticks - Right Trigger", stick.getRawAxis(3));
+		SmartDashboard.putNumber("Drive With Joysticks - Gyro Heading", Robot.drive.getAngle());
 		
 		
 		

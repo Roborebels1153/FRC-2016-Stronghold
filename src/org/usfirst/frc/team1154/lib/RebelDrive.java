@@ -27,22 +27,22 @@ public class RebelDrive extends RobotDrive {
 	
 	public void arcadeDrive(GenericHID stick, Shifter gear) {
 		
-		
-		
 		if (Shifter.Low.equals(gear)) {
-			
-			if(Speed.Slow.equals(Robot.drive.getCurrSpeed())) {
-				arcadeDrive(stick.getY() * SLOW,
-						lowSpeedNic.calculate(stick.getRawAxis(4)),
-						true);
-			} else {
-				arcadeDrive(stick.getY() * STRAIGHT_THROTTLE,
-						lowSpeedNic.calculate(stick.getRawAxis(4) * TURN_THROTTLE),
-						true);
-			}
+			arcadeDrive(stick.getY(), stick.getRawAxis(4));
 		} else {
 			arcadeDrive(stick.getY(), highSpeedNic.calculate(stick.getRawAxis(4)), true);
 		}
 	}
 	
+	public void arcadeDrive(double driveSpeed, double turnSpeed) {
+		if(Speed.Slow.equals(Robot.drive.getCurrSpeed())) {
+			arcadeDrive(driveSpeed * SLOW,
+					turnSpeed,
+					true);
+		} else {
+			arcadeDrive(driveSpeed * STRAIGHT_THROTTLE,
+					lowSpeedNic.calculate(turnSpeed * TURN_THROTTLE),
+					true);
+		}
+	}
 }

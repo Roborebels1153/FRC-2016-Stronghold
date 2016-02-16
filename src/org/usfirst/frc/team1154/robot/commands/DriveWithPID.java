@@ -6,6 +6,7 @@ import org.usfirst.frc.team1154.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveWithPID extends Command {
@@ -37,6 +38,8 @@ public class DriveWithPID extends Command {
 		Robot.drive.setEncoderSetPoint(inchesToDrive / Constants.inchesPerTick);
 		Robot.drive.setGyroSetPoint(0);
 		Robot.drive.setMaxPIDOutput(speed);
+		Robot.drive.enablePID();
+		
 	}
 
 	@Override
@@ -52,26 +55,30 @@ public class DriveWithPID extends Command {
 		leftInchesDriven = Constants.inchesPerTick * Robot.drive.getLeftEncoderDistance();
 		rightInchesDriven = Constants.inchesPerTick * Robot.drive.getRightEncoderDistance();
 
-		SmartDashboard.putNumber("Inches To Drive", inchesToDrive);
-		SmartDashboard.putNumber("Left Encoder In Inches", leftInchesDriven);
-		SmartDashboard.putNumber("Right Encoder In Inches", rightInchesDriven);
-		SmartDashboard.putNumber("Sven-Olaf WallDoff", inchesToDrive / Constants.inchesPerTick);
-		SmartDashboard.putNumber("Legit Value", Robot.drive.getLeftEncoderDistance());
-		SmartDashboard.putNumber("Left PID Output", Robot.drive.getLeftPIDOutput());
-		SmartDashboard.putNumber("Right PID Output", Robot.drive.getRightPIDOutput());
-		SmartDashboard.putNumber("Gyro PID Output", Robot.drive.getGyroPIDOutput());
+		SmartDashboard.putNumber("Drive With PID - Inches To Drive", inchesToDrive);
+		SmartDashboard.putNumber("Drive With PID - Left Encoder In Inches", leftInchesDriven);
+		SmartDashboard.putNumber("Drive With PID - Right Encoder In Inches", rightInchesDriven);
+		SmartDashboard.putNumber("Drive With PID - Sven-Olaf EncoderTick WallDoff", inchesToDrive / Constants.inchesPerTick);
+		SmartDashboard.putNumber("Drive With PID - Legit Value", Robot.drive.getLeftEncoderDistance());
+		SmartDashboard.putNumber("Drive With PID - Left PID Output", Robot.drive.getLeftPIDOutput());
+		SmartDashboard.putNumber("Drive With PID - Right PID Output", Robot.drive.getRightPIDOutput());
+		SmartDashboard.putNumber("Drive With PID - Left PID Setpoint", Robot.drive.getLeftPIDSetpoint());
+		SmartDashboard.putNumber("Drive With PID - Right PID Setpoint", Robot.drive.getRightPIDSetpoint());
+		SmartDashboard.putNumber("Drive With PID - Gyro PID Output", Robot.drive.getGyroPIDOutput());
+		SmartDashboard.putBoolean("Drive With PID - On Target", Robot.drive.isOnTarget());
+
 		
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return false;
-//		return leftInchesDriven < inchesToDrive;
+		return Robot.drive.isOnTarget();
 	}
 
 	@Override
 	protected void end() {
-		// TODO Auto-generated method stub
+		Robot.drive.resetEncoders();
+		Robot.drive.disablePID();
 		
 	}
 
@@ -81,12 +88,4 @@ public class DriveWithPID extends Command {
 		
 	}
 	
-	private void driveStraight() {
-		//Robot.drive.arcadeDrive(Robot.d, 0);
-	}
-	
-	private void stopDriving() {
-		Robot.drive.arcadeDrive(0, 0);
-	}
-
 }

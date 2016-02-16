@@ -190,24 +190,41 @@ public class Robot extends IterativeRobot {
         Scheduler.getInstance().run();
         updateSmartDashboard();
 		
-    }
+    } 
     
     private void updateSmartDashboard() {
-		SmartDashboard.putBoolean("Arm Limit Switch Out", Robot.arm.getArmOut());
-		SmartDashboard.putBoolean("Arm Limit Switch In", Robot.arm.getArmIn());
-		SmartDashboard.putNumber("Arm Angle (poten.)", Robot.arm.getArmPosition());
-		SmartDashboard.putNumber("Arm Setpoint", Robot.arm.getSetpoint());
-		SmartDashboard.putBoolean("Light Sensor(Please Boss?)", Robot.collector.getLightsensor());
-		SmartDashboard.putNumber("Current Gyro Angle", Robot.drive.getAngle());
-		SmartDashboard.putNumber("Current Voltage Value", Robot.arm.getArmVoltage());
-		SmartDashboard.putBoolean("Arm In Switch", Robot.arm.getArmIn());
-		SmartDashboard.putBoolean("Arm Out Switch",Robot.arm.getArmOut());
+    	
+    	SmartDashboard.putData("Robot - Scheduler", Scheduler.getInstance());
+    	SmartDashboard.putData("Robot - Collector Subsystem" , collector);
+    	SmartDashboard.putData("Robot - Arm Subsystem" , arm);
+    	SmartDashboard.putData("Robot - Drive Subsystem" ,drive);
+     
+		SmartDashboard.putBoolean("Robot - Arm Limit Switch Out", Robot.arm.getArmOut());
+		SmartDashboard.putBoolean("Robot - Arm Limit Switch In", Robot.arm.getArmIn());
+		SmartDashboard.putNumber("Robot - Arm Angle (poten.)", Robot.arm.getArmPosition());
+		SmartDashboard.putNumber("Robot - Arm Setpoint", Robot.arm.getSetpoint());
 		
-		SmartDashboard.putNumber("Arm motor", Robot.arm.getArmOutput());
+		SmartDashboard.putBoolean("Robot - Ball Light Sensor(Please Boss?)", Robot.collector.getBallLightSensor());
+		SmartDashboard.putBoolean("Robot - Front Light Sensor(Boss Please?)", Robot.drive.getFrontLightSensor());
+		SmartDashboard.putBoolean("Robot - Back Light Sensor(Prank Boss?)", Robot.drive.getBackLightSensor());
+		
+		SmartDashboard.putNumber("Robot - Current Gyro Angle", Robot.drive.getAngle());
+		SmartDashboard.putNumber("Robot - Current Voltage Value", Robot.arm.getArmVoltage());
+		SmartDashboard.putBoolean("Robot - Arm In Switch", Robot.arm.getArmIn());
+		SmartDashboard.putBoolean("Robot - Arm Out Switch",Robot.arm.getArmOut());
+		
+		SmartDashboard.putNumber("Robot - Arm motor", Robot.arm.getArmOutput());
 		
 		
-		SmartDashboard.putNumber("Initial Gyro Value", Robot.drive.getInitialAngle());
-		SmartDashboard.putNumber("Gyro PID Setpoint", Robot.drive.getSetpoint());
+		SmartDashboard.putNumber("Robot - Initial Gyro Value", Robot.drive.getInitialAngle());
+		SmartDashboard.putNumber("Robot - Gyro PID Setpoint", Robot.drive.getSetpoint());
+		
+		SmartDashboard.putNumber("Robot - Left Encoder", Robot.drive.getLeftEncoderDistance());
+		SmartDashboard.putNumber("Robot - Right Encoder", Robot.drive.getRightEncoderDistance());
+		
+		SmartDashboard.putNumber("Robot - Average Error", Robot.drive.getLeftEncoderError());
+		
+
 		
     }
     

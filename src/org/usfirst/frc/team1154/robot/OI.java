@@ -11,6 +11,10 @@ import org.usfirst.frc.team1154.robot.commands.ArmInCommand;
 import org.usfirst.frc.team1154.robot.commands.CollectorIntakeCommand;
 import org.usfirst.frc.team1154.robot.commands.ArmOutCommand;
 import org.usfirst.frc.team1154.robot.commands.CollectorReleaseCommand;
+import org.usfirst.frc.team1154.robot.commands.DriveWithPID;
+import org.usfirst.frc.team1154.robot.commands.SallyPortTurn;
+import org.usfirst.frc.team1154.robot.commands.RampartCrossCommand;
+import org.usfirst.frc.team1154.robot.commands.TurnWithPID;
 import org.usfirst.frc.team1154.robot.subsystems.Arm.ArmHeight;
 
 /**
@@ -41,18 +45,18 @@ public class OI {
 	/**
 	 * The D added on is just to differentiate between Driver Stick and Operator Stick
 	 */
-	private Button opAD = new JoystickButton(driveStick,1);
-	private Button opBD = new JoystickButton(driveStick,2);
-	private Button opXD = new JoystickButton(driveStick,3);
-	private Button opYD = new JoystickButton(driveStick,4);
-	private Button opLBD = new JoystickButton(driveStick,5);
-	private Button opRBD = new JoystickButton(driveStick,6);
-	private Button opBAD = new JoystickButton(driveStick,7);
-	private Button opSTD = new JoystickButton(driveStick,8);
-	private Button opLJD = new JoystickButton(driveStick,9);
-	private Button opRJD = new JoystickButton(driveStick,10);
-	private Button opLTD = new RebelTrigger(driveStick,2);
-	private Button opRTD = new RebelTrigger(driveStick,3);
+	private Button drA = new JoystickButton(driveStick,1);
+	private Button drB = new JoystickButton(driveStick,2);
+	private Button drX = new JoystickButton(driveStick,3);
+	private Button drY = new JoystickButton(driveStick,4);
+	private Button drLB = new JoystickButton(driveStick,5);
+	private Button drRB = new JoystickButton(driveStick,6);
+	private Button drBA = new JoystickButton(driveStick,7);
+	private Button drST = new JoystickButton(driveStick,8);
+	private Button drLJ = new JoystickButton(driveStick,9);
+	private Button drRJ = new JoystickButton(driveStick,10);
+	private Button drLT = new RebelTrigger(driveStick,2);
+	private Button drRT = new RebelTrigger(driveStick,3);
 	
 	public OI(){
 		opX.whenPressed(new ArmInCommand());
@@ -63,7 +67,11 @@ public class OI {
 		opRT.whileHeld(new CollectorReleaseCommand());
 		opLB.whenPressed(new ArmStopCommand());
 		
+//		drA.whenPressed(new RampartCrossCommand());
 		
+		drA.whileHeld(new RampartCrossCommand());
+		drB.whenPressed(new TurnWithPID(90));
+		drX.whenPressed(new DriveWithPID(-30));
 		
 	}
 	
