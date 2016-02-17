@@ -35,9 +35,9 @@ public class DriveWithPID extends Command {
 	protected void initialize() {
 		// TODO Auto-generated method stub
 		Robot.drive.resetEncoders();
-		Robot.drive.setEncoderSetPoint(inchesToDrive / Constants.inchesPerTick);
+		Robot.drive.setDriveEncoderSetPoint(inchesToDrive / Constants.inchesPerTick);
 		Robot.drive.setGyroSetPoint(0);
-		Robot.drive.setMaxPIDOutput(speed);
+		Robot.drive.setMaxDrivePIDOutput(speed);
 		Robot.drive.enablePID();
 		
 	}

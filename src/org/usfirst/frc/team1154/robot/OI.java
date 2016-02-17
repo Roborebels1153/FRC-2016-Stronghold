@@ -60,12 +60,14 @@ public class OI {
 	
 	public OI(){
 		opX.whenPressed(new ArmInCommand());
-		opB.whenPressed(new ArmSetHeight(ArmHeight.HIGH));
-		opA.whenPressed(new ArmSetHeight(ArmHeight.LOW));
+
 		opY.whenPressed(new ArmOutCommand());
 		opLT.whileHeld(new CollectorIntakeCommand());
 		opRT.whileHeld(new CollectorReleaseCommand());
 		opLB.whenPressed(new ArmStopCommand());
+		//Test Stuff, we can get rid of this whenever we actually need these buttons.
+		opB.whenPressed(new ArmSetHeight(ArmHeight.HIGH));
+		opA.whenPressed(new ArmSetHeight(ArmHeight.LOW));
 		
 //		drA.whenPressed(new RampartCrossCommand());
 		

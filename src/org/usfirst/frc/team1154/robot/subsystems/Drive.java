@@ -130,7 +130,7 @@ public class Drive extends Subsystem {
 		
 	}
 	
-	public void setEncoderSetPoint(double setPoint) {
+	public void setDriveEncoderSetPoint(double setPoint) {
 		leftEncoderPID.setSetpoint(setPoint);
 		rightEncoderPID.setSetpoint(setPoint);
 	}
@@ -241,7 +241,7 @@ public class Drive extends Subsystem {
 		return rightEncoderOutput.getOutput();
 	}
 	
-	public void setMaxPIDOutput(double speed) {
+	public void setMaxDrivePIDOutput(double speed) {
 		leftEncoderPID.setOutputRange(-speed, speed);
 		rightEncoderPID.setOutputRange(-speed,  speed);
 	}

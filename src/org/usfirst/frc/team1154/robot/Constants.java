@@ -8,6 +8,7 @@ public class Constants {
 	public static double inchesPerTick = WHEEL_DIAMETER * Math.PI / (ENCODER_COUNTS_PER_REV * TICKS_PER_ENCODER_REV);
 	public static double defaultMaxSpeed = 1; //0.8; Scott thought the speed was a bit slow so we changed it to max speed
 	public static double defaultTurnSpeed = 0.8; // Scott wants the turn speed to still be slow
+	public static double defaultArmSpeed = 0.7;
 	public static double moatSpeed = 0.75;
 	public static double rockWall = 0.7;
 	public static double ramparts = 6;

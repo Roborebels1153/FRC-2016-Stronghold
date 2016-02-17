@@ -14,7 +14,7 @@ public class RebelDrive extends RobotDrive {
 	NegInertiaCalc highSpeedNic;
 	private static double STRAIGHT_THROTTLE = 1;
 	private static double TURN_THROTTLE = 1;
-	private static double SLOW = 0.8; 
+	private static double SLOW = 0.7; 
 	
 	public RebelDrive(SpeedController frontLeftMotor, SpeedController rearLeftMotor,
 		      SpeedController frontRightMotor, SpeedController rearRightMotor) {
@@ -45,4 +45,5 @@ public class RebelDrive extends RobotDrive {
 					true);
 		}
 	}
+
 }

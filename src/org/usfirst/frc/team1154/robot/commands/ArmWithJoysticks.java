@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1154.robot.commands;
 
+import org.usfirst.frc.team1154.robot.Constants;
 import org.usfirst.frc.team1154.robot.Robot;
 import org.usfirst.frc.team1154.robot.RobotMap;
 
@@ -9,8 +10,12 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class ArmWithJoysticks extends Command {
 	
-	public ArmWithJoysticks() {
+	private final double speed;
+	
+	public ArmWithJoysticks(double speed) {
 		requires(Robot.arm);
+		this.speed = Constants.defaultArmSpeed;
+
 	}
 
 	@Override
