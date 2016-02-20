@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1154.robot.subsystems;
 
+import org.usfirst.frc.team1154.robot.Constants;
 import org.usfirst.frc.team1154.robot.Robot;
 import org.usfirst.frc.team1154.robot.RobotMap;
 import org.usfirst.frc.team1154.robot.commands.ArmWithJoysticks;
@@ -31,7 +32,6 @@ public class Arm extends PIDSubsystem {
 	private DigitalInput armInSwitch;
 	private DigitalInput armOutSwitch;
 	private PIDController armEncoderPID;
-	private double setpoint;
 	
 	
 	public enum ArmHeight {
@@ -43,7 +43,7 @@ public class Arm extends PIDSubsystem {
 	
 	public Arm() {
 		
-		super("Arm", 0.2, 0, 0);
+		super("Arm", 0.01, 0, 0);
 		
 		
 		ai = new AnalogInput(0);
@@ -86,7 +86,7 @@ public class Arm extends PIDSubsystem {
 	
 	protected void initDefaultCommand() {
 		
-		setDefaultCommand (new ArmWithJoysticks());
+		setDefaultCommand (new ArmWithJoysticks(Constants.defaultArmSpeed));
 	}
 	
 //	public void resetArmEncoder(){
@@ -121,7 +121,7 @@ public class Arm extends PIDSubsystem {
 	}
 	
 	public void driveArm(Joystick stick) {
-		armMotor.set(-stick.getRawAxis(1));
+		armMotor.set(-stick.getRawAxis(1) * Constants.defaultArmSpeed);
 	}
 	
 	public double getArmOutput() {
@@ -136,13 +136,12 @@ public class Arm extends PIDSubsystem {
 		return ai.getAverageVoltage();
 	}
 	
-	public void setSetpoint(double setpoint) {
-		armEncoderPID.setSetpoint(setpoint);
-		this.setpoint = setpoint;
+	public void setArmPIDOutput(double speed) {
+		armEncoderPID.setOutputRange(-speed, speed);
 	}
 	
-	public double getSetpoint() {
-		return setpoint;
+	public double getArmPIDOutput() {
+		return armEncoderPID.get();
 	}
 
 	@Override

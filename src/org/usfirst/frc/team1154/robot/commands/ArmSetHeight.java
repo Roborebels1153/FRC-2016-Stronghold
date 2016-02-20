@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1154.robot.commands;
 
+import org.usfirst.frc.team1154.robot.Constants;
 import org.usfirst.frc.team1154.robot.Robot;
 import org.usfirst.frc.team1154.robot.RobotMap;
 import org.usfirst.frc.team1154.robot.subsystems.Arm.ArmHeight;
@@ -20,13 +21,17 @@ public class ArmSetHeight extends Command {
 	
 	@Override
 	protected void initialize() {
-		Robot.arm.setSetpoint(setpoint);	
-		Robot.arm.enablePID();	
+		Robot.arm.setSetpoint(setpoint);
+		Robot.arm.setArmPIDOutput(Constants.defaultArmSpeed);
+		Robot.arm.enablePID();
 	}
 
 	@Override
 	protected void execute() {
-		Robot.arm.stopArm();
+		
+		SmartDashboard.putNumber("ArmSetHeight - Current Setpoint", Robot.arm.getSetpoint());
+		SmartDashboard.putNumber("ArmSetHeight - Current Arm PID Output", Robot.arm.getArmOutput());
+		
 	}
 	
 	@Override
@@ -61,6 +66,7 @@ public class ArmSetHeight extends Command {
 				break;
 			}
 			case HIGH : {
+				
 				armSetpoint = 300;
 				break;
 			}

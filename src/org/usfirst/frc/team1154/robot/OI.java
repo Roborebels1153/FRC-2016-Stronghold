@@ -7,13 +7,17 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import org.usfirst.frc.team1154.robot.commands.ArmSetHeight;
 import org.usfirst.frc.team1154.robot.commands.ArmStopCommand;
 import org.usfirst.frc.team1154.lib.RebelTrigger;
+import org.usfirst.frc.team1154.robot.autonomous.LowBarAutonomous;
 import org.usfirst.frc.team1154.robot.commands.ArmInCommand;
 import org.usfirst.frc.team1154.robot.commands.CollectorIntakeCommand;
 import org.usfirst.frc.team1154.robot.commands.ArmOutCommand;
 import org.usfirst.frc.team1154.robot.commands.CollectorReleaseCommand;
+import org.usfirst.frc.team1154.robot.commands.DriveOverDefenceCommand;
+import org.usfirst.frc.team1154.robot.commands.DriveUntilFrontLightCommand;
 import org.usfirst.frc.team1154.robot.commands.DriveWithPID;
 import org.usfirst.frc.team1154.robot.commands.SallyPortTurn;
 import org.usfirst.frc.team1154.robot.commands.RampartCrossCommand;
+import org.usfirst.frc.team1154.robot.commands.ResetEncoders;
 import org.usfirst.frc.team1154.robot.commands.TurnWithPID;
 import org.usfirst.frc.team1154.robot.subsystems.Arm.ArmHeight;
 
@@ -60,18 +64,24 @@ public class OI {
 	
 	public OI(){
 		opX.whenPressed(new ArmInCommand());
-		opB.whenPressed(new ArmSetHeight(ArmHeight.HIGH));
-		opA.whenPressed(new ArmSetHeight(ArmHeight.LOW));
+
 		opY.whenPressed(new ArmOutCommand());
 		opLT.whileHeld(new CollectorIntakeCommand());
 		opRT.whileHeld(new CollectorReleaseCommand());
 		opLB.whenPressed(new ArmStopCommand());
+		//Test Stuff, we can get rid of this whenever we actually need these buttons.
+		opB.whenPressed(new ArmSetHeight(ArmHeight.HIGH));
+		opA.whenPressed(new ArmSetHeight(ArmHeight.LOW));
 		
 //		drA.whenPressed(new RampartCrossCommand());
 		
 		drA.whileHeld(new RampartCrossCommand());
 		drB.whenPressed(new TurnWithPID(90));
-		drX.whenPressed(new DriveWithPID(-30));
+		drX.whenPressed(new DriveWithPID(30));
+		drY.whenPressed(new ResetEncoders());
+		drST.whenPressed(new LowBarAutonomous());
+		drBA.whenPressed(new DriveOverDefenceCommand());
+		
 		
 	}
 	

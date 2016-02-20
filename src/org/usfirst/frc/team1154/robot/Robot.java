@@ -4,9 +4,11 @@ package org.usfirst.frc.team1154.robot;
 import java.text.DecimalFormat;
 
 import org.team2168.utils.BNO055;
+import org.usfirst.frc.team1154.robot.autonomous.DrivinWithDono;
 import org.usfirst.frc.team1154.robot.autonomous.LowBarAutonomous;
 import org.usfirst.frc.team1154.robot.autonomous.LowBarAutonomousWithScore;
 import org.usfirst.frc.team1154.robot.autonomous.LowBarAutonomousWithSetup;
+import org.usfirst.frc.team1154.robot.autonomous.MixedWithMaggie;
 import org.usfirst.frc.team1154.robot.autonomous.MoatAutonomous;
 import org.usfirst.frc.team1154.robot.autonomous.MoatAutonomousWithScore;
 import org.usfirst.frc.team1154.robot.autonomous.MoatAutonomousWithSetup;
@@ -78,7 +80,6 @@ public class Robot extends IterativeRobot {
         chooser = new SendableChooser();
         compressor.setClosedLoopControl(true);
         
-        chooser.addObject("Turn Test", new TurninWithTyler());
         chooser.addObject("Low Bar Plain", new LowBarAutonomous());
         chooser.addObject("Low Bar Score", new LowBarAutonomousWithScore());
         chooser.addObject("Low Bar Setup", new LowBarAutonomousWithSetup());
@@ -97,6 +98,8 @@ public class Robot extends IterativeRobot {
         chooser.addObject("Portcullis Plain", new PortcullisAutonomous());
         chooser.addObject("Portcullis Score", new PortcullisAutonomousWithScore());
         chooser.addObject("TurninWithTyler", new TurninWithTyler());
+        chooser.addObject("DrivinWithDono", new DriveWithPID(120));//new DrivinWithDono());
+        chooser.addObject("MixedWithMaggie", new MixedWithMaggie());
         
         
         SmartDashboard.putData("Auto mode", chooser);
@@ -223,6 +226,8 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Robot - Right Encoder", Robot.drive.getRightEncoderDistance());
 		
 		SmartDashboard.putNumber("Robot - Average Error", Robot.drive.getLeftEncoderError());
+		
+		
 		
 
 		
