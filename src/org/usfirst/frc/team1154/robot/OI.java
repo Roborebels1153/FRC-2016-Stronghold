@@ -77,7 +77,7 @@ public class OI {
 		
 		drA.whileHeld(new RampartCrossCommand());
 		drB.whenPressed(new TurnWithPID(90));
-		drX.whenPressed(new DriveWithPID(-30));
+		drX.whenPressed(new DriveWithPID(30));
 		drY.whenPressed(new ResetEncoders());
 		drST.whenPressed(new LowBarAutonomous());
 		drBA.whenPressed(new DriveOverDefenceCommand());

@@ -2,11 +2,8 @@ package org.usfirst.frc.team1154.robot.commands;
 
 import org.usfirst.frc.team1154.robot.Constants;
 import org.usfirst.frc.team1154.robot.Robot;
-import org.usfirst.frc.team1154.robot.RobotMap;
 
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveWithPID extends Command {
@@ -22,7 +19,7 @@ public class DriveWithPID extends Command {
 	public DriveWithPID(int inchesToDrive) {
 		requires(Robot.drive);
 		this.inchesToDrive = inchesToDrive;
-		this.speed = Constants.defaultMaxSpeed;
+		this.speed = 0.8;//Constants.defaultMaxSpeed;
 	}
 	
 	public DriveWithPID(int inchesToDrive, double speed) {
@@ -33,7 +30,6 @@ public class DriveWithPID extends Command {
 	
 	@Override
 	protected void initialize() {
-		// TODO Auto-generated method stub
 		Robot.drive.resetEncoders();
 		Robot.drive.setDriveEncoderSetPoint(inchesToDrive / Constants.inchesPerTick);
 		Robot.drive.setGyroSetPoint(0);
@@ -50,7 +46,7 @@ public class DriveWithPID extends Command {
 		
 		double averageOutput = leftOutput + rightOutput / 2;
 		//TODO: replace with average output when using on Real Robot
-		Robot.drive.arcadeDrive(-rightOutput, gyroOutput);
+		Robot.drive.arcadeDrive(-leftOutput, 0); //gyroOutput);
 		
 		leftInchesDriven = Constants.inchesPerTick * Robot.drive.getLeftEncoderDistance();
 		rightInchesDriven = Constants.inchesPerTick * Robot.drive.getRightEncoderDistance();
@@ -85,7 +81,7 @@ public class DriveWithPID extends Command {
 	@Override
 	protected void interrupted() {
 		// TODO Auto-generated method stub
-		
+		end();
 	}
 	
 }

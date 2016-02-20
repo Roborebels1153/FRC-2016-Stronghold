@@ -12,7 +12,7 @@ public class LowBarAutonomous extends CommandGroup{
 	public LowBarAutonomous() {
 		addSequential(new DriveUntilFrontLightCommand());
 		addSequential(new DriveOverDefenceCommand());
-//		addSequential(new DriveWithPID(10, Constants.defaultMaxSpeed));
+		addSequential(new DriveWithPID(10, Constants.defaultMaxSpeed));
 		
 	}
 

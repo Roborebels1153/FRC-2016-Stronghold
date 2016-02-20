@@ -9,10 +9,10 @@ public class Constants {
 	public static double defaultMaxSpeed = 1; //0.8; Scott thought the speed was a bit slow so we changed it to max speed
 	public static double defaultTurnSpeed = 0.8; // Scott wants the turn speed to still be slow
 	public static double defaultArmSpeed = 0.7;
-	public static double defaultDefenceSpeed = 0.6;
-	public static double moatSpeed = 0.75;
-	public static double rockWall = 0.7;
-	public static double ramparts = 6;
+	public static double defaultDefenceSpeed = 0.8;
+	public static double moatSpeed = 0.8;
+	public static double rockWall = 0.8;
+	public static double ramparts = 0.6;
 	public static double roughTerrain = 0.8;
 	public static double portcullis = 0.7;
 	

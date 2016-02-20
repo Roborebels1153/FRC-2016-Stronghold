@@ -57,7 +57,7 @@ public class Drive extends Subsystem {
 		
 		rightBack = new Victor(RobotMap.RIGHT_BACK_MOTOR);
  
-		leftEncoder = new Encoder (RobotMap.LEFT_ENCODER_A_CHANNEL, RobotMap.LEFT_ENCODER_B_CHANNEL, true, EncodingType.k4X);
+		leftEncoder = new Encoder (RobotMap.LEFT_ENCODER_A_CHANNEL, RobotMap.LEFT_ENCODER_B_CHANNEL, false, EncodingType.k4X);
 		
 		rightEncoder = new Encoder (RobotMap.RIGHT_ENCODER_A_CHANNEL, RobotMap.RIGHT_ENCODER_B_CHANNEL, false, EncodingType.k4X);
 		
@@ -73,9 +73,9 @@ public class Drive extends Subsystem {
 		rightEncoderOutput = new DummyPIDOutput();
 		gyroOutput = new DummyPIDOutput();
 		
-		double encoderP = 0.0006;
+		double encoderP = 0.1;
 		double encoderI = 0;
-		double encoderD = 1;//0.8;//0.035;
+		double encoderD = 0;//0.8;//0.035;
 		
 		leftEncoderPID = new PIDController(encoderP, encoderI, encoderD, leftEncoder, leftEncoderOutput);
 		
@@ -102,8 +102,8 @@ public class Drive extends Subsystem {
 		
 		double maxSpeed = 0.7;
 		
-		leftEncoderPID.setOutputRange(-maxSpeed, maxSpeed);
-		rightEncoderPID.setOutputRange(-maxSpeed, maxSpeed);
+		leftEncoderPID.setOutputRange(-0.7, maxSpeed);
+		rightEncoderPID.setOutputRange(-0.7, maxSpeed);
 		gyroPID.setOutputRange(-0.8, 0.8);
 		
 		driveTolerance = 15;

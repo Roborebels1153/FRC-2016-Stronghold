@@ -23,7 +23,7 @@ public class DriveUntilFrontLightCommand extends Command {
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
-		Robot.drive.arcadeDrive(Constants.defaultMaxSpeed, 0);
+		Robot.drive.arcadeDrive(-Constants.defaultMaxSpeed, 0);
 	
 			
 		

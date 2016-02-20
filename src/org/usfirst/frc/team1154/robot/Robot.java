@@ -98,7 +98,7 @@ public class Robot extends IterativeRobot {
         chooser.addObject("Portcullis Plain", new PortcullisAutonomous());
         chooser.addObject("Portcullis Score", new PortcullisAutonomousWithScore());
         chooser.addObject("TurninWithTyler", new TurninWithTyler());
-        chooser.addObject("DrivinWithDono", new DrivinWithDono());
+        chooser.addObject("DrivinWithDono", new DriveWithPID(120));//new DrivinWithDono());
         chooser.addObject("MixedWithMaggie", new MixedWithMaggie());
         
         
