@@ -25,7 +25,7 @@ public class DriveOverDefenceCommand extends Command {
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
-		Robot.drive.arcadeDrive(-this.speed, Robot.drive.getGyroPIDOutput());
+		Robot.drive.arcadeDrive(-this.speed, 0); //Robot.drive.getGyroPIDOutput());
 		
 	}
 

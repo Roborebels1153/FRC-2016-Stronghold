@@ -82,7 +82,7 @@ public class Drive extends Subsystem {
 		rightEncoderPID = new PIDController(encoderP, encoderI, encoderD, rightEncoder, rightEncoderOutput);
 		
 //		gyroPID = new PIDController(.02, 0, .015, gyro, gyroOutput); //turn numbers
-		gyroPID = new PIDController(0.2, 0, 0, gyro, gyroOutput);
+		gyroPID = new PIDController(0.05, 0, 0, gyro, gyroOutput);
 		
 		lightSensorFront = new DigitalInput(RobotMap.FRONT_LIGHT_SENSOR);
 		

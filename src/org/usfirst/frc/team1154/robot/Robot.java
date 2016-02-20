@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 
 import org.team2168.utils.BNO055;
 import org.usfirst.frc.team1154.robot.autonomous.DrivinWithDono;
+import org.usfirst.frc.team1154.robot.autonomous.HahahahNO;
 import org.usfirst.frc.team1154.robot.autonomous.LowBarAutonomous;
 import org.usfirst.frc.team1154.robot.autonomous.LowBarAutonomousWithScore;
 import org.usfirst.frc.team1154.robot.autonomous.LowBarAutonomousWithSetup;
@@ -100,6 +101,7 @@ public class Robot extends IterativeRobot {
         chooser.addObject("TurninWithTyler", new TurninWithTyler());
         chooser.addObject("DrivinWithDono", new DriveWithPID(120));//new DrivinWithDono());
         chooser.addObject("MixedWithMaggie", new MixedWithMaggie());
+        chooser.addObject("Nothing is being done", new HahahahNO());
         
         
         SmartDashboard.putData("Auto mode", chooser);
