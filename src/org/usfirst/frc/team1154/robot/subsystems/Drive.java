@@ -130,6 +130,12 @@ public class Drive extends Subsystem {
 		
 	}
 	
+	public void enableGyroPID() {
+		
+		gyroPID.enable();
+		
+	}
+	
 	public void disablePID() {
 		
 		leftEncoderPID.disable();

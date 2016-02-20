@@ -7,21 +7,25 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class DriveOverDefenceCommand extends Command {
 	
-	public DriveOverDefenceCommand() {
+	private double speed;
+	
+	public DriveOverDefenceCommand(double defenseSpeed) {
 		requires(Robot.drive);
+		this.speed = defenseSpeed;
 	}
 
 	@Override
 	protected void initialize() {
 		// TODO Auto-generated method stub
 		Robot.drive.resetEncoders();
-		Robot.drive.enablePID();
+		Robot.drive.disablePID();
+		Robot.drive.enableGyroPID();
 	}
 
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
-		Robot.drive.arcadeDrive(-Constants.defaultDefenceSpeed, 0);
+		Robot.drive.arcadeDrive(-this.speed, Robot.drive.getGyroPIDOutput());
 		
 	}
 
