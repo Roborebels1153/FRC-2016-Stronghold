@@ -4,6 +4,7 @@ import org.team2168.utils.BNO055;
 import org.usfirst.frc.team1154.lib.DummyPIDOutput;
 import org.usfirst.frc.team1154.lib.RebelDrive;
 import org.usfirst.frc.team1154.lib.RebelGyro;
+import org.usfirst.frc.team1154.robot.Constants;
 import org.usfirst.frc.team1154.robot.Robot;
 import org.usfirst.frc.team1154.robot.RobotMap;
 import org.usfirst.frc.team1154.robot.commands.DriveWithJoysticks;
@@ -56,9 +57,9 @@ public class Drive extends Subsystem {
 		
 		rightBack = new Victor(RobotMap.RIGHT_BACK_MOTOR);
  
-		leftEncoder = new Encoder (RobotMap.LEFT_ENCODER_A_CHANNEL, RobotMap.LEFT_ENCODER_B_CHANNEL, false, EncodingType.k4X);
+		leftEncoder = new Encoder (RobotMap.LEFT_ENCODER_A_CHANNEL, RobotMap.LEFT_ENCODER_B_CHANNEL, true, EncodingType.k4X);
 		
-		rightEncoder = new Encoder (RobotMap.RIGHT_ENCODER_A_CHANNEL, RobotMap.RIGHT_ENCODER_B_CHANNEL, true, EncodingType.k4X);
+		rightEncoder = new Encoder (RobotMap.RIGHT_ENCODER_A_CHANNEL, RobotMap.RIGHT_ENCODER_B_CHANNEL, false, EncodingType.k4X);
 		
 		gyro = new RebelGyro();
 		
@@ -72,11 +73,16 @@ public class Drive extends Subsystem {
 		rightEncoderOutput = new DummyPIDOutput();
 		gyroOutput = new DummyPIDOutput();
 		
-		leftEncoderPID = new PIDController(.01, 0, 0, leftEncoder, leftEncoderOutput);
+		double encoderP = 0.0006;
+		double encoderI = 0;
+		double encoderD = 1;//0.8;//0.035;
 		
-		rightEncoderPID = new PIDController(.01, 0, 0, rightEncoder, rightEncoderOutput);
+		leftEncoderPID = new PIDController(encoderP, encoderI, encoderD, leftEncoder, leftEncoderOutput);
 		
-		gyroPID = new PIDController(.05, 0, 0, gyro, gyroOutput);
+		rightEncoderPID = new PIDController(encoderP, encoderI, encoderD, rightEncoder, rightEncoderOutput);
+		
+//		gyroPID = new PIDController(.02, 0, .015, gyro, gyroOutput); //turn numbers
+		gyroPID = new PIDController(0.2, 0, 0, gyro, gyroOutput);
 		
 		lightSensorFront = new DigitalInput(RobotMap.FRONT_LIGHT_SENSOR);
 		
@@ -94,8 +100,10 @@ public class Drive extends Subsystem {
 		
 		resetEncoders();
 		
-		leftEncoderPID.setOutputRange(-0.8, 0.8);
-		rightEncoderPID.setOutputRange(-0.8,  0.8);
+		double maxSpeed = 0.7;
+		
+		leftEncoderPID.setOutputRange(-maxSpeed, maxSpeed);
+		rightEncoderPID.setOutputRange(-maxSpeed, maxSpeed);
 		gyroPID.setOutputRange(-0.8, 0.8);
 		
 		driveTolerance = 15;
@@ -166,8 +174,6 @@ public class Drive extends Subsystem {
 	@Override
 	protected void initDefaultCommand() {
 		setDefaultCommand (new DriveWithJoysticks());
-		
-		
 	}
 	
 	public void arcadeDrive(Joystick stick) {
@@ -243,7 +249,7 @@ public class Drive extends Subsystem {
 	
 	public void setMaxDrivePIDOutput(double speed) {
 		leftEncoderPID.setOutputRange(-speed, speed);
-		rightEncoderPID.setOutputRange(-speed,  speed);
+		rightEncoderPID.setOutputRange(-speed, speed);
 	}
 	
 	public double getGyroOutput() {
@@ -299,7 +305,9 @@ public class Drive extends Subsystem {
 	}
 	
 	public boolean isOnTarget() {
-		return Math.abs(leftEncoderPID.getError()) < driveTolerance;
+		return Math.abs(leftEncoderPID.getError()) < driveTolerance ||
+				Math.abs(rightEncoderPID.getError()) < driveTolerance;
+//		leftEncoderPID.
 		
 	}
 	
@@ -311,6 +319,10 @@ public class Drive extends Subsystem {
 		return leftEncoderPID.getError();
 	}
 	
+	public void setGyroPID(double P, double I, double D) {
+		gyroPID.setPID(P, I, D);
+		
+	}
 	
-	
+
 }
