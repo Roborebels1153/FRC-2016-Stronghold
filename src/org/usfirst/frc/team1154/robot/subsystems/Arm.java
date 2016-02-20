@@ -112,16 +112,16 @@ public class Arm extends PIDSubsystem {
 	
 	public void out(){
 		//Sets the Arm motor to move the collector out
-		armMotor.set(1);
+		armMotor.set(Constants.defaultArmSpeed);
 	}
 
 	public void in(){
 		//Sets the Arm motor to move the collector in
-		armMotor.set(-1);
+		armMotor.set(-Constants.defaultArmSpeed);
 	}
 	
 	public void driveArm(Joystick stick) {
-		armMotor.set(-stick.getRawAxis(1) * Constants.defaultArmSpeed);
+		armMotor.set(-stick.getRawAxis(1));
 	}
 	
 	public double getArmOutput() {
