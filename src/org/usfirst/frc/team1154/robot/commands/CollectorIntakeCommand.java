@@ -27,8 +27,8 @@ public class CollectorIntakeCommand extends Command {
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		return false;// Robot.collector.getLightsensor();
-	}
+		return !Robot.collector.getBallLightSensor();
+		}
 
 	@Override
 	protected void end() {
