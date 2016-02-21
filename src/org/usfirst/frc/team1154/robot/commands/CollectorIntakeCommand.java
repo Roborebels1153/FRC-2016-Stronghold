@@ -14,20 +14,19 @@ public class CollectorIntakeCommand extends Command {
 	@Override
 	protected void initialize() {
 		// TODO Auto-generated method stub
-		Robot.collector.collectBoulder();
-		
 	}
 
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
-		
+		Robot.collector.collectBoulder();
 	}
 
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		return false;// Robot.collector.getLightsensor();
+		return false;
+
 	}
 
 	@Override
