@@ -28,22 +28,8 @@ public class ArmWithJoysticks extends Command {
 
 	@Override
 	protected void execute() {
-		// TODO Auto-generated method stub
 		Joystick stick = Robot.oi.getOperatorStick();
-		
-		if (Robot.oi.getOperatorStick().getRawButton(5)) {
-			Robot.arm.driveArm(stick);
-		}else if (Robot.arm.getArmIn() && Robot.arm.getArmOutput() < 0.1) {
-			Robot.arm.driveArm(0);
-		} else if (Robot.arm.getArmOut() && Robot.arm.getArmOutput() < 0.1) {
-			Robot.arm.driveArm(0);
-		} else {
-			Robot.arm.driveArm(stick);
-		}
-		
-		SmartDashboard.putBoolean("Arm With Joysticks IN STOP", Robot.arm.getArmIn() && Robot.arm.getArmOutput() < 0.1);
-		SmartDashboard.putBoolean("Arm With Joysticks OUT STOP", Robot.arm.getArmOut() && Robot.arm.getArmOutput() > 0.1);
-		
+		Robot.arm.driveArm(stick);	
 	}
 
 	@Override
