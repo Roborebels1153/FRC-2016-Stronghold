@@ -7,6 +7,7 @@ import org.usfirst.frc.team1154.robot.RobotMap;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ArmWithJoysticks extends Command {
 	
@@ -29,7 +30,19 @@ public class ArmWithJoysticks extends Command {
 	protected void execute() {
 		// TODO Auto-generated method stub
 		Joystick stick = Robot.oi.getOperatorStick();
-		Robot.arm.driveArm(stick);
+		
+		if (Robot.oi.getOperatorStick().getRawButton(5)) {
+			Robot.arm.driveArm(stick);
+		}else if (Robot.arm.getArmIn() && Robot.arm.getArmOutput() < 0.1) {
+			Robot.arm.driveArm(0);
+		} else if (Robot.arm.getArmOut() && Robot.arm.getArmOutput() < 0.1) {
+			Robot.arm.driveArm(0);
+		} else {
+			Robot.arm.driveArm(stick);
+		}
+		
+		SmartDashboard.putBoolean("Arm With Joysticks IN STOP", Robot.arm.getArmIn() && Robot.arm.getArmOutput() < 0.1);
+		SmartDashboard.putBoolean("Arm With Joysticks OUT STOP", Robot.arm.getArmOut() && Robot.arm.getArmOutput() > 0.1);
 		
 	}
 

@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 
 import org.team2168.utils.BNO055;
 import org.usfirst.frc.team1154.robot.autonomous.DrivinWithDono;
+import org.usfirst.frc.team1154.robot.autonomous.HahahahNO;
 import org.usfirst.frc.team1154.robot.autonomous.LowBarAutonomous;
 import org.usfirst.frc.team1154.robot.autonomous.LowBarAutonomousWithScore;
 import org.usfirst.frc.team1154.robot.autonomous.LowBarAutonomousWithSetup;
@@ -28,6 +29,10 @@ import org.usfirst.frc.team1154.robot.commands.DriveWithPID;
 import org.usfirst.frc.team1154.robot.subsystems.Arm;
 import org.usfirst.frc.team1154.robot.subsystems.Collector;
 import org.usfirst.frc.team1154.robot.subsystems.Drive;
+
+import com.ni.vision.NIVision;
+import com.ni.vision.NIVision.FlipAxis;
+import com.ni.vision.NIVision.Image;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
@@ -60,15 +65,21 @@ public class Robot extends IterativeRobot {
 	private BNO055.CalData cal;
 	private DecimalFormat f = new DecimalFormat("+000.000;-000.000");
 	
-	private CameraServer server;
+	private int cameraSession;
+	private Image frame;
+	
+	
+//	private CameraServer server;
 	
     Command autonomousCommand;
     SendableChooser chooser;
     
     public Robot() {
-    	server = CameraServer.getInstance();
-    	server.setQuality(1);
-    	server.startAutomaticCapture("cam0");
+//    	server = CameraServer.getInstance();
+//    	server.setQuality(1);
+//    	server.startAutomaticCapture("cam0");
+//    	NIVision.imaqFlip(server.get, null, FlipAxis.HORIZONTAL_AXIS);
+    	
     }
 
     /**
@@ -79,6 +90,11 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
         chooser = new SendableChooser();
         compressor.setClosedLoopControl(true);
+        
+        frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
+        cameraSession = NIVision.IMAQdxOpenCamera("cam0", NIVision.IMAQdxCameraControlMode.CameraControlModeController); 
+        NIVision.IMAQdxConfigureGrab(cameraSession);
+        NIVision.IMAQdxStartAcquisition(cameraSession);
         
         chooser.addObject("Low Bar Plain", new LowBarAutonomous());
         chooser.addObject("Low Bar Score", new LowBarAutonomousWithScore());
@@ -100,6 +116,7 @@ public class Robot extends IterativeRobot {
         chooser.addObject("TurninWithTyler", new TurninWithTyler());
         chooser.addObject("DrivinWithDono", new DriveWithPID(120));//new DrivinWithDono());
         chooser.addObject("MixedWithMaggie", new MixedWithMaggie());
+        chooser.addObject("Nothing is being done", new HahahahNO());
         
         
         SmartDashboard.putData("Auto mode", chooser);
@@ -137,6 +154,8 @@ public class Robot extends IterativeRobot {
 			
 			Robot.drive.setInitialAngle(drive.getAngle());
 		}
+		
+		displayCamera();
 	}
 
 	/**
@@ -197,6 +216,8 @@ public class Robot extends IterativeRobot {
     
     private void updateSmartDashboard() {
     	
+    	displayCamera();
+    	
     	SmartDashboard.putData("Robot - Scheduler", Scheduler.getInstance());
     	SmartDashboard.putData("Robot - Collector Subsystem" , collector);
     	SmartDashboard.putData("Robot - Arm Subsystem" , arm);
@@ -227,11 +248,16 @@ public class Robot extends IterativeRobot {
 		
 		SmartDashboard.putNumber("Robot - Average Error", Robot.drive.getLeftEncoderError());
 		
-		
-		
-
-		
     }
+    
+    public void displayCamera() {
+    	NIVision.IMAQdxGrab(cameraSession, frame, 1);
+    	NIVision.imaqFlip(frame, frame, FlipAxis.HORIZONTAL_AXIS);
+    	NIVision.imaqFlip(frame, frame, FlipAxis.VERTICAL_AXIS);
+    	
+    	CameraServer.getInstance().setImage(frame);
+    }
+
     
     /**
      * This function is called periodically during test mode
