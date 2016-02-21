@@ -7,6 +7,7 @@ import org.usfirst.frc.team1154.robot.RobotMap;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ArmWithJoysticks extends Command {
 	
@@ -27,10 +28,8 @@ public class ArmWithJoysticks extends Command {
 
 	@Override
 	protected void execute() {
-		// TODO Auto-generated method stub
 		Joystick stick = Robot.oi.getOperatorStick();
-		Robot.arm.driveArm(stick);
-		
+		Robot.arm.driveArm(stick);	
 	}
 
 	@Override

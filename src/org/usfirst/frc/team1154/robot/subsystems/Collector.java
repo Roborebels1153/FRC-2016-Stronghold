@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1154.robot.subsystems;
 
+import org.usfirst.frc.team1154.robot.Robot;
 import org.usfirst.frc.team1154.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -40,12 +41,17 @@ public class Collector  extends Subsystem  {
 	
 	public void collectBoulder(){
 		//Spins the rollers to collect the ball
-		collectorRoller.set(1);	
+		if(!Robot.collector.getBallLightSensor()) {
+			stopCollecting();	
+		} else {
+			collectorRoller.set(-1);	
+		}
+		
 	}
 	
 	public void releaseBoulder(){
 		//Spins the rollers opposite to collect to release the ball
-		collectorRoller.set(-1);	
+		collectorRoller.set(1);	
 	}
 	
 	public void stopCollecting(){

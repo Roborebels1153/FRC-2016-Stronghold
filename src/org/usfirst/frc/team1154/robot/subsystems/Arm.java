@@ -7,20 +7,14 @@ import org.usfirst.frc.team1154.robot.commands.ArmWithJoysticks;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
-import edu.wpi.first.wpilibj.CounterBase;
-import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
-import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.livewindow.LiveWindowSendable;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 public class Arm extends PIDSubsystem {
@@ -112,16 +106,27 @@ public class Arm extends PIDSubsystem {
 	
 	public void out(){
 		//Sets the Arm motor to move the collector out
-		armMotor.set(1);
+		armMotor.set(-Constants.defaultArmSpeed);
 	}
 
 	public void in(){
 		//Sets the Arm motor to move the collector in
-		armMotor.set(-1);
+		armMotor.set(Constants.defaultArmSpeed);
 	}
 	
 	public void driveArm(Joystick stick) {
-		armMotor.set(-stick.getRawAxis(1) * Constants.defaultArmSpeed);
+		double speed = stick.getY();
+		if(Robot.arm.getArmIn() && speed > 0 ) {
+			armMotor.set(0);
+		} else if(Robot.arm.getArmOut() && speed < 0) {
+			armMotor.set(0);
+		} else {
+			armMotor.set(speed);
+		}
+	}
+	
+	public void driveArm(double speed) {
+		armMotor.set(speed);
 	}
 	
 	public double getArmOutput() {

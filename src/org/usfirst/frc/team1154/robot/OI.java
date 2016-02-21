@@ -66,8 +66,8 @@ public class OI {
 		opX.whenPressed(new ArmInCommand());
 
 		opY.whenPressed(new ArmOutCommand());
-		opLT.whileHeld(new CollectorIntakeCommand());
-		opRT.whileHeld(new CollectorReleaseCommand());
+		opLT.whileHeld(new CollectorReleaseCommand());
+		opRT.whileHeld(new CollectorIntakeCommand());
 		opLB.whenPressed(new ArmStopCommand());
 		//Test Stuff, we can get rid of this whenever we actually need these buttons.
 		opB.whenPressed(new ArmSetHeight(ArmHeight.HIGH));
@@ -75,12 +75,12 @@ public class OI {
 		
 //		drA.whenPressed(new RampartCrossCommand());
 		
-		drA.whileHeld(new RampartCrossCommand());
-		drB.whenPressed(new TurnWithPID(90));
-		drX.whenPressed(new DriveWithPID(30));
-		drY.whenPressed(new ResetEncoders());
-		drST.whenPressed(new LowBarAutonomous());
-		drBA.whenPressed(new DriveOverDefenceCommand());
+//		drA.whileHeld(new RampartCrossCommand());
+//		drB.whenPressed(new TurnWithPID(90));
+//		drX.whenPressed(new DriveWithPID(30));
+//		drY.whenPressed(new ResetEncoders());
+//		drST.whenPressed(new LowBarAutonomous());
+//		drBA.whenPressed(new DriveOverDefenceCommand());
 		
 		
 	}

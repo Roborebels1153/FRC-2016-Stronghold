@@ -11,8 +11,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class LowBarAutonomous extends CommandGroup{
 	public LowBarAutonomous() {
 		addSequential(new DriveUntilFrontLightCommand());
-		addSequential(new DriveOverDefenceCommand());
-		addSequential(new DriveWithPID(10, Constants.defaultMaxSpeed));
+		addSequential(new DriveOverDefenceCommand(Constants.defaultDefenceSpeed));
+		addSequential(new DriveWithPID(36, Constants.defaultMaxSpeed));
 		
 	}
 
