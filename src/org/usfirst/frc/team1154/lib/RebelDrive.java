@@ -19,8 +19,8 @@ public class RebelDrive extends RobotDrive {
 	public RebelDrive(SpeedController frontLeftMotor, SpeedController rearLeftMotor,
 		      SpeedController frontRightMotor, SpeedController rearRightMotor) {
 		 super(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);
-			lowSpeedNic = new NegInertiaCalc(1);
-			highSpeedNic = new NegInertiaCalc(6);
+			lowSpeedNic = new NegInertiaCalc(2);
+			highSpeedNic = new NegInertiaCalc(4);
 	 }
 	
 	

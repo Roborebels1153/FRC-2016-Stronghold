@@ -13,8 +13,10 @@ public class LowBarAutonomousWithScore extends CommandGroup{
 		addSequential(new DriveWithPID(180, Constants.defaultMaxSpeed)); // this brings the robot through the doggy door past the green line rdy to turn
 		addSequential(new TurnWithPID(90)); // turns the robot 90 mother lovin degrees
 		addSequential(new DriveWithPID(80, Constants.defaultMaxSpeed)); // moves the robit right to the low goal
-		addSequential(new ArmOutCommand()); // puts the arm down yo
-		addSequential(new CollectorReleaseCommand()); // releases the boulder
+		addSequential(new SpitOutBallCommand()); //spit and smack. for the win
+		
+//		// puts the arm down yo
+//		addSequential(new CollectorReleaseCommand()); // releases the boulder
 	}
 
 }

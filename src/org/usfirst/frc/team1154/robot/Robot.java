@@ -4,6 +4,7 @@ package org.usfirst.frc.team1154.robot;
 import java.text.DecimalFormat;
 
 import org.team2168.utils.BNO055;
+import org.usfirst.frc.team1154.robot.autonomous.ChevalAutonomous;
 import org.usfirst.frc.team1154.robot.autonomous.DrivinWithDono;
 import org.usfirst.frc.team1154.robot.autonomous.HahahahNO;
 import org.usfirst.frc.team1154.robot.autonomous.LowBarAutonomous;
@@ -24,6 +25,7 @@ import org.usfirst.frc.team1154.robot.autonomous.RockWallAutonomousWithSetup;
 import org.usfirst.frc.team1154.robot.autonomous.RoughTerrainAutonomous;
 import org.usfirst.frc.team1154.robot.autonomous.RoughTerrainAutonomousWithScore;
 import org.usfirst.frc.team1154.robot.autonomous.RoughTerrainAutonomousWithSetup;
+import org.usfirst.frc.team1154.robot.autonomous.SpittinWithSam;
 import org.usfirst.frc.team1154.robot.autonomous.TurninWithTyler;
 import org.usfirst.frc.team1154.robot.commands.DriveWithPID;
 import org.usfirst.frc.team1154.robot.subsystems.Arm;
@@ -105,6 +107,7 @@ public class Robot extends IterativeRobot {
         chooser.addObject("Ramparts Plain", new RampartsAutonomous());
         chooser.addObject("Ramparts Score", new RampartsAutonomousWithScore());
         chooser.addObject("Ramparts Setup", new RampartsAutonomousWithSetup());
+        chooser.addObject("Cheval Plain", new ChevalAutonomous());
         chooser.addObject("Rock Wall Plain", new RockWallAutonomous());
         chooser.addObject("Rock Wall Score", new RockWallAutonomousWithScore());
         chooser.addObject("Rock Wall Setup", new RockWallAutonomousWithSetup());
@@ -116,6 +119,7 @@ public class Robot extends IterativeRobot {
         chooser.addObject("TurninWithTyler", new TurninWithTyler());
         chooser.addObject("DrivinWithDono", new DriveWithPID(120));//new DrivinWithDono());
         chooser.addObject("MixedWithMaggie", new MixedWithMaggie());
+        chooser.addObject("SpittinWithSam", new SpittinWithSam());
         chooser.addObject("Nothing is being done", new HahahahNO());
         
         
@@ -251,11 +255,17 @@ public class Robot extends IterativeRobot {
     }
     
     public void displayCamera() {
+    	try {
     	NIVision.IMAQdxGrab(cameraSession, frame, 1);
     	NIVision.imaqFlip(frame, frame, FlipAxis.HORIZONTAL_AXIS);
     	NIVision.imaqFlip(frame, frame, FlipAxis.VERTICAL_AXIS);
     	
     	CameraServer.getInstance().setImage(frame);
+    	} catch(Exception ex) {
+//    		 cameraSession = NIVision.IMAQdxOpenCamera("cam0", NIVision.IMAQdxCameraControlMode.CameraControlModeController); 
+//    	        NIVision.IMAQdxConfigureGrab(cameraSession);
+//    	        NIVision.IMAQdxStartAcquisition(cameraSession);
+    	}
     }
 
     

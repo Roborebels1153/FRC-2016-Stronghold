@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class DrivinWithDono extends CommandGroup {
 	public DrivinWithDono() {
-		addSequential(new DriveWithPID(120));
+		addSequential(new DriveWithPID(40));
 //		addSequential(new DriveWithPID(-36));
 		
 	}

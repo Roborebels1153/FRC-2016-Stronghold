@@ -26,7 +26,7 @@ public class CollectorReleaseCommand extends Command {
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		return false;
+		return Robot.collector.getBallLightSensor();
 	}
 
 	@Override

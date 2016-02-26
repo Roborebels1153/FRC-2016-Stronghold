@@ -12,7 +12,7 @@ import org.usfirst.frc.team1154.robot.commands.ArmInCommand;
 import org.usfirst.frc.team1154.robot.commands.CollectorIntakeCommand;
 import org.usfirst.frc.team1154.robot.commands.ArmOutCommand;
 import org.usfirst.frc.team1154.robot.commands.CollectorReleaseCommand;
-import org.usfirst.frc.team1154.robot.commands.DriveOverDefenceCommand;
+import org.usfirst.frc.team1154.robot.commands.DriveForwardOverDefenceCommand;
 import org.usfirst.frc.team1154.robot.commands.DriveUntilFrontLightCommand;
 import org.usfirst.frc.team1154.robot.commands.DriveWithPID;
 import org.usfirst.frc.team1154.robot.commands.SallyPortTurn;
@@ -43,8 +43,8 @@ public class OI {
 	private Button opST = new JoystickButton(opStick,8);
 	private Button opLJ = new JoystickButton(opStick,9);
 	private Button opRJ = new JoystickButton(opStick,10);
-	private Button opLT = new RebelTrigger(opStick,2);
-	private Button opRT = new RebelTrigger(opStick,3);
+	private Button opLT = new RebelTrigger(opStick,2);//When LT is pressed and held, the collector starts spittin up da ball
+	private Button opRT = new RebelTrigger(opStick,3);//When RT is pressed and held, the collector starts suckin up da ball
 	
 	/**
 	 * The D added on is just to differentiate between Driver Stick and Operator Stick
@@ -72,6 +72,7 @@ public class OI {
 		//Test Stuff, we can get rid of this whenever we actually need these buttons.
 		opB.whenPressed(new ArmSetHeight(ArmHeight.HIGH));
 		opA.whenPressed(new ArmSetHeight(ArmHeight.LOW));
+		
 		
 //		drA.whenPressed(new RampartCrossCommand());
 		

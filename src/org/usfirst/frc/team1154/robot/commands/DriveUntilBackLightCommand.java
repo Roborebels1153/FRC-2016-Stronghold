@@ -5,9 +5,8 @@ import org.usfirst.frc.team1154.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class DriveUntilFrontLightCommand extends Command {
-	
-	public DriveUntilFrontLightCommand() {
+public class DriveUntilBackLightCommand extends Command {
+	public DriveUntilBackLightCommand() {
 		requires(Robot.drive);
 	}
 
@@ -17,21 +16,19 @@ public class DriveUntilFrontLightCommand extends Command {
 		Robot.drive.resetEncoders();
 		Robot.drive.enablePID();
 		
-		
 	}
 
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
-		Robot.drive.arcadeDrive(-Constants.defaultMaxSpeed, 0); //Robot.drive.getGyroPIDOutput());
-			
+		Robot.drive.arcadeDrive(Constants.defaultMaxSpeed, 0);
 		
 	}
 
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		return Robot.drive.getFrontLightSensor();
+		return Robot.drive.getBackLightSensor();
 	}
 
 	@Override
@@ -47,5 +44,6 @@ public class DriveUntilFrontLightCommand extends Command {
 		// TODO Auto-generated method stub
 		
 	}
+	
 
 }

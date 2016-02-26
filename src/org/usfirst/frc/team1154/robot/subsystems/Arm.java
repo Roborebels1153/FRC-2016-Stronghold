@@ -116,11 +116,13 @@ public class Arm extends PIDSubsystem {
 	
 	public void driveArm(Joystick stick) {
 		double speed = stick.getY();
-		if(Robot.arm.getArmIn() && speed > 0 ) {
+		if(Robot.oi.getOperatorStick().getRawButton(5)) {
+			armMotor.set(speed);
+		} else if(Robot.arm.getArmIn() && speed < 0 ) {
 			armMotor.set(0);
-		} else if(Robot.arm.getArmOut() && speed < 0) {
+		} else if(Robot.arm.getArmOut() && speed > 0) {
 			armMotor.set(0);
-		} else {
+		} else if(speed > 0.1){
 			armMotor.set(speed);
 		}
 	}

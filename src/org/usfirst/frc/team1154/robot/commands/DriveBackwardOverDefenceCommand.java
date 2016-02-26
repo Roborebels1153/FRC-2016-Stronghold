@@ -1,15 +1,14 @@
 package org.usfirst.frc.team1154.robot.commands;
 
-import org.usfirst.frc.team1154.robot.Constants;
 import org.usfirst.frc.team1154.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class DriveOverDefenceCommand extends Command {
+public class DriveBackwardOverDefenceCommand extends Command {
+
+private double speed;
 	
-	private double speed;
-	
-	public DriveOverDefenceCommand(double defenseSpeed) {
+	public DriveBackwardOverDefenceCommand(double defenseSpeed) {
 		requires(Robot.drive);
 		this.speed = defenseSpeed;
 	}
@@ -26,13 +25,17 @@ public class DriveOverDefenceCommand extends Command {
 	protected void execute() {
 		// TODO Auto-generated method stub
 		Robot.drive.arcadeDrive(-this.speed, 0); //Robot.drive.getGyroPIDOutput());
+		if(Robot.drive.getBackLightSensor()) {
+			Robot.drive.startedCrossingDefence();
+		}
 		
 	}
 
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		 return Robot.drive.getFrontLightSensor() && Robot.drive.getBackLightSensor();
+		 return !(Robot.drive.getFrontLightSensor() || Robot.drive.getBackLightSensor()) &&
+				 Robot.drive.getCrossingDefence();
 	}
 
 	@Override
@@ -40,6 +43,7 @@ public class DriveOverDefenceCommand extends Command {
 		// TODO Auto-generated method stub
 		Robot.drive.disablePID();
 		Robot.drive.resetEncoders();
+		Robot.drive.resetCrossingDefence();
 		
 	}
 
