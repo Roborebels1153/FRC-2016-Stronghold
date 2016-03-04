@@ -2,6 +2,8 @@
 package org.usfirst.frc.team1154.robot;
 
 import java.text.DecimalFormat;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.team2168.utils.BNO055;
 import org.usfirst.frc.team1154.robot.autonomous.ChevalAutonomous;
@@ -25,7 +27,7 @@ import org.usfirst.frc.team1154.robot.autonomous.RockWallAutonomousWithSetup;
 import org.usfirst.frc.team1154.robot.autonomous.RoughTerrainAutonomous;
 import org.usfirst.frc.team1154.robot.autonomous.RoughTerrainAutonomousWithScore;
 import org.usfirst.frc.team1154.robot.autonomous.RoughTerrainAutonomousWithSetup;
-import org.usfirst.frc.team1154.robot.autonomous.SpittinWithSam;
+import org.usfirst.frc.team1154.robot.autonomous.SpitOutBallCommand;
 import org.usfirst.frc.team1154.robot.autonomous.TurninWithTyler;
 import org.usfirst.frc.team1154.robot.commands.DriveWithPID;
 import org.usfirst.frc.team1154.robot.subsystems.Arm;
@@ -66,6 +68,7 @@ public class Robot extends IterativeRobot {
 	private double[] pos = new double[3]; // [x,y,z] position data
 	private BNO055.CalData cal;
 	private DecimalFormat f = new DecimalFormat("+000.000;-000.000");
+	private Timer visionScheduler = new Timer("Vision Scheduler", true);
 	
 	private int cameraSession;
 	private Image frame;
@@ -119,11 +122,17 @@ public class Robot extends IterativeRobot {
         chooser.addObject("TurninWithTyler", new TurninWithTyler());
         chooser.addObject("DrivinWithDono", new DriveWithPID(120));//new DrivinWithDono());
         chooser.addObject("MixedWithMaggie", new MixedWithMaggie());
-        chooser.addObject("SpittinWithSam", new SpittinWithSam());
+        chooser.addObject("SpittinWithSam", new SpitOutBallCommand());
         chooser.addObject("Nothing is being done", new HahahahNO());
         
         
         SmartDashboard.putData("Auto mode", chooser);
+        
+    	visionScheduler.scheduleAtFixedRate(new TimerTask() {
+    		public void run() {
+    			displayCamera();
+    		}
+    	}, 0, 50);
     }
 	
 	/**
@@ -159,7 +168,7 @@ public class Robot extends IterativeRobot {
 			Robot.drive.setInitialAngle(drive.getAngle());
 		}
 		
-		displayCamera();
+//		displayCamera();
 	}
 
 	/**
@@ -172,7 +181,7 @@ public class Robot extends IterativeRobot {
 	 * or additional comparisons to the switch structure below with additional strings & commands.
 	 */
     public void autonomousInit() {
-    	
+    
 //    	autonomousCommand = new DriveWithPID(120);
         autonomousCommand = (Command) chooser.getSelected();
        
@@ -219,8 +228,7 @@ public class Robot extends IterativeRobot {
     } 
     
     private void updateSmartDashboard() {
-    	
-    	displayCamera();
+
     	
     	SmartDashboard.putData("Robot - Scheduler", Scheduler.getInstance());
     	SmartDashboard.putData("Robot - Collector Subsystem" , collector);
@@ -255,17 +263,17 @@ public class Robot extends IterativeRobot {
     }
     
     public void displayCamera() {
-    	try {
+//    	try {
     	NIVision.IMAQdxGrab(cameraSession, frame, 1);
     	NIVision.imaqFlip(frame, frame, FlipAxis.HORIZONTAL_AXIS);
     	NIVision.imaqFlip(frame, frame, FlipAxis.VERTICAL_AXIS);
     	
     	CameraServer.getInstance().setImage(frame);
-    	} catch(Exception ex) {
+//    	} catch(Exception ex) {
 //    		 cameraSession = NIVision.IMAQdxOpenCamera("cam0", NIVision.IMAQdxCameraControlMode.CameraControlModeController); 
 //    	        NIVision.IMAQdxConfigureGrab(cameraSession);
 //    	        NIVision.IMAQdxStartAcquisition(cameraSession);
-    	}
+//    	}
     }
 
     

@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class DriveBackwardOverDefenceCommand extends Command {
 
-private double speed;
+	private double speed;
 	
 	public DriveBackwardOverDefenceCommand(double defenseSpeed) {
 		requires(Robot.drive);
@@ -24,7 +24,7 @@ private double speed;
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
-		Robot.drive.arcadeDrive(-this.speed, 0); //Robot.drive.getGyroPIDOutput());
+		Robot.drive.arcadeDrive(this.speed, 0); //Robot.drive.getGyroPIDOutput());
 		if(Robot.drive.getBackLightSensor()) {
 			Robot.drive.startedCrossingDefence();
 		}

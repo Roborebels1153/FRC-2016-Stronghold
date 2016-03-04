@@ -3,7 +3,11 @@ package org.usfirst.frc.team1154.robot.autonomous;
 import org.usfirst.frc.team1154.robot.Constants;
 import org.usfirst.frc.team1154.robot.Robot;
 import org.usfirst.frc.team1154.robot.commands.ArmOutCommand;
-import org.usfirst.frc.team1154.robot.commands.CollectorReleaseCommand;
+import org.usfirst.frc.team1154.robot.commands.CollectorReleaseTeleopCommand;
+import org.usfirst.frc.team1154.robot.commands.DriveBackwardOverDefenceCommand;
+import org.usfirst.frc.team1154.robot.commands.DriveForwardOverDefenceCommand;
+import org.usfirst.frc.team1154.robot.commands.DriveUntilBackLightCommand;
+import org.usfirst.frc.team1154.robot.commands.DriveUntilFrontLightCommand;
 import org.usfirst.frc.team1154.robot.commands.DriveWithPID;
 import org.usfirst.frc.team1154.robot.commands.TurnWithPID;
 
@@ -12,11 +16,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class RockWallAutonomousWithSetup extends CommandGroup {
 	public RockWallAutonomousWithSetup () {
-		addSequential(new DriveWithPID(180, Constants.rockWall));
-		addSequential(new ArmOutCommand());
-		addSequential(new CollectorReleaseCommand());
-		addSequential(new TurnWithPID(270));
-		addSequential(new DriveWithPID(24, Constants.rockWall));
+		addSequential(new DriveUntilFrontLightCommand());
+		addSequential(new DriveForwardOverDefenceCommand(Constants.defaultDefenceSpeed));
+		addSequential(new SpitOutBallCommand());
+		addSequential(new DriveUntilBackLightCommand());
+		addSequential(new DriveBackwardOverDefenceCommand(Constants.defaultDefenceSpeed));
 		addSequential(new TurnWithPID(180));
 		
 	}

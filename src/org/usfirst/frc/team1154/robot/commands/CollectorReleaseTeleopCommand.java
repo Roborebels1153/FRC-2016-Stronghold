@@ -4,9 +4,9 @@ import org.usfirst.frc.team1154.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class CollectorReleaseCommand extends Command {
+public class CollectorReleaseTeleopCommand extends Command {
 	
-	public CollectorReleaseCommand(){
+	public CollectorReleaseTeleopCommand(){
 		requires(Robot.collector);
 	}
 
@@ -26,7 +26,7 @@ public class CollectorReleaseCommand extends Command {
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		return Robot.collector.getBallLightSensor();
+		return false;
 	}
 
 	@Override

@@ -2,7 +2,7 @@ package org.usfirst.frc.team1154.robot.autonomous;
 
 import org.usfirst.frc.team1154.robot.Constants;
 import org.usfirst.frc.team1154.robot.commands.ArmOutCommand;
-import org.usfirst.frc.team1154.robot.commands.CollectorReleaseCommand;
+import org.usfirst.frc.team1154.robot.commands.CollectorReleaseTeleopCommand;
 import org.usfirst.frc.team1154.robot.commands.DriveForwardOverDefenceCommand;
 import org.usfirst.frc.team1154.robot.commands.DriveUntilFrontLightCommand;
 import org.usfirst.frc.team1154.robot.commands.DriveWithPID;

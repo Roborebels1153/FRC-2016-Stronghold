@@ -6,12 +6,14 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 import org.usfirst.frc.team1154.robot.commands.ArmSetHeight;
 import org.usfirst.frc.team1154.robot.commands.ArmStopCommand;
+import org.usfirst.frc.team1154.robot.commands.ChevalCrossCommand;
 import org.usfirst.frc.team1154.lib.RebelTrigger;
 import org.usfirst.frc.team1154.robot.autonomous.LowBarAutonomous;
+import org.usfirst.frc.team1154.robot.autonomous.SpitOutBallCommand;
 import org.usfirst.frc.team1154.robot.commands.ArmInCommand;
 import org.usfirst.frc.team1154.robot.commands.CollectorIntakeCommand;
 import org.usfirst.frc.team1154.robot.commands.ArmOutCommand;
-import org.usfirst.frc.team1154.robot.commands.CollectorReleaseCommand;
+import org.usfirst.frc.team1154.robot.commands.CollectorReleaseTeleopCommand;
 import org.usfirst.frc.team1154.robot.commands.DriveForwardOverDefenceCommand;
 import org.usfirst.frc.team1154.robot.commands.DriveUntilFrontLightCommand;
 import org.usfirst.frc.team1154.robot.commands.DriveWithPID;
@@ -63,18 +65,18 @@ public class OI {
 	private Button drRT = new RebelTrigger(driveStick,3);
 	
 	public OI(){
-		opX.whenPressed(new ArmInCommand());
-
-		opY.whenPressed(new ArmOutCommand());
-		opLT.whileHeld(new CollectorReleaseCommand());
+		
+		opA.whenPressed(new ArmInCommand());
+		opB.whenPressed(new ArmOutCommand());
+		opLT.whileHeld(new CollectorReleaseTeleopCommand());
 		opRT.whileHeld(new CollectorIntakeCommand());
 		opLB.whenPressed(new ArmStopCommand());
 		//Test Stuff, we can get rid of this whenever we actually need these buttons.
-		opB.whenPressed(new ArmSetHeight(ArmHeight.HIGH));
-		opA.whenPressed(new ArmSetHeight(ArmHeight.LOW));
+//		opB.whenPressed(new ArmSetHeight(ArmHeight.HIGH));
+//		opA.whenPressed(new ArmSetHeight(ArmHeight.LOW));
 		
 		
-//		drA.whenPressed(new RampartCrossCommand());
+		drA.whileHeld(new ChevalCrossCommand());
 		
 //		drA.whileHeld(new RampartCrossCommand());
 //		drB.whenPressed(new TurnWithPID(90));

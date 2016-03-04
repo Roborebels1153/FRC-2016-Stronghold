@@ -72,18 +72,18 @@ public class Drive extends Subsystem {
 		
 		leftEncoderOutput = new DummyPIDOutput();
 		rightEncoderOutput = new DummyPIDOutput();
-		gyroOutput = new DummyPIDOutput();
+		gyroOutput = new DummyPIDOutput();		
 		
-		double encoderP = 0.04; //0.07;
+		double encoderP = 0.08;//0.04; 
 		double encoderI = 0;
-		double encoderD = 0.06;//0.8;//0.035;
+		double encoderD = 0.035;//0.06;//0.8;
 		
 		leftEncoderPID = new PIDController(encoderP, encoderI, encoderD, leftEncoder, leftEncoderOutput);
 		
 		rightEncoderPID = new PIDController(encoderP, encoderI, encoderD, rightEncoder, rightEncoderOutput);
 		
-//		gyroPID = new PIDController(.02, 0, .015, gyro, gyroOutput); //turn numbers
-		gyroPID = new PIDController(0.4, 0, 0.2, gyro, gyroOutput);
+		gyroPID = new PIDController(.02, 0, .015, gyro, gyroOutput); //turn numbers
+//		gyroPID = new PIDController(0.4, 0, 0.2, gyro, gyroOutput);
 		
 		lightSensorFront = new DigitalInput(RobotMap.FRONT_LIGHT_SENSOR);
 		
@@ -253,7 +253,7 @@ public class Drive extends Subsystem {
 	public double getRightEncoderOutput() {
 		return rightEncoderOutput.getOutput();
 	}
-	
+
 	public void setMaxDrivePIDOutput(double speed) {
 		leftEncoderPID.setOutputRange(-speed, speed);
 		rightEncoderPID.setOutputRange(-speed, speed);
