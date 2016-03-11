@@ -7,12 +7,12 @@ import java.util.TimerTask;
 
 import org.team2168.utils.BNO055;
 import org.usfirst.frc.team1154.robot.autonomous.ChevalAutonomous;
-import org.usfirst.frc.team1154.robot.autonomous.DrivinWithDono;
-import org.usfirst.frc.team1154.robot.autonomous.HahahahNO;
+import org.usfirst.frc.team1154.robot.autonomous.DrivingWithPIDTest;
+import org.usfirst.frc.team1154.robot.autonomous.StayStillAutonomous;
 import org.usfirst.frc.team1154.robot.autonomous.LowBarAutonomous;
 import org.usfirst.frc.team1154.robot.autonomous.LowBarAutonomousWithScore;
 import org.usfirst.frc.team1154.robot.autonomous.LowBarAutonomousWithSetup;
-import org.usfirst.frc.team1154.robot.autonomous.MixedWithMaggie;
+import org.usfirst.frc.team1154.robot.autonomous.AutonomousCombosTesting;
 import org.usfirst.frc.team1154.robot.autonomous.MoatAutonomous;
 import org.usfirst.frc.team1154.robot.autonomous.MoatAutonomousWithScore;
 import org.usfirst.frc.team1154.robot.autonomous.MoatAutonomousWithSetup;
@@ -28,7 +28,7 @@ import org.usfirst.frc.team1154.robot.autonomous.RoughTerrainAutonomous;
 import org.usfirst.frc.team1154.robot.autonomous.RoughTerrainAutonomousWithScore;
 import org.usfirst.frc.team1154.robot.autonomous.RoughTerrainAutonomousWithSetup;
 import org.usfirst.frc.team1154.robot.autonomous.SpitOutBallCommand;
-import org.usfirst.frc.team1154.robot.autonomous.TurninWithTyler;
+import org.usfirst.frc.team1154.robot.autonomous.TurnWithPIDTest;
 import org.usfirst.frc.team1154.robot.commands.DriveWithPID;
 import org.usfirst.frc.team1154.robot.subsystems.Arm;
 import org.usfirst.frc.team1154.robot.subsystems.Collector;
@@ -119,11 +119,11 @@ public class Robot extends IterativeRobot {
         chooser.addObject("Rough Terrain Setup", new RoughTerrainAutonomousWithSetup());
         chooser.addObject("Portcullis Plain", new PortcullisAutonomous());
         chooser.addObject("Portcullis Score", new PortcullisAutonomousWithScore());
-        chooser.addObject("TurninWithTyler", new TurninWithTyler());
-        chooser.addObject("DrivinWithDono", new DriveWithPID(120));//new DrivinWithDono());
-        chooser.addObject("MixedWithMaggie", new MixedWithMaggie());
-        chooser.addObject("SpittinWithSam", new SpitOutBallCommand());
-        chooser.addObject("Nothing is being done", new HahahahNO());
+        chooser.addObject("TurnWithPID Test", new TurnWithPIDTest());
+        chooser.addObject("DriveWithPID Test", new DriveWithPID(120));//new DrivinWithDono());
+        chooser.addObject("Turn and Drive Testing", new AutonomousCombosTesting());
+        chooser.addObject("Ball Spit Command", new SpitOutBallCommand());
+        chooser.addObject("Stay Still", new StayStillAutonomous());
         
         
         SmartDashboard.putData("Auto mode", chooser);
@@ -237,7 +237,7 @@ public class Robot extends IterativeRobot {
      
 		SmartDashboard.putBoolean("Robot - Arm Limit Switch Out", Robot.arm.getArmOut());
 		SmartDashboard.putBoolean("Robot - Arm Limit Switch In", Robot.arm.getArmIn());
-		SmartDashboard.putNumber("Robot - Arm Angle (poten.)", Robot.arm.getArmPosition());
+		SmartDashboard.putNumber("Robot - Arm Encoder", Robot.arm.getArmEncoderDistance());
 		SmartDashboard.putNumber("Robot - Arm Setpoint", Robot.arm.getSetpoint());
 		
 		SmartDashboard.putBoolean("Robot - Ball Light Sensor(Please Boss?)", Robot.collector.getBallLightSensor());

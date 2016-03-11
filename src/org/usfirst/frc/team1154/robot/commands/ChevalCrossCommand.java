@@ -23,7 +23,7 @@ public class ChevalCrossCommand extends Command {
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
-		Robot.drive.arcadeDrive(-Constants.defaultHalfSpeed, 0);
+		Robot.drive.arcadeDrive(-Constants.defaultChevalSpeed, 0);
 		
 	}
 

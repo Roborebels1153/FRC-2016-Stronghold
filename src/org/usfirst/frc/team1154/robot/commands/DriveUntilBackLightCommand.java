@@ -6,8 +6,12 @@ import org.usfirst.frc.team1154.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class DriveUntilBackLightCommand extends Command {
-	public DriveUntilBackLightCommand() {
+	
+	private double speed;
+	
+	public DriveUntilBackLightCommand(double defenceSpeed) {
 		requires(Robot.drive);
+		this.speed = defenceSpeed;
 	}
 
 	@Override

@@ -25,7 +25,7 @@ public class DriveBackwardOverDefenceCommand extends Command {
 	protected void execute() {
 		// TODO Auto-generated method stub
 		Robot.drive.arcadeDrive(this.speed, 0); //Robot.drive.getGyroPIDOutput());
-		if(Robot.drive.getBackLightSensor()) {
+		if(Robot.drive.getFrontLightSensor()) {
 			Robot.drive.startedCrossingDefence();
 		}
 		

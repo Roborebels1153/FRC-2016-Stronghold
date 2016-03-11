@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class RoughTerrainAutonomous extends CommandGroup {
 	public RoughTerrainAutonomous() {
 		addSequential(new DriveUntilFrontLightCommand());
-		addSequential(new DriveForwardOverDefenceCommand(Constants.defaultDefenceSpeed));
+		addSequential(new DriveForwardOverDefenceCommand(Constants.roughTerrain));
 //		addSequential(new DriveWithPID(36, Constants.defaultMaxSpeed));
 	}
 

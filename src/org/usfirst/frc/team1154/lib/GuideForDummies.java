@@ -42,7 +42,9 @@ public class GuideForDummies {
 	 * Adding buttons is done in OI. Look at other buttons to add one to the robot. dr stands for the Driver Stick and op Stands for the Operator Stick. 
 	 * Make sure you add the button to the right Controller.
 	 * 
+	 * private double theBest = loser;
 	 * 
+	 * maximillianCowan == theBest
 	 */
 
 }

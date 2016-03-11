@@ -21,6 +21,7 @@ public class ArmSetHeight extends Command {
 	
 	@Override
 	protected void initialize() {
+		Robot.arm.resetArmEncoder();
 		Robot.arm.setSetpoint(setpoint);
 		Robot.arm.setArmPIDOutput(Constants.defaultArmSpeed);
 		Robot.arm.enablePID();
@@ -38,6 +39,7 @@ public class ArmSetHeight extends Command {
 	protected void end() {
 		Robot.arm.disablePID();
 		Robot.arm.stopArm();
+		Robot.arm.resetArmEncoder();
 	}
 
 	@Override

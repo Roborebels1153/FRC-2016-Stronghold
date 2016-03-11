@@ -32,7 +32,7 @@ public class DriveWithPID extends Command {
 	protected void initialize() {
 		Robot.drive.resetEncoders();
 		Robot.drive.setDriveEncoderSetPoint(inchesToDrive / Constants.inchesPerTick);
-		Robot.drive.setGyroSetPoint(0);
+		Robot.drive.setGyroSetPoint(Robot.drive.getGyroOutput());
 		Robot.drive.setMaxDrivePIDOutput(speed);
 		Robot.drive.enablePID();
 		
@@ -46,7 +46,7 @@ public class DriveWithPID extends Command {
 		
 		double averageOutput = leftOutput + rightOutput / 2;
 		//TODO: replace with average output when using on Real Robot
-		Robot.drive.arcadeDrive(-averageOutput,0); //gyroOutput);
+		Robot.drive.arcadeDrive(-rightOutput, gyroOutput); //;
 		
 		leftInchesDriven = Constants.inchesPerTick * Robot.drive.getLeftEncoderDistance();
 		rightInchesDriven = Constants.inchesPerTick * Robot.drive.getRightEncoderDistance();
@@ -73,6 +73,7 @@ public class DriveWithPID extends Command {
 
 	@Override
 	protected void end() {
+		
 		Robot.drive.resetEncoders();
 		Robot.drive.disablePID();
 		

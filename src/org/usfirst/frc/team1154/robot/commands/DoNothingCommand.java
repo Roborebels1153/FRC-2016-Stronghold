@@ -2,7 +2,7 @@ package org.usfirst.frc.team1154.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class NopeCommand extends Command {
+public class DoNothingCommand extends Command {
 
 	@Override
 	protected void initialize() {

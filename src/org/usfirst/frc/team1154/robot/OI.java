@@ -8,6 +8,7 @@ import org.usfirst.frc.team1154.robot.commands.ArmSetHeight;
 import org.usfirst.frc.team1154.robot.commands.ArmStopCommand;
 import org.usfirst.frc.team1154.robot.commands.ChevalCrossCommand;
 import org.usfirst.frc.team1154.lib.RebelTrigger;
+import org.usfirst.frc.team1154.robot.autonomous.DrawbridgeBackwardsCommand;
 import org.usfirst.frc.team1154.robot.autonomous.LowBarAutonomous;
 import org.usfirst.frc.team1154.robot.autonomous.SpitOutBallCommand;
 import org.usfirst.frc.team1154.robot.commands.ArmInCommand;
@@ -16,6 +17,7 @@ import org.usfirst.frc.team1154.robot.commands.ArmOutCommand;
 import org.usfirst.frc.team1154.robot.commands.CollectorReleaseTeleopCommand;
 import org.usfirst.frc.team1154.robot.commands.DriveForwardOverDefenceCommand;
 import org.usfirst.frc.team1154.robot.commands.DriveUntilFrontLightCommand;
+import org.usfirst.frc.team1154.robot.commands.DriveWithJoysticks;
 import org.usfirst.frc.team1154.robot.commands.DriveWithPID;
 import org.usfirst.frc.team1154.robot.commands.SallyPortTurn;
 import org.usfirst.frc.team1154.robot.commands.RampartCrossCommand;
@@ -77,6 +79,9 @@ public class OI {
 		
 		
 		drA.whileHeld(new ChevalCrossCommand());
+		drY.whenPressed(new DrawbridgeBackwardsCommand());
+		drB.whenPressed(new TurnWithPID(180));
+		drLB.whenPressed(new DriveWithJoysticks());// stops any command that y9ou are driving.
 		
 //		drA.whileHeld(new RampartCrossCommand());
 //		drB.whenPressed(new TurnWithPID(90));

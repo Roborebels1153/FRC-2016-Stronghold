@@ -7,7 +7,9 @@ import org.usfirst.frc.team1154.robot.commands.ArmWithJoysticks;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
+import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSourceType;
@@ -20,7 +22,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 public class Arm extends PIDSubsystem {
 	
 //  private Encoder armEncoder;
-	private Potentiometer armEncoder;
+	private Encoder armEncoder;
 	private AnalogInput ai;
 	private Victor armMotor;
 	private DigitalInput armInSwitch;
@@ -42,9 +44,9 @@ public class Arm extends PIDSubsystem {
 		
 		ai = new AnalogInput(0);
 		
-		armEncoder = new AnalogPotentiometer(ai,360,0);
+//		armEncoder = new AnalogPotentiometer(ai,360,0);
 		
-//		armEncoder = new Encoder(RobotMap.ARM_ENCODER_A_CHANNEL, RobotMap.ARM_ENCODER_B_CHANNEL, false, EncodingType.k4X);
+		armEncoder = new Encoder(RobotMap.ARM_ENCODER_A_CHANNEL, RobotMap.ARM_ENCODER_B_CHANNEL, false, EncodingType.k4X);
 		
 		armMotor = new Victor(RobotMap.ARM_MOTOR);
 		
@@ -141,12 +143,20 @@ public class Arm extends PIDSubsystem {
 		return armEncoder.get();
 	}
 	
+	public double getArmEncoderDistance() {
+		return armEncoder.getDistance();
+	}
+	
 	public double getArmVoltage() {
 		return ai.getAverageVoltage();
 	}
 	
 	public void setArmPIDOutput(double speed) {
 		armEncoderPID.setOutputRange(-speed, speed);
+	}
+	
+	public void resetArmEncoder() {
+		armEncoder.reset();
 	}
 	
 	public double getArmPIDOutput() {
@@ -165,5 +175,6 @@ public class Arm extends PIDSubsystem {
 		armMotor.set(output);
 		
 	}
+	
 
 }
