@@ -1,19 +1,12 @@
 package org.usfirst.frc.team1154.robot.commands;
 
-import org.usfirst.frc.team1154.robot.Robot;
-
 import edu.wpi.first.wpilibj.command.Command;
 
-public class CollectorReleaseCommand extends Command {
-	
-	public CollectorReleaseCommand(){
-		requires(Robot.collector);
-	}
+public class DoNothingCommand extends Command {
 
 	@Override
 	protected void initialize() {
 		// TODO Auto-generated method stub
-		Robot.collector.releaseBoulder();
 		
 	}
 
@@ -32,16 +25,14 @@ public class CollectorReleaseCommand extends Command {
 	@Override
 	protected void end() {
 		// TODO Auto-generated method stub
-		Robot.collector.stopCollecting();
-		Robot.arm.disablePID();
 		
 	}
 
 	@Override
 	protected void interrupted() {
 		// TODO Auto-generated method stub
-		end();
 		
 	}
+	
 
 }

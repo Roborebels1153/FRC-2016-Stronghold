@@ -6,14 +6,18 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 import org.usfirst.frc.team1154.robot.commands.ArmSetHeight;
 import org.usfirst.frc.team1154.robot.commands.ArmStopCommand;
+import org.usfirst.frc.team1154.robot.commands.ChevalCrossCommand;
 import org.usfirst.frc.team1154.lib.RebelTrigger;
+import org.usfirst.frc.team1154.robot.autonomous.DrawbridgeBackwardsCommand;
 import org.usfirst.frc.team1154.robot.autonomous.LowBarAutonomous;
+import org.usfirst.frc.team1154.robot.autonomous.SpitOutBallCommand;
 import org.usfirst.frc.team1154.robot.commands.ArmInCommand;
 import org.usfirst.frc.team1154.robot.commands.CollectorIntakeCommand;
 import org.usfirst.frc.team1154.robot.commands.ArmOutCommand;
-import org.usfirst.frc.team1154.robot.commands.CollectorReleaseCommand;
-import org.usfirst.frc.team1154.robot.commands.DriveOverDefenceCommand;
+import org.usfirst.frc.team1154.robot.commands.CollectorReleaseTeleopCommand;
+import org.usfirst.frc.team1154.robot.commands.DriveForwardOverDefenceCommand;
 import org.usfirst.frc.team1154.robot.commands.DriveUntilFrontLightCommand;
+import org.usfirst.frc.team1154.robot.commands.DriveWithJoysticks;
 import org.usfirst.frc.team1154.robot.commands.DriveWithPID;
 import org.usfirst.frc.team1154.robot.commands.SallyPortTurn;
 import org.usfirst.frc.team1154.robot.commands.RampartCrossCommand;
@@ -43,8 +47,8 @@ public class OI {
 	private Button opST = new JoystickButton(opStick,8);
 	private Button opLJ = new JoystickButton(opStick,9);
 	private Button opRJ = new JoystickButton(opStick,10);
-	private Button opLT = new RebelTrigger(opStick,2);
-	private Button opRT = new RebelTrigger(opStick,3);
+	private Button opLT = new RebelTrigger(opStick,2);//When LT is pressed and held, the collector starts spittin up da ball
+	private Button opRT = new RebelTrigger(opStick,3);//When RT is pressed and held, the collector starts suckin up da ball
 	
 	/**
 	 * The D added on is just to differentiate between Driver Stick and Operator Stick
@@ -63,17 +67,21 @@ public class OI {
 	private Button drRT = new RebelTrigger(driveStick,3);
 	
 	public OI(){
-		opX.whenPressed(new ArmInCommand());
-
-		opY.whenPressed(new ArmOutCommand());
-		opLT.whileHeld(new CollectorReleaseCommand());
+		
+		opA.whenPressed(new ArmInCommand());
+		opB.whenPressed(new ArmOutCommand());
+		opLT.whileHeld(new CollectorReleaseTeleopCommand());
 		opRT.whileHeld(new CollectorIntakeCommand());
 		opLB.whenPressed(new ArmStopCommand());
 		//Test Stuff, we can get rid of this whenever we actually need these buttons.
-		opB.whenPressed(new ArmSetHeight(ArmHeight.HIGH));
-		opA.whenPressed(new ArmSetHeight(ArmHeight.LOW));
+//		opB.whenPressed(new ArmSetHeight(ArmHeight.HIGH));
+//		opA.whenPressed(new ArmSetHeight(ArmHeight.LOW));
 		
-//		drA.whenPressed(new RampartCrossCommand());
+		
+		drA.whileHeld(new ChevalCrossCommand());
+		drY.whenPressed(new DrawbridgeBackwardsCommand());
+		drB.whenPressed(new TurnWithPID(180));
+		drLB.whenPressed(new DriveWithJoysticks());// stops any command that y9ou are driving.
 		
 //		drA.whileHeld(new RampartCrossCommand());
 //		drB.whenPressed(new TurnWithPID(90));

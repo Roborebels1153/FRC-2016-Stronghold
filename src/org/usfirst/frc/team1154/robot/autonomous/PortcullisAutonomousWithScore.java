@@ -3,7 +3,7 @@ package org.usfirst.frc.team1154.robot.autonomous;
 import org.usfirst.frc.team1154.robot.Constants;
 import org.usfirst.frc.team1154.robot.commands.ArmOutCommand;
 import org.usfirst.frc.team1154.robot.commands.ArmSetHeight;
-import org.usfirst.frc.team1154.robot.commands.CollectorReleaseCommand;
+import org.usfirst.frc.team1154.robot.commands.CollectorReleaseTeleopCommand;
 import org.usfirst.frc.team1154.robot.commands.DriveWithPID;
 import org.usfirst.frc.team1154.robot.commands.TurnWithPID;
 import org.usfirst.frc.team1154.robot.subsystems.Arm.ArmHeight;
@@ -20,7 +20,7 @@ public class PortcullisAutonomousWithScore extends CommandGroup {
 		addSequential(new TurnWithPID(90));
 		addSequential(new DriveWithPID(80, Constants.portcullis));
 		addSequential(new ArmOutCommand());
-		addSequential(new CollectorReleaseCommand());
+		addSequential(new CollectorReleaseTeleopCommand());
 		
 
 		

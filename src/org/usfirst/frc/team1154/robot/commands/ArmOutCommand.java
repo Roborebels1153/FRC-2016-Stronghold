@@ -29,6 +29,7 @@ public class ArmOutCommand extends Command {
 	protected void end() {
 		//Stops the pivot motor when end is called
 		Robot.arm.stopArm();
+		Robot.arm.resetArmEncoder();
 		
 	}
 

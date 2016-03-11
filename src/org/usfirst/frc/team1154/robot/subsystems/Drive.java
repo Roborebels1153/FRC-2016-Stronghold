@@ -46,6 +46,7 @@ public class Drive extends Subsystem {
 	private DigitalInput lightSensorBack;
 	private double driveTolerance = 0;
 	private double turnTolerance = 0;
+	private boolean crossingDefence = false;
 	
 	public Drive() {
 		
@@ -71,18 +72,18 @@ public class Drive extends Subsystem {
 		
 		leftEncoderOutput = new DummyPIDOutput();
 		rightEncoderOutput = new DummyPIDOutput();
-		gyroOutput = new DummyPIDOutput();
+		gyroOutput = new DummyPIDOutput();		
 		
-		double encoderP = 0.1;
+		double encoderP = 0.08; 
 		double encoderI = 0;
-		double encoderD = 0;//0.8;//0.035;
+		double encoderD = 0.035;
 		
 		leftEncoderPID = new PIDController(encoderP, encoderI, encoderD, leftEncoder, leftEncoderOutput);
 		
 		rightEncoderPID = new PIDController(encoderP, encoderI, encoderD, rightEncoder, rightEncoderOutput);
 		
-//		gyroPID = new PIDController(.02, 0, .015, gyro, gyroOutput); //turn numbers
-		gyroPID = new PIDController(0.05, 0, 0, gyro, gyroOutput);
+		gyroPID = new PIDController(.09, 0, 0, gyro, gyroOutput); //turn numbers
+//		gyroPID = new PIDController(0.4, 0, 0.2, gyro, gyroOutput);
 		
 		lightSensorFront = new DigitalInput(RobotMap.FRONT_LIGHT_SENSOR);
 		
@@ -252,7 +253,7 @@ public class Drive extends Subsystem {
 	public double getRightEncoderOutput() {
 		return rightEncoderOutput.getOutput();
 	}
-	
+
 	public void setMaxDrivePIDOutput(double speed) {
 		leftEncoderPID.setOutputRange(-speed, speed);
 		rightEncoderPID.setOutputRange(-speed, speed);
@@ -303,11 +304,11 @@ public class Drive extends Subsystem {
 	}
 	
 	public boolean getFrontLightSensor() {
-		return lightSensorFront.get();
+		return !lightSensorFront.get();
 	}
 	
 	public boolean getBackLightSensor() {
-		return lightSensorBack.get();
+		return !lightSensorBack.get();
 	}
 	
 	public boolean isOnTarget() {
@@ -330,5 +331,16 @@ public class Drive extends Subsystem {
 		
 	}
 	
+	public void resetCrossingDefence() {
+		crossingDefence = false;
+	}
+	
+	public void startedCrossingDefence() {
+		crossingDefence = true;
+	}
+	
+	public boolean getCrossingDefence() {
+		return crossingDefence;
+	}
 
 }

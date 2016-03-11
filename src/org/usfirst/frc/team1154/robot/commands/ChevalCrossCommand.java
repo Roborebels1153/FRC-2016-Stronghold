@@ -1,18 +1,29 @@
 package org.usfirst.frc.team1154.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
+import org.usfirst.frc.team1154.robot.Constants;
+import org.usfirst.frc.team1154.robot.Robot;
 
-public class NopeCommand extends Command {
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Scheduler;
+
+public class ChevalCrossCommand extends Command {
+	public ChevalCrossCommand() {
+		requires(Robot.drive);
+	}
 
 	@Override
 	protected void initialize() {
 		// TODO Auto-generated method stub
+		Robot.drive.enablePID();
+		Robot.drive.speedLow();
+		
 		
 	}
 
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
+		Robot.drive.arcadeDrive(-Constants.defaultChevalSpeed, 0);
 		
 	}
 
@@ -25,14 +36,13 @@ public class NopeCommand extends Command {
 	@Override
 	protected void end() {
 		// TODO Auto-generated method stub
-		
+		Scheduler.getInstance().add(new DriveWithJoysticks());
 	}
 
 	@Override
 	protected void interrupted() {
 		// TODO Auto-generated method stub
-		
+		end();
 	}
-	
 
 }
