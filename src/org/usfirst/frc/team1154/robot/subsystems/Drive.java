@@ -86,7 +86,7 @@ public class Drive extends Subsystem {
 //		gyroPID = new PIDController(0.4, 0, 0.2, gyro, gyroOutput);
 		
 		lightSensorFront = new DigitalInput(RobotMap.FRONT_LIGHT_SENSOR);
-		
+		 
 		lightSensorBack = new DigitalInput(RobotMap.BACK_LIGHT_SENSOR);
 		
 		init();

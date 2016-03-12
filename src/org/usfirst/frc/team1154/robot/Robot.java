@@ -41,6 +41,7 @@ import com.ni.vision.NIVision.Image;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
@@ -204,6 +205,13 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
+    	
+    	if(DriverStation.getInstance().getMatchTime() < 3) {
+    		Scheduler.getInstance().removeAll();
+    		Robot.drive.arcadeDrive(0, 0);
+    	} else {
+    		Scheduler.getInstance().run();
+    	}
         Scheduler.getInstance().run();
         updateSmartDashboard();
     }

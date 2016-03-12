@@ -21,8 +21,8 @@ public class RampartsAutonomousWithSetup extends CommandGroup {
 		addSequential(new ArmOutCommand());
 		addSequential(new CollectorReleaseAutonomousCommand());
 		addSequential(new ArmInCommand());
-		addSequential(new DriveUntilBackLightCommand(Constants.ramparts));
-		addSequential(new DriveBackwardOverDefenceCommand(Constants.ramparts));
-		addSequential(new TurnWithPID(180));
+//		addSequential(new DriveUntilBackLightCommand(Constants.ramparts));
+//		addSequential(new DriveBackwardOverDefenceCommand(Constants.ramparts));
+//		addSequential(new TurnWithPID(180));
 	}
 }
