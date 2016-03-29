@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class DrawbridgeBackwardsCommand extends CommandGroup {
 	public DrawbridgeBackwardsCommand() {
-		addSequential(new ArmSetHeight(ArmHeight.DRAW));
+		addSequential(new ArmSetHeight(ArmHeight.HIGH));
 		addSequential(new DriveUntilBackLightCommand(Constants.defaultDefenceSpeed));
 		addSequential(new DriveBackwardOverDefenceCommand(Constants.defaultDrawbridgeSpeed));
 		addSequential(new ArmOutCommand());

@@ -106,6 +106,8 @@ public class Drive extends Subsystem {
 		leftEncoderPID.setOutputRange(-0.7, maxSpeed);
 		rightEncoderPID.setOutputRange(-0.7, maxSpeed);
 		gyroPID.setOutputRange(-0.8, 0.8);
+		gyroPID.setInputRange(0, 360);
+		gyroPID.setContinuous();
 		
 		driveTolerance = 15;
 		

@@ -16,8 +16,12 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutonomousCombosTesting extends CommandGroup {
 	public AutonomousCombosTesting() {
 		
-		addSequential(new DriveUntilFrontLightCommand());
-		addSequential(new DriveForwardOverDefenceCommand(Constants.defaultTestSpeed));
+		addSequential(new DriveWithPID(60));
+		addSequential(new TurnWithPID(180));
+
+		
+//		addSequential(new DriveUntilFrontLightCommand());
+//		addSequential(new DriveForwardOverDefenceCommand(Constants.defaultTestSpeed));
 		
 		//addSequential(new DriveWithPID(-120, 1));
 //		addSequential(new DriveUntilBackLightCommand(0.5));

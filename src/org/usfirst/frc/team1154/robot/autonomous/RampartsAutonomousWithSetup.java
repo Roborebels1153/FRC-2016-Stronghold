@@ -16,11 +16,13 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class RampartsAutonomousWithSetup extends CommandGroup {
 	public RampartsAutonomousWithSetup() {
-		addSequential(new DriveUntilFrontLightCommand());
-		addSequential(new DriveForwardOverDefenceCommand(Constants.defaultDefenceSpeed));
+//		addSequential(new DriveUntilFrontLightCommand());
+//		addSequential(new DriveForwardOverDefenceCommand(Constants.defaultDefenceSpeed));
+		addSequential(new DriveWithPID(191 + 36, Constants.defaultDefenceSpeed));
 		addSequential(new ArmOutCommand());
 		addSequential(new CollectorReleaseAutonomousCommand());
 		addSequential(new ArmInCommand());
+		addSequential(new DriveWithPID(-227, Constants.defaultDefenceSpeed));
 //		addSequential(new DriveUntilBackLightCommand(Constants.ramparts));
 //		addSequential(new DriveBackwardOverDefenceCommand(Constants.ramparts));
 //		addSequential(new TurnWithPID(180));

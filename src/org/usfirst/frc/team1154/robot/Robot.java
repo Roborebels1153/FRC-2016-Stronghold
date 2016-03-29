@@ -9,6 +9,7 @@ import org.team2168.utils.BNO055;
 import org.usfirst.frc.team1154.robot.autonomous.ChevalAutonomous;
 import org.usfirst.frc.team1154.robot.autonomous.DrivingWithPIDTest;
 import org.usfirst.frc.team1154.robot.autonomous.StayStillAutonomous;
+import org.usfirst.frc.team1154.robot.autonomous.TrialThingAutonomous;
 import org.usfirst.frc.team1154.robot.autonomous.LowBarAutonomous;
 import org.usfirst.frc.team1154.robot.autonomous.LowBarAutonomousWithScore;
 import org.usfirst.frc.team1154.robot.autonomous.LowBarAutonomousWithSetup;
@@ -125,6 +126,7 @@ public class Robot extends IterativeRobot {
         chooser.addObject("Turn and Drive Testing", new AutonomousCombosTesting());
         chooser.addObject("Ball Spit Command", new SpitOutBallCommand());
         chooser.addObject("Stay Still", new StayStillAutonomous());
+        chooser.addObject("TestWithToshak'sPermission/DontUse", new TrialThingAutonomous());
         
         
         SmartDashboard.putData("Auto mode", chooser);
@@ -206,12 +208,12 @@ public class Robot extends IterativeRobot {
      */
     public void autonomousPeriodic() {
     	
-    	if(DriverStation.getInstance().getMatchTime() < 3) {
-    		Scheduler.getInstance().removeAll();
-    		Robot.drive.arcadeDrive(0, 0);
-    	} else {
-    		Scheduler.getInstance().run();
-    	}
+//    	if(DriverStation.getInstance().getMatchTime() < 3) {
+//    		Scheduler.getInstance().removeAll();
+//    		Robot.drive.arcadeDrive(0, 0);
+//    	} else {
+//    		Scheduler.getInstance().run();
+//    	}
         Scheduler.getInstance().run();
         updateSmartDashboard();
     }
@@ -219,7 +221,6 @@ public class Robot extends IterativeRobot {
     public void teleopInit() {
     	
         if (autonomousCommand != null) autonomousCommand.cancel();
-        
         Robot.drive.disablePID();
         
         Scheduler.getInstance().removeAll();

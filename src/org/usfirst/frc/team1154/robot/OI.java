@@ -74,14 +74,15 @@ public class OI {
 		opRT.whileHeld(new CollectorIntakeCommand());
 		opLB.whenPressed(new ArmStopCommand());
 		//Test Stuff, we can get rid of this whenever we actually need these buttons.
-//		opB.whenPressed(new ArmSetHeight(ArmHeight.HIGH));
-//		opA.whenPressed(new ArmSetHeight(ArmHeight.LOW));
+		opY.whenPressed(new ArmSetHeight(ArmHeight.HIGH));
+		opX.whenPressed(new ArmSetHeight(ArmHeight.SPIT));
 		
 		
 		drA.whileHeld(new ChevalCrossCommand());
 		drY.whenPressed(new DrawbridgeBackwardsCommand());
 		drB.whenPressed(new TurnWithPID(180));
 		drLB.whenPressed(new DriveWithJoysticks());// stops any command that y9ou are driving.
+		
 		
 //		drA.whileHeld(new RampartCrossCommand());
 //		drB.whenPressed(new TurnWithPID(90));

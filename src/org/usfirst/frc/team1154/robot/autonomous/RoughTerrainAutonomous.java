@@ -14,12 +14,13 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class RoughTerrainAutonomous extends CommandGroup {
 	public RoughTerrainAutonomous() {
-		addSequential(new DriveWithPID(191 + 36, Constants.defaultDefenceSpeed));
+		addSequential(new DriveWithPID(190, Constants.defaultDefenceSpeed));
+//		addSequential(new TurnWithPID(180));
 //		addSequential(new DriveUntilFrontLightCommand());
 //		addSequential(new DriveForwardOverDefenceCommand(Constants.roughTerrain));
-		addSequential(new ArmOutCommand());
-		addSequential(new CollectorReleaseAutonomousCommand());
-		addSequential(new ArmInCommand());
+//		addSequential(new ArmOutCommand());
+//		addSequential(new CollectorReleaseAutonomousCommand());
+//		addSequential(new ArmInCommand());
 //		addSequential(new DriveWithPID(36, Constants.defaultMaxSpeed));
 	}
 

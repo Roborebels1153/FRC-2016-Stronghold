@@ -16,10 +16,11 @@ public class RampartsAutonomous extends CommandGroup {
 	public RampartsAutonomous() {
 //		addSequential(new DriveUntilFrontLightCommand());
 //		addSequential(new DriveForwardOverDefenceCommand(Constants.defaultDefenceSpeed));
-		addSequential(new DriveWithPID(191 + 36, Constants.defaultDefenceSpeed));
-		addSequential(new ArmOutCommand());
-		addSequential(new CollectorReleaseAutonomousCommand());
-		addSequential(new ArmInCommand());
+		addSequential(new DriveWithPID(190, Constants.defaultDefenceSpeed));
+		addSequential(new TurnWithPID(180));
+//		addSequential(new ArmOutCommand());
+//		addSequential(new CollectorReleaseAutonomousCommand());
+//		addSequential(new ArmInCommand());
 //		addSequential(new DriveWithPID(36, Constants.defaultMaxSpeed));
 	}
 

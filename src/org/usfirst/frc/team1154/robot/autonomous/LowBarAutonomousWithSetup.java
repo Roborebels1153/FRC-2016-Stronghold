@@ -16,13 +16,15 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class LowBarAutonomousWithSetup extends CommandGroup {
 	public LowBarAutonomousWithSetup() {
-		addSequential(new DriveUntilFrontLightCommand());
-		addSequential(new DriveForwardOverDefenceCommand(Constants.defaultDefenceSpeed));
+		addSequential(new DriveWithPID(227, Constants.defaultDefenceSpeed));
+//		addSequential(new DriveUntilFrontLightCommand());
+//		addSequential(new DriveForwardOverDefenceCommand(Constants.defaultDefenceSpeed));
 		addSequential(new ArmOutCommand());
 		addSequential(new CollectorReleaseAutonomousCommand());
 		addSequential(new ArmInCommand());
-		addSequential(new DriveUntilBackLightCommand(Constants.defaultDefenceSpeed));
-		addSequential(new DriveBackwardOverDefenceCommand(Constants.defaultDefenceSpeed));
+		addSequential(new DriveWithPID(-227, Constants.defaultDefenceSpeed));
+//		addSequential(new DriveUntilBackLightCommand(Constants.defaultDefenceSpeed));
+//		addSequential(new DriveBackwardOverDefenceCommand(Constants.defaultDefenceSpeed));
 		addSequential(new TurnWithPID(180));
 
 	}

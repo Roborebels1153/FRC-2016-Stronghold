@@ -16,12 +16,13 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class MoatAutonomousWithSetup extends CommandGroup {
 	public MoatAutonomousWithSetup() {
-		addSequential(new DriveUntilFrontLightCommand());
-		addSequential(new DriveForwardOverDefenceCommand(Constants.defaultMaxSpeed));
-		addSequential(new DriveWithPID(96, Constants.defaultMaxSpeed));
+		addSequential(new DriveWithPID(191 + 36, Constants.defaultMaxSpeed));
+//		addSequential(new DriveUntilFrontLightCommand());
+//		addSequential(new DriveForwardOverDefenceCommand(Constants.defaultMaxSpeed));
 		addSequential(new ArmOutCommand());
 		addSequential(new CollectorReleaseAutonomousCommand());
 		addSequential(new ArmInCommand());
+		addSequential(new DriveWithPID(-227, Constants.defaultMaxSpeed));
 //		addSequential(new TurnWithPID(180));
 //		addSequential(new DriveUntilFrontLightCommand());
 //		addSequential(new DriveForwardOverDefenceCommand(Constants.defaultMaxSpeed));

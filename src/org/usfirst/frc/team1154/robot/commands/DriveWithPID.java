@@ -47,7 +47,8 @@ public class DriveWithPID extends Command {
 		double averageOutput = leftOutput + rightOutput / 2;
 		//TODO: replace with average output when using on Real Robot
 		//Robot.drive.arcadeDrive(-rightOutput, gyroOutput); 
-		Robot.drive.arcadeDrive(-rightOutput, 0); //Switch between the two as Gaffey says
+		//Robot.drive.arcadeDrive(-rightOutput, 0); //Switch between the three as Gaffey says
+		Robot.drive.arcadeDrive(-rightOutput, 0.3); // Prototype Robot's turn problem
 		
 		leftInchesDriven = Constants.inchesPerTick * Robot.drive.getLeftEncoderDistance();
 		rightInchesDriven = Constants.inchesPerTick * Robot.drive.getRightEncoderDistance();
