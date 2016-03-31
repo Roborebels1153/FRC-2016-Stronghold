@@ -4,39 +4,43 @@ import org.usfirst.frc.team1154.robot.Constants;
 import org.usfirst.frc.team1154.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class TurnWithPID extends Command{
+public class TurnWithLeft extends Command {
 	
 	private final int degreesToTurn;
 	
 	private final double speed;
 	
-	public TurnWithPID(int degreesToTurn){
-		requires(Robot.drive);
+	public TurnWithLeft(int degreesToTurn) {
 		this.degreesToTurn = degreesToTurn;
-		this.speed = Constants.defaultTurnSpeed;
+		this.speed = Constants.defaultTurnSpeed;		
+	}
+	
+	public TurnWithLeft(int degreesToTurn, double speed) {
+		this.degreesToTurn = degreesToTurn;
+		this.speed = speed;
 		
 	}
+	
 
 	@Override
 	protected void initialize() {
+		// TODO Auto-generated method stub
 		Robot.drive.resetEncoders();
 		Robot.drive.setGyroPID(.035, 0, .015); //proto
 		//Robot.drive.setGyroPID(.03, 0, 0);
 		Robot.drive.setGyroSetPoint(degreesToTurn);
 		Robot.drive.setMaxDrivePIDOutput(speed);
-		Robot.drive.enablePID();
-		
+		Robot.drive.enableLeftPID();
 		
 	}
 
 	@Override
 	protected void execute() {
+		// TODO Auto-generated method stub
 		double gyroOutput = Robot.drive.getGyroPIDOutput();
 		Robot.drive.arcadeDrive(0,gyroOutput);
-		SmartDashboard.putNumber("Turn with PID - Degrees To Turn", degreesToTurn);
-		SmartDashboard.putNumber("Turn with PID - Gyro PID Output", gyroOutput);
+		
 	}
 
 	@Override
@@ -58,9 +62,6 @@ public class TurnWithPID extends Command{
 		
 	}
 	
-	private void stopTurning(){
-		Robot.drive.arcadeDrive(0, 0);
-
-	}
+	
 
 }

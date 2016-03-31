@@ -22,8 +22,7 @@ public class RebelDrive extends RobotDrive {
 			lowSpeedNic = new NegInertiaCalc(2);
 			highSpeedNic = new NegInertiaCalc(4);
 	 }
-	
-	
+		
 	
 	public void arcadeDrive(GenericHID stick, Shifter gear) {
 		

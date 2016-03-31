@@ -44,6 +44,8 @@ public class Drive extends Subsystem {
 	private LiveWindow lw;
 	private DigitalInput lightSensorFront;
 	private DigitalInput lightSensorBack;
+	private DigitalInput lightSensorForwardOne;
+	private DigitalInput lightSensorForwardTwo;
 	private double driveTolerance = 0;
 	private double turnTolerance = 0;
 	private boolean crossingDefence = false;
@@ -82,12 +84,16 @@ public class Drive extends Subsystem {
 		
 		rightEncoderPID = new PIDController(encoderP, encoderI, encoderD, rightEncoder, rightEncoderOutput);
 		
-		gyroPID = new PIDController(.09, 0, 0, gyro, gyroOutput); //turn numbers
+		gyroPID = new PIDController(.35, 0, 015, gyro, gyroOutput); //turn numbers
 //		gyroPID = new PIDController(0.4, 0, 0.2, gyro, gyroOutput);
 		
 		lightSensorFront = new DigitalInput(RobotMap.FRONT_LIGHT_SENSOR);
 		 
 		lightSensorBack = new DigitalInput(RobotMap.BACK_LIGHT_SENSOR);
+		
+		lightSensorForwardOne = new DigitalInput(RobotMap.FORWARD_LIGHT_SENSOR_ONE);
+		
+		lightSensorForwardTwo = new DigitalInput(RobotMap.FORWARD_LIGHT_SENSOR_TWO);
 		
 		init();
 		
@@ -133,6 +139,16 @@ public class Drive extends Subsystem {
 		
 	}
 	
+	public void enableLeftPID() {
+		leftEncoderPID.enable();
+		gyroPID.enable();
+	}
+	
+	public void enableRightPID() {
+		rightEncoderPID.enable();
+		gyroPID.enable();
+	}
+	
 	public void enableGyroPID() {
 		
 		gyroPID.enable();
@@ -149,6 +165,14 @@ public class Drive extends Subsystem {
 	
 	public void setDriveEncoderSetPoint(double setPoint) {
 		leftEncoderPID.setSetpoint(setPoint);
+		rightEncoderPID.setSetpoint(setPoint);
+	}
+	
+	public void leftWheelsTurnSetPoint(double setPoint) {
+		leftEncoderPID.setSetpoint(setPoint);
+	}
+	
+	public void rightWheelsTurnSetPoint(double setPoint) {
 		rightEncoderPID.setSetpoint(setPoint);
 	}
 	
@@ -192,6 +216,8 @@ public class Drive extends Subsystem {
 	public void arcadeDrive(double driveSpeed, double turnSpeed) {
 		rebelDrive.arcadeDrive(driveSpeed, turnSpeed);
 	}
+	
+	
 	
 	public double getLeftEncoderDistance() {
 		
@@ -344,5 +370,7 @@ public class Drive extends Subsystem {
 	public boolean getCrossingDefence() {
 		return crossingDefence;
 	}
+	
+	
 
 }

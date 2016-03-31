@@ -126,7 +126,7 @@ public class Robot extends IterativeRobot {
         chooser.addObject("Turn and Drive Testing", new AutonomousCombosTesting());
         chooser.addObject("Ball Spit Command", new SpitOutBallCommand());
         chooser.addObject("Stay Still", new StayStillAutonomous());
-        chooser.addObject("TestWithToshak'sPermission/DontUse", new TrialThingAutonomous());
+        chooser.addObject("The Toshak Special", new TrialThingAutonomous());
         
         
         SmartDashboard.putData("Auto mode", chooser);

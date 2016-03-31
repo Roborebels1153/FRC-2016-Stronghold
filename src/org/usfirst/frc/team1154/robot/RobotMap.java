@@ -29,6 +29,8 @@ public class RobotMap {
 	public static int BALL_LIGHT_SENSOR = 6;
 	public static int FRONT_LIGHT_SENSOR = 7;
 	public static int BACK_LIGHT_SENSOR = 8;
+	public static int FORWARD_LIGHT_SENSOR_ONE = 12;
+	public static int FORWARD_LIGHT_SENSOR_TWO = 13;
 	public static int ARM_ENCODER_A_CHANNEL = 10;
 	public static int ARM_ENCODER_B_CHANNEL = 11;
 
