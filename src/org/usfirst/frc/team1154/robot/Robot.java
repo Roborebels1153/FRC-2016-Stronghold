@@ -16,6 +16,7 @@ import org.usfirst.frc.team1154.robot.autonomous.LowBarAutonomousWithSetup;
 import org.usfirst.frc.team1154.robot.autonomous.AutonomousCombosTesting;
 import org.usfirst.frc.team1154.robot.autonomous.MoatAutonomous;
 import org.usfirst.frc.team1154.robot.autonomous.MoatAutonomousWithScore;
+import org.usfirst.frc.team1154.robot.autonomous.RoughTerrainAutonomousWithScoreInFive;
 import org.usfirst.frc.team1154.robot.autonomous.MoatAutonomousWithSetup;
 import org.usfirst.frc.team1154.robot.autonomous.PortcullisAutonomous;
 import org.usfirst.frc.team1154.robot.autonomous.PortcullisAutonomousWithScore;
@@ -32,6 +33,7 @@ import org.usfirst.frc.team1154.robot.autonomous.SpitOutBallCommand;
 import org.usfirst.frc.team1154.robot.autonomous.TurnWithPIDTest;
 import org.usfirst.frc.team1154.robot.commands.DriveWithPID;
 import org.usfirst.frc.team1154.robot.subsystems.Arm;
+import org.usfirst.frc.team1154.robot.subsystems.Climber;
 import org.usfirst.frc.team1154.robot.subsystems.Collector;
 import org.usfirst.frc.team1154.robot.subsystems.Drive;
 
@@ -65,6 +67,7 @@ public class Robot extends IterativeRobot {
 	public static final Collector collector = new Collector();
 	public static final Arm arm = new Arm();
 	public static final Drive drive = new Drive();
+	public static final Climber climber = new Climber();
 	public static OI oi;
 	private Compressor compressor = new Compressor();
 	private double[] pos = new double[3]; // [x,y,z] position data
@@ -117,12 +120,12 @@ public class Robot extends IterativeRobot {
         chooser.addObject("Rock Wall Score", new RockWallAutonomousWithScore());
         chooser.addObject("Rock Wall Setup", new RockWallAutonomousWithSetup());
         chooser.addObject("Rough Terrain Plain", new RoughTerrainAutonomous());
-        chooser.addObject("Rough Terrain Score", new RoughTerrainAutonomousWithScore());
+        chooser.addObject("Rough Terrain Score Five", new RoughTerrainAutonomousWithScoreInFive());
         chooser.addObject("Rough Terrain Setup", new RoughTerrainAutonomousWithSetup());
         chooser.addObject("Portcullis Plain", new PortcullisAutonomous());
         chooser.addObject("Portcullis Score", new PortcullisAutonomousWithScore());
         chooser.addObject("TurnWithPID Test", new TurnWithPIDTest());
-        chooser.addObject("DriveWithPID Test", new DriveWithPID(120));//new DrivinWithDono());
+        chooser.addObject("DriveWithPID Test", new DrivingWithPIDTest());//new DrivinWithDono());
         chooser.addObject("Turn and Drive Testing", new AutonomousCombosTesting());
         chooser.addObject("Ball Spit Command", new SpitOutBallCommand());
         chooser.addObject("Stay Still", new StayStillAutonomous());
@@ -260,6 +263,7 @@ public class Robot extends IterativeRobot {
 		
 		SmartDashboard.putNumber("Robot - Arm motor", Robot.arm.getArmOutput());
 		
+//		SmartDashboard.putNumber("Robot - Sonar Distance Inch", Robot.drive.getSonarDistance());
 		
 		SmartDashboard.putNumber("Robot - Initial Gyro Value", Robot.drive.getInitialAngle());
 		SmartDashboard.putNumber("Robot - Gyro PID Setpoint", Robot.drive.getSetpoint());

@@ -73,6 +73,10 @@ public class ArmSetHeight extends Command {
 				armSetpoint = -100;
 				break;
 			}
+			case SCORE : {
+				armSetpoint = -160;
+				break;
+			}
 			default : {
 				armSetpoint =  0;
 				break;

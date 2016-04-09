@@ -10,6 +10,7 @@ import org.usfirst.frc.team1154.robot.commands.DriveUntilBackLightCommand;
 import org.usfirst.frc.team1154.robot.commands.DriveUntilFrontLightCommand;
 import org.usfirst.frc.team1154.robot.commands.DriveWithPID;
 import org.usfirst.frc.team1154.robot.commands.TurnWithPID;
+import org.usfirst.frc.team1154.robot.commands.WaitInbetweenCommandsCommand;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -17,6 +18,7 @@ public class AutonomousCombosTesting extends CommandGroup {
 	public AutonomousCombosTesting() {
 		
 		addSequential(new DriveWithPID(60));
+		addSequential(new WaitInbetweenCommandsCommand(2));
 		addSequential(new TurnWithPID(180));
 
 		

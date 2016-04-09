@@ -34,7 +34,8 @@ public class Arm extends Subsystem {
 	
 	public enum ArmHeight {
 		SPIT,
-		HIGH
+		HIGH,
+		SCORE
 	}
 	
 	public Arm() {

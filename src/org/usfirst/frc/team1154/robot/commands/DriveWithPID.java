@@ -31,7 +31,7 @@ public class DriveWithPID extends Command {
 	@Override
 	protected void initialize() {
 		Robot.drive.resetEncoders();
-		Robot.drive.setDriveEncoderSetPoint(inchesToDrive / Constants.inchesPerTick);
+		Robot.drive.setDriveEncoderSetPoint((inchesToDrive / Constants.inchesPerTick) * .87719298);
 		Robot.drive.setGyroSetPoint(Robot.drive.getGyroOutput());
 		Robot.drive.setMaxDrivePIDOutput(speed);
 		Robot.drive.enablePID();

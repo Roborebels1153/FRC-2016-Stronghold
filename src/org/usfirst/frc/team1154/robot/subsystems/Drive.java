@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSourceType;
+import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -46,9 +47,10 @@ public class Drive extends Subsystem {
 	private DigitalInput lightSensorBack;
 	private DigitalInput lightSensorForwardOne;
 	private DigitalInput lightSensorForwardTwo;
-	private double driveTolerance = 0;
+	private double driveTolerance = 1;
 	private double turnTolerance = 0;
 	private boolean crossingDefence = false;
+//	private Ultrasonic sonar;
 	
 	public Drive() {
 		
@@ -63,6 +65,8 @@ public class Drive extends Subsystem {
 		leftEncoder = new Encoder (RobotMap.LEFT_ENCODER_A_CHANNEL, RobotMap.LEFT_ENCODER_B_CHANNEL, false, EncodingType.k4X);
 		
 		rightEncoder = new Encoder (RobotMap.RIGHT_ENCODER_A_CHANNEL, RobotMap.RIGHT_ENCODER_B_CHANNEL, false, EncodingType.k4X);
+
+//		sonar = new Ultrasonic(RobotMap.ULTRASONIC_ECHO_PULSE_OUTPUT, RobotMap.ULTRASONIC_TRIGGER_PULSE_INPUT);
 		
 		gyro = new RebelGyro();
 		
@@ -76,24 +80,28 @@ public class Drive extends Subsystem {
 		rightEncoderOutput = new DummyPIDOutput();
 		gyroOutput = new DummyPIDOutput();		
 		
-		double encoderP = 0.08; 
+		//double encoderP = 0.8; //original 
+		double encoderP = 0.78;
 		double encoderI = 0;
-		double encoderD = 0.035;
+		double encoderD = 0.25; //low bar score
+		//double encoderD = 0.15;
+		//double encoderD = 0;
 		
 		leftEncoderPID = new PIDController(encoderP, encoderI, encoderD, leftEncoder, leftEncoderOutput);
 		
 		rightEncoderPID = new PIDController(encoderP, encoderI, encoderD, rightEncoder, rightEncoderOutput);
 		
-		gyroPID = new PIDController(.35, 0, 015, gyro, gyroOutput); //turn numbers
+		gyroPID = new PIDController(.35, 0, .015, gyro, gyroOutput); //turn numbers
 //		gyroPID = new PIDController(0.4, 0, 0.2, gyro, gyroOutput);
 		
 		lightSensorFront = new DigitalInput(RobotMap.FRONT_LIGHT_SENSOR);
 		 
 		lightSensorBack = new DigitalInput(RobotMap.BACK_LIGHT_SENSOR);
 		
-		lightSensorForwardOne = new DigitalInput(RobotMap.FORWARD_LIGHT_SENSOR_ONE);
+//		lightSensorForwardOne = new DigitalInput(RobotMap.FORWARD_LIGHT_SENSOR_ONE);
 		
-		lightSensorForwardTwo = new DigitalInput(RobotMap.FORWARD_LIGHT_SENSOR_TWO);
+//		lightSensorForwardTwo = new DigitalInput(RobotMap.FORWARD_LIGHT_SENSOR_TWO);
+		
 		
 		init();
 		
@@ -338,6 +346,16 @@ public class Drive extends Subsystem {
 	public boolean getBackLightSensor() {
 		return !lightSensorBack.get();
 	}
+	
+//	public boolean getForwardLightSensors() {
+//		return !lightSensorForwardOne.get() & !lightSensorForwardTwo.get();
+//		
+//	}
+	
+//	public double getSonarDistance() {
+//		return sonar.getRangeInches();
+//	}
+	
 	
 	public boolean isOnTarget() {
 		return Math.abs(leftEncoderPID.getError()) < driveTolerance ||
