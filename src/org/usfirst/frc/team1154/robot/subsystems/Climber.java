@@ -10,10 +10,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Climber extends Subsystem {
 	
-	private Solenoid climber;
+	private DoubleSolenoid leftClimber;
+	private DoubleSolenoid rightClimber;
 	private Solenoid actuator;
 	private enum ClimberState {IN, OUT};
-	private ClimberState currState;
+	private ClimberState climbState;
 	private enum ActuatorState{UP, DOWN};
 	private ActuatorState currPosition;
 	  
@@ -22,14 +23,33 @@ public class Climber extends Subsystem {
 	
 	public Climber() {
 		
-		climber = new Solenoid(RobotMap.CLIMBER_SOLENOID_A);
+//		climber = new Solenoid(RobotMap.CLIMBER_SOLENOID_A);
+//		
+//		actuator = new Solenoid( RobotMap.CLIMBER_SOLENOID_B);
 		
-		actuator = new Solenoid( RobotMap.CLIMBER_SOLENOID_B);
+		leftClimber = new DoubleSolenoid(RobotMap.CLIMBER_SOLENOID_A, RobotMap.CLIMBER_SOLENOID_B);
+		rightClimber = new DoubleSolenoid(RobotMap.CLIMBER_SOLENOID_C, RobotMap.CLIMBER_SOLENOID_D);
 		
-		currState = ClimberState.IN;
-		
+		climbState = ClimberState.IN;
 		currPosition = ActuatorState.DOWN;
 		
+		store(); //Make sure we have the climber in to start the match
+		
+	}
+	
+	public ClimberState climb() {
+		leftClimber.set(DoubleSolenoid.Value.kReverse);
+		rightClimber.set(DoubleSolenoid.Value.kReverse);
+		climbState = ClimberState.OUT;
+		return climbState;
+		
+	}
+	
+	public ClimberState store() {
+		leftClimber.set(DoubleSolenoid.Value.kForward);
+		rightClimber.set(DoubleSolenoid.Value.kForward);
+		climbState = ClimberState.IN;
+		return climbState;
 	}
 	
 	public ActuatorState actuatorOut() {

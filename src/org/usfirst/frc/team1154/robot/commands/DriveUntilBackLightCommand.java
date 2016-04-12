@@ -25,14 +25,14 @@ public class DriveUntilBackLightCommand extends Command {
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
-		Robot.drive.arcadeDrive(Constants.defaultMaxSpeed, 0);
+		Robot.drive.arcadeDrive(speed, 0);
 		
 	}
 
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		return Robot.drive.getBackLightSensor();
+		return !Robot.drive.getFrontLightSensor();
 	}
 
 	@Override

@@ -23,7 +23,7 @@ public class ArmSetHeight extends Command {
 	protected void initialize() {
 		Robot.arm.resetArmEncoder();
 		Robot.arm.setSetpoint(setpoint);
-		Robot.arm.setArmPIDOutput(Constants.defaultArmSpeed);
+		Robot.arm.setArmPIDOutput(Constants.defaultArmHeight);
 		Robot.arm.enablePID();
 	}
 
@@ -74,7 +74,7 @@ public class ArmSetHeight extends Command {
 				break;
 			}
 			case SCORE : {
-				armSetpoint = -160;
+				armSetpoint = -250;
 				break;
 			}
 			default : {

@@ -22,7 +22,8 @@ public class TurnWithPID extends Command{
 	@Override
 	protected void initialize() {
 		Robot.drive.resetEncoders();
-		Robot.drive.setGyroPID(.035, 0, .015); //proto
+		Robot.drive.setGyroPID(.035, .008, .012); //proto
+//4-9		Robot.drive.setGyroPID(.035, .008, .015); //proto
 		//Robot.drive.setGyroPID(.03, 0, 0);
 		Robot.drive.setGyroSetPoint(degreesToTurn);
 		Robot.drive.setMaxDrivePIDOutput(speed);

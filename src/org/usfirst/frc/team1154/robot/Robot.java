@@ -6,17 +6,15 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import org.team2168.utils.BNO055;
+import org.usfirst.frc.team1154.robot.autonomous.AutonomousCombosTesting;
+import org.usfirst.frc.team1154.robot.autonomous.BackUpAndScore;
 import org.usfirst.frc.team1154.robot.autonomous.ChevalAutonomous;
 import org.usfirst.frc.team1154.robot.autonomous.DrivingWithPIDTest;
-import org.usfirst.frc.team1154.robot.autonomous.StayStillAutonomous;
-import org.usfirst.frc.team1154.robot.autonomous.TrialThingAutonomous;
 import org.usfirst.frc.team1154.robot.autonomous.LowBarAutonomous;
 import org.usfirst.frc.team1154.robot.autonomous.LowBarAutonomousWithScore;
 import org.usfirst.frc.team1154.robot.autonomous.LowBarAutonomousWithSetup;
-import org.usfirst.frc.team1154.robot.autonomous.AutonomousCombosTesting;
 import org.usfirst.frc.team1154.robot.autonomous.MoatAutonomous;
 import org.usfirst.frc.team1154.robot.autonomous.MoatAutonomousWithScore;
-import org.usfirst.frc.team1154.robot.autonomous.RoughTerrainAutonomousWithScoreInFive;
 import org.usfirst.frc.team1154.robot.autonomous.MoatAutonomousWithSetup;
 import org.usfirst.frc.team1154.robot.autonomous.PortcullisAutonomous;
 import org.usfirst.frc.team1154.robot.autonomous.PortcullisAutonomousWithScore;
@@ -27,13 +25,13 @@ import org.usfirst.frc.team1154.robot.autonomous.RockWallAutonomous;
 import org.usfirst.frc.team1154.robot.autonomous.RockWallAutonomousWithScore;
 import org.usfirst.frc.team1154.robot.autonomous.RockWallAutonomousWithSetup;
 import org.usfirst.frc.team1154.robot.autonomous.RoughTerrainAutonomous;
-import org.usfirst.frc.team1154.robot.autonomous.RoughTerrainAutonomousWithScore;
+import org.usfirst.frc.team1154.robot.autonomous.RoughTerrainAutonomousWithScoreInFive;
 import org.usfirst.frc.team1154.robot.autonomous.RoughTerrainAutonomousWithSetup;
 import org.usfirst.frc.team1154.robot.autonomous.SpitOutBallCommand;
+import org.usfirst.frc.team1154.robot.autonomous.StayStillAutonomous;
+import org.usfirst.frc.team1154.robot.autonomous.TrialThingAutonomous;
 import org.usfirst.frc.team1154.robot.autonomous.TurnWithPIDTest;
-import org.usfirst.frc.team1154.robot.commands.DriveWithPID;
 import org.usfirst.frc.team1154.robot.subsystems.Arm;
-import org.usfirst.frc.team1154.robot.subsystems.Climber;
 import org.usfirst.frc.team1154.robot.subsystems.Collector;
 import org.usfirst.frc.team1154.robot.subsystems.Drive;
 
@@ -43,12 +41,7 @@ import com.ni.vision.NIVision.Image;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -67,7 +60,7 @@ public class Robot extends IterativeRobot {
 	public static final Collector collector = new Collector();
 	public static final Arm arm = new Arm();
 	public static final Drive drive = new Drive();
-	public static final Climber climber = new Climber();
+//	public static final Climber climber = new Climber();
 	public static OI oi;
 	private Compressor compressor = new Compressor();
 	private double[] pos = new double[3]; // [x,y,z] position data
@@ -75,20 +68,15 @@ public class Robot extends IterativeRobot {
 	private DecimalFormat f = new DecimalFormat("+000.000;-000.000");
 	private Timer visionScheduler = new Timer("Vision Scheduler", true);
 	
+	private boolean visitedTeleop = false;
+	
 	private int cameraSession;
 	private Image frame;
-	
-	
-//	private CameraServer server;
 	
     Command autonomousCommand;
     SendableChooser chooser;
     
     public Robot() {
-//    	server = CameraServer.getInstance();
-//    	server.setQuality(1);
-//    	server.startAutomaticCapture("cam0");
-//    	NIVision.imaqFlip(server.get, null, FlipAxis.HORIZONTAL_AXIS);
     	
     }
 
@@ -130,6 +118,7 @@ public class Robot extends IterativeRobot {
         chooser.addObject("Ball Spit Command", new SpitOutBallCommand());
         chooser.addObject("Stay Still", new StayStillAutonomous());
         chooser.addObject("The Toshak Special", new TrialThingAutonomous());
+        chooser.addObject("Gaff Attack", new BackUpAndScore());
         
         
         SmartDashboard.putData("Auto mode", chooser);
@@ -175,6 +164,10 @@ public class Robot extends IterativeRobot {
 		}
 		
 //		displayCamera();
+		
+		if(visitedTeleop) {
+//			climber.climb();
+		}
 	}
 
 	/**
@@ -203,6 +196,8 @@ public class Robot extends IterativeRobot {
 //		} 
     	
     	 //schedule the autonomous command (example)
+        
+//        climber.store();
         if (autonomousCommand != null) autonomousCommand.start();
     }
 
@@ -225,7 +220,7 @@ public class Robot extends IterativeRobot {
     	
         if (autonomousCommand != null) autonomousCommand.cancel();
         Robot.drive.disablePID();
-        
+        visitedTeleop = true;
         Scheduler.getInstance().removeAll();
         
     }
