@@ -73,8 +73,18 @@ public class ArmSetHeight extends Command {
 				armSetpoint = -100;
 				break;
 			}
+			case DRAW : {
+				armSetpoint = -190;
+				break;
+			}
+			
 			case SCORE : {
-				armSetpoint = -250;
+				armSetpoint = -360;
+				break;
+			}
+			
+			case PORT : {
+				armSetpoint = -350;
 				break;
 			}
 			default : {

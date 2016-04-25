@@ -19,10 +19,10 @@ public class BackUpAndScore extends CommandGroup{
 		addSequential(new DriveAutonomousTimerCommand(Constants.rockWall, 1));
 //		addSequential(new DriveWithPID(230 , Constants.roughTerrain));
 //		addSequential(new DriveWithPID(30 , Constants.roughTerrain));
-		addSequential(new WaitInbetweenCommandsCommand(1.5));
+		addSequential(new WaitInbetweenCommandsCommand(.75));
 		addSequential(new DriveWithPID(-7, Constants.roughTerrain));
 //		addSequential(new WaitInbetweenCommandsCommand(1));
-		addSequential(new TurnWithPID(318));
+		addSequential(new TurnWithPID(309));
 		addSequential(new WaitInbetweenCommandsCommand(2));
 		addSequential(new DriveWithPID(40, Constants.roughTerrain));
 		addSequential(new ArmOutCommand());

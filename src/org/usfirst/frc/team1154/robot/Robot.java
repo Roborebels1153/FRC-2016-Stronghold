@@ -9,6 +9,7 @@ import org.team2168.utils.BNO055;
 import org.usfirst.frc.team1154.robot.autonomous.AutonomousCombosTesting;
 import org.usfirst.frc.team1154.robot.autonomous.BackUpAndScore;
 import org.usfirst.frc.team1154.robot.autonomous.ChevalAutonomous;
+import org.usfirst.frc.team1154.robot.autonomous.ChevalAutonomousWithScoreInFive;
 import org.usfirst.frc.team1154.robot.autonomous.DrivingWithPIDTest;
 import org.usfirst.frc.team1154.robot.autonomous.LowBarAutonomous;
 import org.usfirst.frc.team1154.robot.autonomous.LowBarAutonomousWithScore;
@@ -104,6 +105,7 @@ public class Robot extends IterativeRobot {
         chooser.addObject("Ramparts Score", new RampartsAutonomousWithScore());
         chooser.addObject("Ramparts Setup", new RampartsAutonomousWithSetup());
         chooser.addObject("Cheval Plain", new ChevalAutonomous());
+        chooser.addObject("Cheval Score From Five", new ChevalAutonomousWithScoreInFive());
         chooser.addObject("Rock Wall Plain", new RockWallAutonomous());
         chooser.addObject("Rock Wall Score", new RockWallAutonomousWithScore());
         chooser.addObject("Rock Wall Setup", new RockWallAutonomousWithSetup());

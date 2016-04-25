@@ -42,6 +42,7 @@ public class DriveAutonomousTimerCommand extends Command {
 		// TODO Auto-generated method stub
 		Robot.collector.stopCollecting();
 		Robot.arm.disablePID();
+		Robot.drive.disablePID();
 	}
 
 	@Override

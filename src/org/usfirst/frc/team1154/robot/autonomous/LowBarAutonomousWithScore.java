@@ -21,7 +21,7 @@ public class LowBarAutonomousWithScore extends CommandGroup{
 		 */
 		addSequential(new DriveWithPID(230));
 		addSequential(new WaitInbetweenCommandsCommand(0.25));
-		addSequential(new TurnWithPID(52));
+		addSequential(new TurnWithPID(48));
 		addSequential(new DriveWithPID(116, Constants.moatSpeed));
 		addSequential(new WaitInbetweenCommandsCommand(0.25));
 		addSequential(new ArmOutCommand());

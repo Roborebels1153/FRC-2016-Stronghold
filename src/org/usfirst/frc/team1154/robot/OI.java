@@ -73,10 +73,11 @@ public class OI {
 		opLT.whileHeld(new CollectorReleaseTeleopCommand());
 		opRT.whileHeld(new CollectorIntakeCommand());
 		opLB.whenPressed(new ArmStopCommand());
+		opRB.whenPressed(new ArmSetHeight(ArmHeight.SCORE));
 		//Test Stuff, we can get rid of this whenever we actually need these buttons.
 		opY.whenPressed(new ArmSetHeight(ArmHeight.HIGH));
 		opX.whenPressed(new ArmSetHeight(ArmHeight.SPIT));
-		opST.whenPressed(new ArmSetHeight(ArmHeight.SCORE));
+		opST.whenPressed(new ArmSetHeight(ArmHeight.PORT));
 		
 		
 		drA.whileHeld(new ChevalCrossCommand());

@@ -26,7 +26,7 @@ public class Arm extends Subsystem {
 	private Encoder armEncoder;
 	private PIDController armController;
 	private AnalogInput ai;
-	private Victor armMotor;
+	public Victor armMotor;
 	private DigitalInput armInSwitch;
 	private DigitalInput armOutSwitch;
 	private PIDController armEncoderPID;
@@ -35,7 +35,9 @@ public class Arm extends Subsystem {
 	public enum ArmHeight {
 		SPIT,
 		HIGH,
-		SCORE
+		DRAW,
+		SCORE,
+		PORT
 	}
 	
 	public Arm() {
@@ -188,6 +190,10 @@ public class Arm extends Subsystem {
 	public boolean onTarget() {
 		// TODO Auto-generated method stub
 		return Math.abs(armEncoder.get() - getSetpoint()) < 5;
+	}
+	
+	public void armMotorSet(double armSpeed) {
+		armMotor.set(armSpeed);
 	}
 	
 

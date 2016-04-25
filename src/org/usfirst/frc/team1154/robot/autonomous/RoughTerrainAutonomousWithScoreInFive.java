@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class RoughTerrainAutonomousWithScoreInFive extends CommandGroup{
 	public RoughTerrainAutonomousWithScoreInFive() {
 		addSequential(new DriveWithPID(230 , Constants.roughTerrain));
-		addSequential(new DriveWithPID(12 , Constants.roughTerrain));
+		addSequential(new DriveWithPID(-12 , Constants.roughTerrain));
 		addSequential(new WaitInbetweenCommandsCommand(1));
 //		addSequential(new DriveWithPID(268 , Constants.roughTerrain));
 //		addSequential(new TurnWithPID(359));

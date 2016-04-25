@@ -15,7 +15,7 @@ public class TrialThingAutonomous extends CommandGroup {
 		addSequential(new TurnWithPID(180));
 		addSequential(new ArmSetHeight(ArmHeight.SPIT));
 		addSequential(new CollectorReleaseAutonomousCommand());
-		//addSequential(new ArmInCommand());
+		addSequential(new ArmInCommand());
 		
 	}
 	
