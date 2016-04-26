@@ -31,7 +31,7 @@ public class DriveWithPID extends Command {
 	@Override
 	protected void initialize() {
 		Robot.drive.resetEncoders();
-		Robot.drive.setDriveEncoderSetPoint(inchesToDrive / Constants.inchesPerTick);
+		Robot.drive.setDriveEncoderSetPoint((inchesToDrive / Constants.inchesPerTick) * .87719298);
 		Robot.drive.setGyroSetPoint(Robot.drive.getGyroOutput());
 		Robot.drive.setMaxDrivePIDOutput(speed);
 		Robot.drive.enablePID();
@@ -46,7 +46,9 @@ public class DriveWithPID extends Command {
 		
 		double averageOutput = leftOutput + rightOutput / 2;
 		//TODO: replace with average output when using on Real Robot
-		Robot.drive.arcadeDrive(-rightOutput, gyroOutput); //;
+		//Robot.drive.arcadeDrive(-rightOutput, gyroOutput); 
+		//Robot.drive.arcadeDrive(-rightOutput, 0); //Switch between the three as Gaffey says
+		Robot.drive.arcadeDrive(-rightOutput, 0.3); // Prototype Robot's turn problem
 		
 		leftInchesDriven = Constants.inchesPerTick * Robot.drive.getLeftEncoderDistance();
 		rightInchesDriven = Constants.inchesPerTick * Robot.drive.getRightEncoderDistance();

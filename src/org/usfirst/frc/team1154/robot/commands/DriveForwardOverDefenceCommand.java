@@ -9,6 +9,9 @@ public class DriveForwardOverDefenceCommand extends Command {
 	
 	private double speed;
 	
+	private double inchesToDrive = 10;
+	
+	
 	public DriveForwardOverDefenceCommand(double defenseSpeed) {
 		requires(Robot.drive);
 		this.speed = defenseSpeed;
@@ -36,7 +39,9 @@ public class DriveForwardOverDefenceCommand extends Command {
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
 		 return !(Robot.drive.getFrontLightSensor() || Robot.drive.getBackLightSensor()) &&
-				 Robot.drive.getCrossingDefence();
+				 Robot.drive.getCrossingDefence() && 
+				 (Robot.drive.getLeftEncoderDistance() > inchesToDrive / Constants.inchesPerTick ||
+				Robot.drive.getRightEncoderDistance() > inchesToDrive / Constants.inchesPerTick);
 	}
 
 	@Override

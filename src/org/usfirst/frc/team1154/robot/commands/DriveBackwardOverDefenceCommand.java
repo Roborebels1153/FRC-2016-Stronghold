@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1154.robot.commands;
 
+import org.usfirst.frc.team1154.robot.Constants;
 import org.usfirst.frc.team1154.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -7,6 +8,8 @@ import edu.wpi.first.wpilibj.command.Command;
 public class DriveBackwardOverDefenceCommand extends Command {
 
 	private double speed;
+	
+	private double inchesToDrive = 20;
 	
 	public DriveBackwardOverDefenceCommand(double defenseSpeed) {
 		requires(Robot.drive);
@@ -35,7 +38,9 @@ public class DriveBackwardOverDefenceCommand extends Command {
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
 		 return !(Robot.drive.getFrontLightSensor() || Robot.drive.getBackLightSensor()) &&
-				 Robot.drive.getCrossingDefence();
+				 Robot.drive.getCrossingDefence() &&
+				 Robot.drive.getLeftEncoderDistance() > inchesToDrive / Constants.inchesPerTick;
+
 	}
 
 	@Override

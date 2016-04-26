@@ -23,7 +23,7 @@ public class ArmSetHeight extends Command {
 	protected void initialize() {
 		Robot.arm.resetArmEncoder();
 		Robot.arm.setSetpoint(setpoint);
-		Robot.arm.setArmPIDOutput(Constants.defaultArmSpeed);
+		Robot.arm.setArmPIDOutput(Constants.defaultArmHeight);
 		Robot.arm.enablePID();
 	}
 
@@ -40,19 +40,20 @@ public class ArmSetHeight extends Command {
 		Robot.arm.disablePID();
 		Robot.arm.stopArm();
 		Robot.arm.resetArmEncoder();
+		
 	}
 
 	@Override
 	protected boolean isFinished() {
 		
-		boolean limitLowCheck = Robot.arm.getArmOut();
-		boolean limitHighCheck = Robot.arm.getArmIn();
+//		boolean limitLowCheck = Robot.arm.getArmOut();
+//
+//		
+//		if(limitLowCheck){
+//			return true;
+//		} 
 		
-		if(limitLowCheck || limitHighCheck == true){
-			return true;
-		} 
-		
-		return false;
+		return Robot.arm.onTarget();
 	}	
 
 	@Override
@@ -63,27 +64,34 @@ public class ArmSetHeight extends Command {
 	private double getHeight(ArmHeight height) {
 		double armSetpoint;
 		switch (height) {
-			case LOW : {
-				armSetpoint = 50;
+			case SPIT : {
+				armSetpoint = -30;
 				break;
 			}
 			case HIGH : {
 				
-				armSetpoint = 300;
+				armSetpoint = -100;
+				break;
+			}
+			case DRAW : {
+				armSetpoint = -190;
+				break;
+			}
+			
+			case SCORE : {
+				armSetpoint = -360;
+				break;
+			}
+			
+			case PORT : {
+				armSetpoint = -350;
 				break;
 			}
 			default : {
 				armSetpoint =  0;
 				break;
 			}
-			case PORT : {
-				armSetpoint = 200;
-				break;
-			}
-			case DRAW : {
-				armSetpoint = 250;
-				break;
-			}
+		
 		}
 		return armSetpoint;
 	}

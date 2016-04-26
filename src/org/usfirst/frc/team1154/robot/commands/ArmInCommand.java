@@ -30,6 +30,7 @@ public class ArmInCommand extends Command{
 		//Stops the pivot motor when end is called
 		Robot.arm.stopArm();
 		Robot.arm.resetArmEncoder();
+	
 		
 	}
 

@@ -30,6 +30,9 @@ public class ArmWithJoysticks extends Command {
 	protected void execute() {
 		Joystick stick = Robot.oi.getOperatorStick();
 		Robot.arm.driveArm(stick);	
+		if(Robot.arm.getArmIn()) {
+			Robot.arm.resetArmEncoder();
+		}
 	}
 
 	@Override

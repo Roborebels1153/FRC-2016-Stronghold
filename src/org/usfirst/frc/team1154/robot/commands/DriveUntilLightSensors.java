@@ -1,45 +1,42 @@
 package org.usfirst.frc.team1154.robot.commands;
 
-import org.usfirst.frc.team1154.robot.Constants;
 import org.usfirst.frc.team1154.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class DriveUntilBackLightCommand extends Command {
+public class DriveUntilLightSensors extends Command {
 	
-	private double speed;
+	private int runCount = 0;
 	
-	public DriveUntilBackLightCommand(double defenceSpeed) {
+	public DriveUntilLightSensors() {
 		requires(Robot.drive);
-		this.speed = defenceSpeed;
 	}
 
 	@Override
 	protected void initialize() {
 		// TODO Auto-generated method stub
-		Robot.drive.resetEncoders();
-		Robot.drive.enablePID();
+		runCount = 0;
 		
 	}
 
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
-		Robot.drive.arcadeDrive(speed, 0);
+		runCount++;
+		Robot.drive.arcadeDrive(0.9, 0);
 		
 	}
 
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		return !Robot.drive.getFrontLightSensor();
+		return runCount > 450  ;
+//		Robot.drive.getForwardLightSensors() || 
 	}
 
 	@Override
 	protected void end() {
 		// TODO Auto-generated method stub
-		Robot.drive.disablePID();
-		Robot.drive.resetEncoders();
 		
 	}
 
@@ -48,6 +45,8 @@ public class DriveUntilBackLightCommand extends Command {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	
 	
 
 }

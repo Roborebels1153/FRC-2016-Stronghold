@@ -15,31 +15,32 @@ import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 
-public class Arm extends PIDSubsystem {
+public class Arm extends Subsystem {
 	
 //  private Encoder armEncoder;
 	private Encoder armEncoder;
+	private PIDController armController;
 	private AnalogInput ai;
-	private Victor armMotor;
+	public Victor armMotor;
 	private DigitalInput armInSwitch;
 	private DigitalInput armOutSwitch;
 	private PIDController armEncoderPID;
 	
 	
 	public enum ArmHeight {
-		LOW,
+		SPIT,
 		HIGH,
-		PORT,
-		DRAW
+		DRAW,
+		SCORE,
+		PORT
 	}
 	
 	public Arm() {
-		
-		super("Arm", 0.01, 0, 0);
 		
 		
 		ai = new AnalogInput(0);
@@ -47,7 +48,7 @@ public class Arm extends PIDSubsystem {
 //		armEncoder = new AnalogPotentiometer(ai,360,0);
 		
 		armEncoder = new Encoder(RobotMap.ARM_ENCODER_A_CHANNEL, RobotMap.ARM_ENCODER_B_CHANNEL, false, EncodingType.k4X);
-		
+				
 		armMotor = new Victor(RobotMap.ARM_MOTOR);
 		
 		armInSwitch = new DigitalInput(RobotMap.ARM_IN_SWITCH);
@@ -116,6 +117,18 @@ public class Arm extends PIDSubsystem {
 		armMotor.set(Constants.defaultArmSpeed);
 	}
 	
+	public void armLimitHitIn() {
+		while(Robot.arm.getArmIn() == false) {
+			in();
+		}
+	}
+	
+	public void armLimitHitOut() {
+		while(Robot.arm.getArmOut() == false) {
+			out();
+		}
+	}
+	
 	public void driveArm(Joystick stick) {
 		double speed = stick.getY();
 		if(Robot.oi.getOperatorStick().getRawButton(5)) {
@@ -163,17 +176,24 @@ public class Arm extends PIDSubsystem {
 		return armEncoderPID.get();
 	}
 
-	@Override
-	protected double returnPIDInput() {
+	public void setSetpoint(double setpoint) {
 		// TODO Auto-generated method stub
-		return getArmPosition();
+		armEncoderPID.setSetpoint(setpoint);
+		
 	}
 
-	@Override
-	protected void usePIDOutput(double output) {
+	public double getSetpoint() {
 		// TODO Auto-generated method stub
-		armMotor.set(output);
-		
+		return armEncoderPID.getSetpoint();
+	}
+
+	public boolean onTarget() {
+		// TODO Auto-generated method stub
+		return Math.abs(armEncoder.get() - getSetpoint()) < 5;
+	}
+	
+	public void armMotorSet(double armSpeed) {
+		armMotor.set(armSpeed);
 	}
 	
 

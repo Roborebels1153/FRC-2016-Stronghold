@@ -4,11 +4,13 @@ import org.usfirst.frc.team1154.robot.Constants;
 import org.usfirst.frc.team1154.robot.commands.ArmInCommand;
 import org.usfirst.frc.team1154.robot.commands.ArmOutCommand;
 import org.usfirst.frc.team1154.robot.commands.CollectorReleaseAutonomousCommand;
+import org.usfirst.frc.team1154.robot.commands.CollectorReleaseAutonomousTimerCommand;
 import org.usfirst.frc.team1154.robot.commands.CollectorReleaseTeleopCommand;
 import org.usfirst.frc.team1154.robot.commands.DriveForwardOverDefenceCommand;
 import org.usfirst.frc.team1154.robot.commands.DriveUntilFrontLightCommand;
 import org.usfirst.frc.team1154.robot.commands.DriveWithPID;
 import org.usfirst.frc.team1154.robot.commands.TurnWithPID;
+import org.usfirst.frc.team1154.robot.commands.WaitInbetweenCommandsCommand;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -17,12 +19,19 @@ public class LowBarAutonomousWithScore extends CommandGroup{
 		/*
 		 * Working Code 
 		 */
-		addSequential(new DriveWithPID(191 + 36));
-		addSequential(new TurnWithPID(52));
-		addSequential(new DriveWithPID(134 - 24, Constants.approachingGoalSpeed));
+		addSequential(new DriveWithPID(230));
+		addSequential(new WaitInbetweenCommandsCommand(0.25));
+		addSequential(new TurnWithPID(48));
+		addSequential(new DriveWithPID(116, Constants.moatSpeed));
+		addSequential(new WaitInbetweenCommandsCommand(0.25));
 		addSequential(new ArmOutCommand());
-		addSequential(new CollectorReleaseAutonomousCommand());
+		addSequential(new CollectorReleaseAutonomousTimerCommand());
 		addSequential(new ArmInCommand());
+		addSequential(new WaitInbetweenCommandsCommand(0.25));
+//		addSequential(new DriveWithPID(-116, Constants.moatSpeed));
+//		addSequential(new TurnWithPID(180));
+
+		
 		
 		
 		//addSequential(new SpitOutBallCommand());

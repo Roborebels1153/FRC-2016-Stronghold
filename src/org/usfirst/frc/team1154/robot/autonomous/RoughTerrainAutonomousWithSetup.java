@@ -1,4 +1,4 @@
-package org.usfirst.frc.team1154.robot.autonomous;
+	package org.usfirst.frc.team1154.robot.autonomous;
 
 import org.usfirst.frc.team1154.robot.Constants;
 import org.usfirst.frc.team1154.robot.commands.ArmInCommand;
@@ -16,16 +16,25 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class RoughTerrainAutonomousWithSetup extends CommandGroup {
 	public RoughTerrainAutonomousWithSetup() {
-		addSequential(new DriveUntilFrontLightCommand());
-		addSequential(new DriveForwardOverDefenceCommand(Constants.defaultDefenceSpeed));
-		addSequential(new DriveWithPID(48, Constants.defaultDefenceSpeed));
+//		addSequential(new DriveUntilFrontLightCommand());
+//		addSequential(new DriveForwardOverDefenceCommand(Constants.defaultDefenceSpeed));
+//		addSequential(new DriveWithPID(48, Constants.defaultDefenceSpeed));
+		addSequential(new DriveWithPID(191 + 36, Constants.defaultDefenceSpeed));
 		addSequential(new ArmOutCommand());
 		addSequential(new CollectorReleaseAutonomousCommand());
 		addSequential(new ArmInCommand());
-		addSequential(new DriveUntilBackLightCommand(Constants.roughTerrain));
-		addSequential(new DriveBackwardOverDefenceCommand(Constants.roughTerrain));
-		addSequential(new DriveWithPID(-48, Constants.defaultDefenceSpeed));
-		addSequential(new TurnWithPID(180));
+		addSequential(new DriveWithPID(-277, Constants.defaultDefenceSpeed));
+//		addSequential(new DriveUntilBackLightCommand(Constants.roughTerrain));
+//		addSequential(new DriveBackwardOverDefenceCommand(Constants.roughTerrain));
+//		addSequential(new DriveWithPID(-48, Constants.defaultDefenceSpeed));
+//		addSequential(new TurnWithPID(180));
 	}
 
 }
+
+
+
+
+
+
+
