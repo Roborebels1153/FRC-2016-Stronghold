@@ -4,17 +4,9 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
-import org.usfirst.frc.team1154.robot.commands.ArmSetHeight;
-import org.usfirst.frc.team1154.robot.commands.ArmStopCommand;
+
 import org.usfirst.frc.team1154.robot.commands.ChevalCrossCommand;
 import org.usfirst.frc.team1154.lib.RebelTrigger;
-import org.usfirst.frc.team1154.robot.autonomous.DrawbridgeBackwardsCommand;
-import org.usfirst.frc.team1154.robot.autonomous.LowBarAutonomous;
-import org.usfirst.frc.team1154.robot.autonomous.SpitOutBallCommand;
-import org.usfirst.frc.team1154.robot.commands.ArmInCommand;
-import org.usfirst.frc.team1154.robot.commands.CollectorIntakeCommand;
-import org.usfirst.frc.team1154.robot.commands.ArmOutCommand;
-import org.usfirst.frc.team1154.robot.commands.CollectorReleaseTeleopCommand;
 import org.usfirst.frc.team1154.robot.commands.DriveForwardOverDefenceCommand;
 import org.usfirst.frc.team1154.robot.commands.DriveUntilFrontLightCommand;
 import org.usfirst.frc.team1154.robot.commands.DriveWithJoysticks;
@@ -23,7 +15,7 @@ import org.usfirst.frc.team1154.robot.commands.SallyPortTurn;
 import org.usfirst.frc.team1154.robot.commands.RampartCrossCommand;
 import org.usfirst.frc.team1154.robot.commands.ResetEncoders;
 import org.usfirst.frc.team1154.robot.commands.TurnWithPID;
-import org.usfirst.frc.team1154.robot.subsystems.Arm.ArmHeight;
+
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -68,20 +60,11 @@ public class OI {
 	
 	public OI(){
 		
-		opA.whenPressed(new ArmInCommand());
-		opB.whenPressed(new ArmOutCommand());
-		opLT.whileHeld(new CollectorReleaseTeleopCommand());
-		opRT.whileHeld(new CollectorIntakeCommand());
-		opLB.whenPressed(new ArmStopCommand());
-		opRB.whenPressed(new ArmSetHeight(ArmHeight.SCORE));
+
 		//Test Stuff, we can get rid of this whenever we actually need these buttons.
-		opY.whenPressed(new ArmSetHeight(ArmHeight.HIGH));
-		opX.whenPressed(new ArmSetHeight(ArmHeight.SPIT));
-		opST.whenPressed(new ArmSetHeight(ArmHeight.PORT));
-		
+
 		
 		drA.whileHeld(new ChevalCrossCommand());
-		drY.whenPressed(new DrawbridgeBackwardsCommand());
 		drX.whenPressed(new ResetEncoders());
 		drB.whenPressed(new TurnWithPID(180));
 		drLB.whenPressed(new DriveWithJoysticks());// stops any command that y9ou are driving.

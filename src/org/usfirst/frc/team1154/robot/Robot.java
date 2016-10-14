@@ -6,41 +6,16 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import org.team2168.utils.BNO055;
-import org.usfirst.frc.team1154.robot.autonomous.AutonomousCombosTesting;
-import org.usfirst.frc.team1154.robot.autonomous.BackUpAndScore;
-import org.usfirst.frc.team1154.robot.autonomous.ChevalAutonomous;
-import org.usfirst.frc.team1154.robot.autonomous.ChevalAutonomousWithScoreInFive;
-import org.usfirst.frc.team1154.robot.autonomous.DrivingWithPIDTest;
-import org.usfirst.frc.team1154.robot.autonomous.LowBarAutonomous;
-import org.usfirst.frc.team1154.robot.autonomous.LowBarAutonomousWithScore;
-import org.usfirst.frc.team1154.robot.autonomous.LowBarAutonomousWithSetup;
-import org.usfirst.frc.team1154.robot.autonomous.MoatAutonomous;
-import org.usfirst.frc.team1154.robot.autonomous.MoatAutonomousWithScore;
-import org.usfirst.frc.team1154.robot.autonomous.MoatAutonomousWithSetup;
-import org.usfirst.frc.team1154.robot.autonomous.PortcullisAutonomous;
-import org.usfirst.frc.team1154.robot.autonomous.PortcullisAutonomousWithScore;
-import org.usfirst.frc.team1154.robot.autonomous.RampartsAutonomous;
-import org.usfirst.frc.team1154.robot.autonomous.RampartsAutonomousWithScore;
-import org.usfirst.frc.team1154.robot.autonomous.RampartsAutonomousWithSetup;
-import org.usfirst.frc.team1154.robot.autonomous.RockWallAutonomous;
-import org.usfirst.frc.team1154.robot.autonomous.RockWallAutonomousWithScore;
-import org.usfirst.frc.team1154.robot.autonomous.RockWallAutonomousWithSetup;
-import org.usfirst.frc.team1154.robot.autonomous.RoughTerrainAutonomous;
-import org.usfirst.frc.team1154.robot.autonomous.RoughTerrainAutonomousWithScoreInFive;
-import org.usfirst.frc.team1154.robot.autonomous.RoughTerrainAutonomousWithSetup;
-import org.usfirst.frc.team1154.robot.autonomous.SpitOutBallCommand;
-import org.usfirst.frc.team1154.robot.autonomous.StayStillAutonomous;
-import org.usfirst.frc.team1154.robot.autonomous.TrialThingAutonomous;
+
 import org.usfirst.frc.team1154.robot.autonomous.TurnWithPIDTest;
-import org.usfirst.frc.team1154.robot.subsystems.Arm;
-import org.usfirst.frc.team1154.robot.subsystems.Collector;
+
 import org.usfirst.frc.team1154.robot.subsystems.Drive;
 
 import com.ni.vision.NIVision;
 import com.ni.vision.NIVision.FlipAxis;
 import com.ni.vision.NIVision.Image;
 
-import edu.wpi.first.wpilibj.CameraServer;
+
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -58,8 +33,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 	
-	public static final Collector collector = new Collector();
-	public static final Arm arm = new Arm();
+
 	public static final Drive drive = new Drive();
 //	public static final Climber climber = new Climber();
 	public static OI oi;
@@ -71,8 +45,7 @@ public class Robot extends IterativeRobot {
 	
 	private boolean visitedTeleop = false;
 	
-	private int cameraSession;
-	private Image frame;
+
 	
     Command autonomousCommand;
     SendableChooser chooser;
@@ -90,44 +63,16 @@ public class Robot extends IterativeRobot {
         chooser = new SendableChooser();
         compressor.setClosedLoopControl(true);
         
-        frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
-        cameraSession = NIVision.IMAQdxOpenCamera("cam0", NIVision.IMAQdxCameraControlMode.CameraControlModeController); 
-        NIVision.IMAQdxConfigureGrab(cameraSession);
-        NIVision.IMAQdxStartAcquisition(cameraSession);
+      
         
-        chooser.addObject("Low Bar Plain", new LowBarAutonomous());
-        chooser.addObject("Low Bar Score", new LowBarAutonomousWithScore());
-        chooser.addObject("Low Bar Setup", new LowBarAutonomousWithSetup());
-        chooser.addObject("Moat Plain", new MoatAutonomous());
-        chooser.addObject("Moat Score", new MoatAutonomousWithScore());
-        chooser.addObject("Moat Setup", new MoatAutonomousWithSetup());
-        chooser.addObject("Ramparts Plain", new RampartsAutonomous());
-        chooser.addObject("Ramparts Score", new RampartsAutonomousWithScore());
-        chooser.addObject("Ramparts Setup", new RampartsAutonomousWithSetup());
-        chooser.addObject("Cheval Plain", new ChevalAutonomous());
-        chooser.addObject("Cheval Score From Five", new ChevalAutonomousWithScoreInFive());
-        chooser.addObject("Rock Wall Plain", new RockWallAutonomous());
-        chooser.addObject("Rock Wall Score", new RockWallAutonomousWithScore());
-        chooser.addObject("Rock Wall Setup", new RockWallAutonomousWithSetup());
-        chooser.addObject("Rough Terrain Plain", new RoughTerrainAutonomous());
-        chooser.addObject("Rough Terrain Score Five", new RoughTerrainAutonomousWithScoreInFive());
-        chooser.addObject("Rough Terrain Setup", new RoughTerrainAutonomousWithSetup());
-        chooser.addObject("Portcullis Plain", new PortcullisAutonomous());
-        chooser.addObject("Portcullis Score", new PortcullisAutonomousWithScore());
-        chooser.addObject("TurnWithPID Test", new TurnWithPIDTest());
-        chooser.addObject("DriveWithPID Test", new DrivingWithPIDTest());//new DrivinWithDono());
-        chooser.addObject("Turn and Drive Testing", new AutonomousCombosTesting());
-        chooser.addObject("Ball Spit Command", new SpitOutBallCommand());
-        chooser.addObject("Stay Still", new StayStillAutonomous());
-        chooser.addObject("The Toshak Special", new TrialThingAutonomous());
-        chooser.addObject("Gaff Attack", new BackUpAndScore());
+
         
         
         SmartDashboard.putData("Auto mode", chooser);
         
     	visionScheduler.scheduleAtFixedRate(new TimerTask() {
     		public void run() {
-    			displayCamera();
+
     		}
     	}, 0, 50);
     }
@@ -240,25 +185,15 @@ public class Robot extends IterativeRobot {
 
     	
     	SmartDashboard.putData("Robot - Scheduler", Scheduler.getInstance());
-    	SmartDashboard.putData("Robot - Collector Subsystem" , collector);
-    	SmartDashboard.putData("Robot - Arm Subsystem" , arm);
     	SmartDashboard.putData("Robot - Drive Subsystem" ,drive);
      
-		SmartDashboard.putBoolean("Robot - Arm Limit Switch Out", Robot.arm.getArmOut());
-		SmartDashboard.putBoolean("Robot - Arm Limit Switch In", Robot.arm.getArmIn());
-		SmartDashboard.putNumber("Robot - Arm Encoder", Robot.arm.getArmEncoderDistance());
-		SmartDashboard.putNumber("Robot - Arm Setpoint", Robot.arm.getSetpoint());
-		
-		SmartDashboard.putBoolean("Robot - Ball Light Sensor(Please Boss?)", Robot.collector.getBallLightSensor());
+
 		SmartDashboard.putBoolean("Robot - Front Light Sensor(Boss Please?)", Robot.drive.getFrontLightSensor());
 		SmartDashboard.putBoolean("Robot - Back Light Sensor(Prank Boss?)", Robot.drive.getBackLightSensor());
 		
 		SmartDashboard.putNumber("Robot - Current Gyro Angle", Robot.drive.getAngle());
-		SmartDashboard.putNumber("Robot - Current Voltage Value", Robot.arm.getArmVoltage());
-		SmartDashboard.putBoolean("Robot - Arm In Switch", Robot.arm.getArmIn());
-		SmartDashboard.putBoolean("Robot - Arm Out Switch",Robot.arm.getArmOut());
 		
-		SmartDashboard.putNumber("Robot - Arm motor", Robot.arm.getArmOutput());
+
 		
 //		SmartDashboard.putNumber("Robot - Sonar Distance Inch", Robot.drive.getSonarDistance());
 		
@@ -272,20 +207,7 @@ public class Robot extends IterativeRobot {
 		
     }
     
-    public void displayCamera() {
-//    	try {
-    	NIVision.IMAQdxGrab(cameraSession, frame, 1);
-    	NIVision.imaqFlip(frame, frame, FlipAxis.HORIZONTAL_AXIS);
-    	NIVision.imaqFlip(frame, frame, FlipAxis.VERTICAL_AXIS);
-    	
-    	CameraServer.getInstance().setImage(frame);
-//    	} catch(Exception ex) {
-//    		 cameraSession = NIVision.IMAQdxOpenCamera("cam0", NIVision.IMAQdxCameraControlMode.CameraControlModeController); 
-//    	        NIVision.IMAQdxConfigureGrab(cameraSession);
-//    	        NIVision.IMAQdxStartAcquisition(cameraSession);
-//    	}
-    }
-
+   
     
     /**
      * This function is called periodically during test mode

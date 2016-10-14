@@ -1,7 +1,7 @@
 package org.usfirst.frc.team1154.lib;
 
 import org.usfirst.frc.team1154.robot.Constants;
-import org.usfirst.frc.team1154.robot.autonomous.LowBarAutonomous;
+
 import org.usfirst.frc.team1154.robot.commands.DriveForwardOverDefenceCommand;
 import org.usfirst.frc.team1154.robot.commands.DriveUntilFrontLightCommand;
 

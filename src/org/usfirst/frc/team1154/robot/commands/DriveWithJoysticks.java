@@ -14,8 +14,11 @@ public class DriveWithJoysticks extends Command {
 	public DriveWithJoysticks() {
 		requires(Robot.drive);
 	}
+	private double speed = 1.0;
 	
 	private Joystick driveStick = new Joystick(RobotMap.DRIVER_JOYSTICK);
+	
+	private Joystick bigBoyStick = new Joystick(RobotMap.OPERATOR_JOYSTICK);
 	
 	
 	@Override
@@ -26,24 +29,34 @@ public class DriveWithJoysticks extends Command {
 
 	@Override
 	protected void execute() {
-		Joystick stick = Robot.oi.getDriverStick();
-		Robot.drive.arcadeDrive(stick);
+		 driveStick = Robot.oi.getDriverStick();
+		 bigBoyStick = Robot.oi.getOperatorStick();
+
+//		Robot.drive.arcadeDrive(bigBoyStick);
+//		Robot.drive.arcadeDrive(driveStick);
 		
-		SmartDashboard.putNumber("Drive With Joysticks - Right Trigger", stick.getRawAxis(3));
-		SmartDashboard.putNumber("Drive With Joysticks - Gyro Heading", Robot.drive.getAngle());
+		
+		if((bigBoyStick.getRawAxis(1) > .5 || 
+				bigBoyStick.getRawAxis(1) < -.5) ||
+				(bigBoyStick.getRawAxis(4) > .5 ||
+				bigBoyStick.getRawAxis(4) < -.5)) {
+			Robot.drive.arcadeDrive(bigBoyStick);
+		} else {
+			speed = .65;
+			Robot.drive.arcadeDrive(driveStick.getY() * speed , driveStick.getX() * speed);
+		}
 		
 		
-		
-		if(driveStick.getRawAxis(2) > .5){			
+		if(bigBoyStick.getRawAxis(2) > .5){			
 			Robot.drive.shiftHigh();
 			
-		}else{
+		} else{
 			Robot.drive.shiftLow();
 		}
 		
-		 if(driveStick.getRawAxis(3) > .5){
+		 if(bigBoyStick.getRawAxis(3) > .5){
 			 Robot.drive.speedLow();
-		 }else{
+		 } else{
 			 Robot.drive.speedNorm();
 		 }
 	}
