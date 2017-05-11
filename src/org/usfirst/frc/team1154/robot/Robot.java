@@ -11,9 +11,7 @@ import org.usfirst.frc.team1154.robot.autonomous.TurnWithPIDTest;
 
 import org.usfirst.frc.team1154.robot.subsystems.Drive;
 
-import com.ni.vision.NIVision;
-import com.ni.vision.NIVision.FlipAxis;
-import com.ni.vision.NIVision.Image;
+
 
 
 import edu.wpi.first.wpilibj.Compressor;
@@ -140,6 +138,7 @@ public class Robot extends IterativeRobot {
 //		default:
 //			autonomousCommand = new ExampleCommand();
 //			break;
+        
 //		} 
     	
     	 //schedule the autonomous command (example)

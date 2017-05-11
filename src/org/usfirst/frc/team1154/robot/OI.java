@@ -4,15 +4,18 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
-
+import org.usfirst.frc.team1154.robot.commands.ActuatorInCommand;
+import org.usfirst.frc.team1154.robot.commands.ArmOutCommand;
+import org.usfirst.frc.team1154.robot.commands.ArmSthapCommand;
 import org.usfirst.frc.team1154.robot.commands.ChevalCrossCommand;
+import org.usfirst.frc.team1154.robot.commands.CollecterCollectCommand;
+import org.usfirst.frc.team1154.robot.commands.CollecterSpitCommand;
+import org.usfirst.frc.team1154.robot.commands.CollecterSthapCommand;
 import org.usfirst.frc.team1154.lib.RebelTrigger;
 import org.usfirst.frc.team1154.robot.commands.DriveForwardOverDefenceCommand;
 import org.usfirst.frc.team1154.robot.commands.DriveUntilFrontLightCommand;
 import org.usfirst.frc.team1154.robot.commands.DriveWithJoysticks;
 import org.usfirst.frc.team1154.robot.commands.DriveWithPID;
-import org.usfirst.frc.team1154.robot.commands.SallyPortTurn;
-import org.usfirst.frc.team1154.robot.commands.RampartCrossCommand;
 import org.usfirst.frc.team1154.robot.commands.ResetEncoders;
 import org.usfirst.frc.team1154.robot.commands.TurnWithPID;
 
@@ -64,11 +67,22 @@ public class OI {
 		//Test Stuff, we can get rid of this whenever we actually need these buttons.
 
 		
-		drA.whileHeld(new ChevalCrossCommand());
+		/*drA.whileHeld(new ChevalCrossCommand());
 		drX.whenPressed(new ResetEncoders());
 		drB.whenPressed(new TurnWithPID(180));
 		drLB.whenPressed(new DriveWithJoysticks());// stops any command that y9ou are driving.
+	*/
+		
+	opX.whileHeld(new ArmOutCommand());
+	opX.whenReleased(new ArmSthapCommand());
+	opY.whileHeld(new ActuatorInCommand());
+	opY.whenReleased(new ArmSthapCommand());
 	
+	
+	opA.whileHeld (new CollecterCollectCommand());
+	opB.whileHeld(new CollecterSpitCommand());
+	opA.whenReleased(new CollecterSthapCommand());
+	opB.whenReleased(new CollecterSthapCommand() );
 		
 		
 //		drA.whileHeld(new RampartCrossCommand());

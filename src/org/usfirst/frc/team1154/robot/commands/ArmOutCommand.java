@@ -4,15 +4,12 @@ import org.usfirst.frc.team1154.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class DriveAtSpeedCommand extends Command {
+public class ArmOutCommand extends Command {
 	
-	private final double speed;
-	
-	public DriveAtSpeedCommand(double speed) {
+	public ArmOutCommand() {
 		requires(Robot.drive);
-		this.speed = speed;
 	}
-	
+
 	@Override
 	protected void initialize() {
 		// TODO Auto-generated method stub
@@ -21,21 +18,19 @@ public class DriveAtSpeedCommand extends Command {
 
 	@Override
 	protected void execute() {
-		// TODO Auto-generated method stub
-		Robot.drive.arcadeDrive(-speed, 0);
-		
+		Robot.drive.armForward();
 	}
 
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		return true;
+		return false;
 	}
 
 	@Override
 	protected void end() {
 		// TODO Auto-generated method stub
-		
+		Robot.drive.armSthap();
 	}
 
 	@Override

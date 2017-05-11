@@ -34,6 +34,8 @@ public class Drive extends Subsystem {
 	private Victor leftBack;
 	private Victor rightFront;
 	private Victor rightBack;
+	private Victor armMotor;
+	private Victor collecterMotor;
 	public enum Shifter{ High, Low }
 	public enum Speed{Normal, Slow}
 	private Shifter currGear;
@@ -61,6 +63,10 @@ public class Drive extends Subsystem {
 		rightFront = new Victor(RobotMap.RIGHT_FRONT_MOTOR);
 		
 		rightBack = new Victor(RobotMap.RIGHT_BACK_MOTOR);
+		
+		armMotor = new Victor(RobotMap.ARM_MOTOR);
+		
+		collecterMotor = new Victor(RobotMap.COLLECTOR_ROLLERS);
  
 		leftEncoder = new Encoder (RobotMap.LEFT_ENCODER_A_CHANNEL, RobotMap.LEFT_ENCODER_B_CHANNEL, false, EncodingType.k4X);
 		
@@ -137,6 +143,7 @@ public class Drive extends Subsystem {
 //		LiveWindow.addSensor("Drive", "RightBackPID", rightBackPID);
 		
 	}
+	
 	
 	
 	public void enablePID() {
@@ -388,6 +395,31 @@ public class Drive extends Subsystem {
 	public boolean getCrossingDefence() {
 		return crossingDefence;
 	}
+	
+	public void armForward() {
+		armMotor.set(0.4);
+	}
+	
+	public void armReverse() {
+		armMotor.set(-0.4);
+	}
+	
+	public void collecterIn() {
+		collecterMotor.set(1);
+	}
+	
+	public void collecterOut() {
+		collecterMotor.set(-1);
+	}
+	
+	public void armSthap() {
+		armMotor.set(0);
+	}
+	
+	public void collecterSthap() {
+		collecterMotor.set(0);
+	}
+//	public void 
 	
 	
 

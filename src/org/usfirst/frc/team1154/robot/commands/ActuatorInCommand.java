@@ -4,9 +4,10 @@ import org.usfirst.frc.team1154.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ActuatorOutCommand extends Command {
-	public ActuatorOutCommand() {
-//		requires(Robot.climber);
+public class ActuatorInCommand extends Command {
+	
+	public ActuatorInCommand() {
+		requires(Robot.drive);
 	}
 
 	@Override
@@ -17,7 +18,7 @@ public class ActuatorOutCommand extends Command {
 
 	@Override
 	protected void execute() {
-		// TODO Auto-generated method stub
+	Robot.drive.armReverse();
 		
 		
 		
@@ -32,7 +33,8 @@ public class ActuatorOutCommand extends Command {
 	@Override
 	protected void end() {
 		// TODO Auto-generated method stub
-		
+		Robot.drive.armSthap();
+
 	}
 
 	@Override

@@ -14,7 +14,7 @@ public class DriveWithJoysticks extends Command {
 	public DriveWithJoysticks() {
 		requires(Robot.drive);
 	}
-	private double speed = 1.0;
+	private double speed = 0.5;
 	
 	private Joystick driveStick = new Joystick(RobotMap.DRIVER_JOYSTICK);
 	
